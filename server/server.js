@@ -144,6 +144,19 @@ app.prepare().then(async () => {
     }
   })
 
+  router.delete('/api/collectionUpsell', koaBody(), async (ctx) => {
+    try {
+      MongoUpsellCollection.deleteMany({}, function (err) {
+        if (err) return;
+
+        console.log('upsell collection deleted')
+      })
+      ctx.body = "Upsell Collection deleted"
+    } catch(err) {
+      console.log(err)
+    }
+  })
+
   server.use(router.allowedMethods());
   server.use(router.routes());
   server.listen(port, () => {

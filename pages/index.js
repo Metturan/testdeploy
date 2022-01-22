@@ -20,7 +20,6 @@ const Index = () => {
   function handleSelection(resources) {
     const collectionIdFromResources = resources.selection[0].id;
     setModal({open:false})
-    // store.set('ids', collectionIdFromResources)
     
     // change this to removing the products
     setUpsellCollection(collectionIdFromResources)
@@ -51,29 +50,27 @@ const Index = () => {
     })
   }
 
-  // function removeUpsellCollectionApi() {
-  //   const url = '/api/collectionUpsell'
-  //   store.set('ids', '')
-  //   axios.delete(url)
-  //     .then(res => {
-  //       console.log('reloading')
-  //       window.location.reload();
-  //     })
-  // }
+  function removeUpsellCollectionApi() {
+    const url = '/api/collectionUpsell'
+    store.set('ids', '')
+    axios.delete(url)
+      .then(res => {
+        console.log('reloading')
+        window.location.reload();
+      })
+  }
 
   return (
       <Page>
-        
-        
-        <Card sectioned>
-            <ResourcePicker
+          <ResourcePicker
             resourceType="Collection"
             selectMultiple={false}
             open={modal.open}
             onCancel={() =>  setModal({open: false}) }
             onSelection={(resources) => handleSelection(resources)}
           />
-
+        
+        <Card sectioned>
           <EmptyState
           image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
           heading="Manage your Upsells"
