@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
-import {useQuery} from '@apollo/react-hooks'
+// import {useQuery} from '@apollo/react-hooks'
+import {useQuery} from 'react-apollo'
 import axios from 'axios'
 import {Card, Page,ResourceList, Stack, TextStyle, PageActions, Layout, DisplayText} from '@shopify/polaris'
 
