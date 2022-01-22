@@ -59,6 +59,8 @@ app.prepare().then(async () => {
             delete ACTIVE_SHOPIFY_SHOPS[shop],
         });
 
+        mongoose.connect(process.env.MONGO_URI)
+
         if (!response.success) {
           console.log(
             `Failed to register APP_UNINSTALLED webhook: ${response.result}`
