@@ -40,13 +40,12 @@ const Index = () => {
 
     axios.get(url)
       .then(res => {
-        console.log(res)
+        console.log('res', res)
         if (res.data.data.length) {
           setCollectionId(res.data.data[0].upsellCollectionId)
         } else {
           setCollectionId('')
         }
-        
     })
   }
 
