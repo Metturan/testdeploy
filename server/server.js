@@ -114,6 +114,7 @@ app.prepare().then(async () => {
   const MongoCardProduct = mongoose.model('cardProducts')
   const MongoDeliveryInstructions = mongoose.model('deliveryOptions')
 
+    // Collection Upsells APIs
   router.get("/api/collectionUpsell", async (ctx) => {
     try {
       let upsellCollectionIdfromDB = await MongoUpsellCollection.find({});
@@ -152,6 +153,51 @@ app.prepare().then(async () => {
         console.log('upsell collection deleted')
       })
       ctx.body = "Upsell Collection deleted"
+    } catch(err) {
+      console.log(err)
+    }
+  })
+
+  // Products API
+  router.get("/api/products", async (ctx) => {
+    try {
+      let productsFromDB = await MongoProduct.find({});
+      
+      // console.log('db', productsFromDB)
+      ctx.body = {
+        status: 'Success',
+        data: productsFromDB
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  })
+
+  router.post('/api/products', koaBody(), async (ctx)=> {
+    try {
+      const body = ctx.request.body;
+      // Check if item in DB
+      var instance = new MongoProduct({productId: body})
+      await instance.save()
+        .then(() => console.log('saved to db'))
+        .catch(err => console.log(err))
+      
+      await products.push(body)
+      ctx.body = 'Upsell Item Added'
+    } catch(err) {
+      console.log(err)
+    }
+  })
+
+  router.delete('/api/products', koaBody(), async (ctx) => {
+    try {
+      products = [];
+      MongoProduct.deleteMany({}, function(err) {
+        if (err) return;
+
+        console.log('Products deleted')
+      })
+      ctx.body = "All Products deleted"
     } catch(err) {
       console.log(err)
     }
