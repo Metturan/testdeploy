@@ -70,7 +70,8 @@ const Index = () => {
 
   return (
       <Page>
-        <ResourcePicker
+        asdf
+        {/* <ResourcePicker
           resourceType="Collection"
           selectMultiple={false}
           open={modal.open}
@@ -88,7 +89,7 @@ const Index = () => {
           }}
           >
           </EmptyState>
-        </Card>
+        </Card> */}
         
         
       </Page>
