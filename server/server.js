@@ -4,6 +4,7 @@ import "isomorphic-fetch";
 import createShopifyAuth, { verifyRequest } from "@shopify/koa-shopify-auth";
 import Shopify, { ApiVersion } from "@shopify/shopify-api";
 import Koa from "koa";
+import koaBody from 'koa-body'
 import next from "next";
 import Router from "koa-router";
 import mongoose from "mongoose";
@@ -105,6 +106,13 @@ app.prepare().then(async () => {
       await handleRequest(ctx);
     }
   });
+
+  const MongoProduct = mongoose.model('products')
+  const MongoPostcode = mongoose.model('postalcode')
+  const MongoUpsellCollection = mongoose.model('upsellCollection')
+  const MongoCardCollection = mongoose.model('cardCollection')
+  const MongoCardProduct = mongoose.model('cardProducts')
+  const MongoDeliveryInstructions = mongoose.model('deliveryOptions')
 
   router.get("/api/collectionUpsell", async (ctx) => {
     try {
