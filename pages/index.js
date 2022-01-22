@@ -28,18 +28,18 @@ const Index = () => {
     // store.set('ids', collectionIdFromResources)
     
     // change this to removing the products
-    // setUpsellCollection(collectionIdFromResources)
+    setUpsellCollection(collectionIdFromResources)
   }
 
-  // function setUpsellCollection(collectionIdFromResources) {
-  //   const url = '/api/collectionUpsell'
-  //   console.log(collectionIdFromResources)
+  function setUpsellCollection(collectionIdFromResources) {
+    const url = '/api/collectionUpsell'
+    console.log(collectionIdFromResources)
 
-  //   axios.post(url, {"collection": collectionIdFromResources})
-  //     .then(res => {
-  //       setCollectionId(collectionIdFromResources)
-  //     })
-  // }
+    axios.post(url, {"collection": collectionIdFromResources})
+      .then(res => {
+        setCollectionId(collectionIdFromResources)
+      })
+  }
 
   // function getUpsellCollection() {
   //   const url = '/api/collectionUpsell'

@@ -6,6 +6,13 @@ import Shopify, { ApiVersion } from "@shopify/shopify-api";
 import Koa from "koa";
 import next from "next";
 import Router from "koa-router";
+import mongoose from "mongoose";
+import '../models/Products'
+import '../models/PostCodes'
+import '../models/UpsellCollection'
+import '../models/CardCollection'
+import '../models/CardProducts'
+import '../models/DeliveryOptions'
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 8081;
