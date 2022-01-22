@@ -24,14 +24,14 @@ const Index = () => {
   //   console.log(resources)
   // }
   
-  // function handleSelection(resources) {
-  //   const collectionIdFromResources = resources.selection[0].id;
-  //   setModal({open:false})
-  //   store.set('ids', collectionIdFromResources)
+  function handleSelection(resources) {
+    const collectionIdFromResources = resources.selection[0].id;
+    setModal({open:false})
+    // store.set('ids', collectionIdFromResources)
     
-  //   // change this to removing the products
-  //   setUpsellCollection(collectionIdFromResources)
-  // }
+    // change this to removing the products
+    // setUpsellCollection(collectionIdFromResources)
+  }
 
   // function setUpsellCollection(collectionIdFromResources) {
   //   const url = '/api/collectionUpsell'
