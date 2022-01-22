@@ -79,7 +79,7 @@ const Index = () => {
         />
         
         <Card sectioned>
-          <EmptyState
+          {/* <EmptyState
           image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
           heading="Manage your Upsells"
           action={{
@@ -87,7 +87,7 @@ const Index = () => {
             onAction: () => setModal({open:true})
           }}
           >
-          </EmptyState>
+          </EmptyState> */}
         </Card>
         
         
