@@ -68,15 +68,17 @@ const Index = () => {
 
   return (
       <Page>
-        {/* <ResourcePicker
-          resourceType="Collection"
-          selectMultiple={false}
-          open={modal.open}
-          onCancel={() =>  setModal({open: false}) }
-          onSelection={(resources) => handleSelection(resources)}
-        /> */}
+        
         
         <Card sectioned>
+            <ResourcePicker
+            resourceType="Collection"
+            selectMultiple={false}
+            open={modal.open}
+            onCancel={() =>  setModal({open: false}) }
+            onSelection={(resources) => handleSelection(resources)}
+          />
+
           <EmptyState
           image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
           heading="Manage your Upsells"
