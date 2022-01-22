@@ -3,7 +3,7 @@ import axios from 'axios'
 import { EmptyState, Layout, Page, Heading, Card } from '@shopify/polaris';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 
-// import TestComponent from '../components/TestComponent'
+import TestComponent from '../components/TestComponent'
 
 
 const Index = () => {
@@ -70,6 +70,9 @@ const Index = () => {
             onSelection={(resources) => handleSelection(resources)}
           />
         
+        {collectionId ? 
+       <TestComponent collectionId={collectionId} removeCollection={() => removeUpsellCollectionApi()}/>
+        :
         <Card sectioned>
           <EmptyState
           image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
@@ -81,6 +84,7 @@ const Index = () => {
           >
           </EmptyState>
         </Card>
+        }
         
         
       </Page>
