@@ -182,7 +182,7 @@ app.prepare().then(async () => {
         .then(() => console.log('saved to db'))
         .catch(err => console.log(err))
       
-      await products.push(body)
+      // await products.push(body)
       ctx.body = 'Upsell Item Added'
     } catch(err) {
       console.log(err)
