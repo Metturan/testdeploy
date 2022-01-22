@@ -52,7 +52,6 @@ const Index = () => {
 
   function removeUpsellCollectionApi() {
     const url = '/api/collectionUpsell'
-    store.set('ids', '')
     axios.delete(url)
       .then(res => {
         console.log('reloading')
