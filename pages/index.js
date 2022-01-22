@@ -18,58 +18,58 @@ const Index = () => {
   const [collectionId, setCollectionId] = useState('')
   // const [productsId, setProductsId] = useState([]);
 
-  useEffect(() => {
-    getUpsellCollection() 
-  }, [])
+  // useEffect(() => {
+  //   getUpsellCollection() 
+  // }, [])
 
 
-  function handleSelectionProd(resources) {
-    console.log(resources)
-  }
+  // function handleSelectionProd(resources) {
+  //   console.log(resources)
+  // }
   
-  function handleSelection(resources) {
-    const collectionIdFromResources = resources.selection[0].id;
-    setModal({open:false})
-    store.set('ids', collectionIdFromResources)
+  // function handleSelection(resources) {
+  //   const collectionIdFromResources = resources.selection[0].id;
+  //   setModal({open:false})
+  //   store.set('ids', collectionIdFromResources)
     
-    // change this to removing the products
-    setUpsellCollection(collectionIdFromResources)
-  }
+  //   // change this to removing the products
+  //   setUpsellCollection(collectionIdFromResources)
+  // }
 
-  function setUpsellCollection(collectionIdFromResources) {
-    const url = '/api/collectionUpsell'
-    console.log(collectionIdFromResources)
+  // function setUpsellCollection(collectionIdFromResources) {
+  //   const url = '/api/collectionUpsell'
+  //   console.log(collectionIdFromResources)
 
-    axios.post(url, {"collection": collectionIdFromResources})
-      .then(res => {
-        setCollectionId(collectionIdFromResources)
-      })
-  }
+  //   axios.post(url, {"collection": collectionIdFromResources})
+  //     .then(res => {
+  //       setCollectionId(collectionIdFromResources)
+  //     })
+  // }
 
-  function getUpsellCollection() {
-    const url = '/api/collectionUpsell'
+  // function getUpsellCollection() {
+  //   const url = '/api/collectionUpsell'
 
-    axios.get(url)
-      .then(res => {
-        console.log(res)
-        if (res.data.data.length) {
-          setCollectionId(res.data.data[0].upsellCollectionId)
-        } else {
-          setCollectionId('')
-        }
+  //   axios.get(url)
+  //     .then(res => {
+  //       console.log(res)
+  //       if (res.data.data.length) {
+  //         setCollectionId(res.data.data[0].upsellCollectionId)
+  //       } else {
+  //         setCollectionId('')
+  //       }
         
-    })
-  }
+  //   })
+  // }
 
-  function removeUpsellCollectionApi() {
-    const url = '/api/collectionUpsell'
-    store.set('ids', '')
-    axios.delete(url)
-      .then(res => {
-        console.log('reloading')
-        window.location.reload();
-      })
-  }
+  // function removeUpsellCollectionApi() {
+  //   const url = '/api/collectionUpsell'
+  //   store.set('ids', '')
+  //   axios.delete(url)
+  //     .then(res => {
+  //       console.log('reloading')
+  //       window.location.reload();
+  //     })
+  // }
 
   return (
       <Page>
@@ -81,9 +81,6 @@ const Index = () => {
           onSelection={(resources) => handleSelection(resources)}
         />
         
-        {collectionId ? 
-       <TestComponent collectionId={collectionId} removeCollection={() => removeUpsellCollectionApi()}/>
-        :
         <Card sectioned>
           <EmptyState
           image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
@@ -95,7 +92,7 @@ const Index = () => {
           >
           </EmptyState>
         </Card>
-        }
+        
         
       </Page>
   )
