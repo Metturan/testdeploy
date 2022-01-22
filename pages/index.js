@@ -5,8 +5,6 @@ import axios from 'axios'
 import { EmptyState, Layout, Page, Heading, Card } from '@shopify/polaris';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 
-import ProductList from '../components/ProductList'
-import CollectionList from '../components/CollectionList'
 import TestComponent from '../components/TestComponent'
 
 
