@@ -14,6 +14,7 @@ const Index = () => {
 
   useEffect(() => {
     getUpsellCollection() 
+    console.log('starting req')
   }, [])
 
   

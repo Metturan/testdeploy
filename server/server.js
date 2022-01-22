@@ -123,14 +123,14 @@ app.prepare().then(async () => {
         data:  upsellCollectionIdfromDB
       }
     } catch(error) {
-      console.log(error)
+      console.log('error getting upsell collection:', error)
     }
   })
 
   router.post('/api/collectionUpsell', koaBody(), async (ctx)=> {
     try {
       const body = ctx.request.body;
-    console.log(body)
+    console.log('body', body.collection)
       // Check if item in DB
       var instance = new MongoUpsellCollection({upsellCollectionId: body.collection})
       await instance.save()
@@ -140,7 +140,7 @@ app.prepare().then(async () => {
       // await products.push(body)
       ctx.body = 'Collection Added'
     } catch(err) {
-      console.log(err)
+      console.log('error saving upsell collection:', err)
     }
   })
 
