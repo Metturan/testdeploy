@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import gql from 'graphql-tag'
-import {useQuery} from '@apollo/react-hooks'
 import axios from 'axios'
 import { EmptyState, Layout, Page, Heading, Card } from '@shopify/polaris';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
@@ -70,16 +68,16 @@ const Index = () => {
 
   return (
       <Page>
-        <ResourcePicker
+        {/* <ResourcePicker
           resourceType="Collection"
           selectMultiple={false}
           open={modal.open}
           onCancel={() =>  setModal({open: false}) }
           onSelection={(resources) => handleSelection(resources)}
-        />
+        /> */}
         
         <Card sectioned>
-          {/* <EmptyState
+          <EmptyState
           image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
           heading="Manage your Upsells"
           action={{
@@ -87,7 +85,7 @@ const Index = () => {
             onAction: () => setModal({open:true})
           }}
           >
-          </EmptyState> */}
+          </EmptyState>
         </Card>
         
         
