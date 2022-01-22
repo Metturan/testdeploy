@@ -11,16 +11,11 @@ const Index = () => {
   const [modal, setModal] = useState({ open: false })
   const [modalProd, setModalProd] = useState({ open: false })
   const [collectionId, setCollectionId] = useState('')
-  // const [productsId, setProductsId] = useState([]);
 
-  // useEffect(() => {
-  //   getUpsellCollection() 
-  // }, [])
+  useEffect(() => {
+    getUpsellCollection() 
+  }, [])
 
-
-  // function handleSelectionProd(resources) {
-  //   console.log(resources)
-  // }
   
   function handleSelection(resources) {
     const collectionIdFromResources = resources.selection[0].id;
@@ -41,20 +36,20 @@ const Index = () => {
       })
   }
 
-  // function getUpsellCollection() {
-  //   const url = '/api/collectionUpsell'
+  function getUpsellCollection() {
+    const url = '/api/collectionUpsell'
 
-  //   axios.get(url)
-  //     .then(res => {
-  //       console.log(res)
-  //       if (res.data.data.length) {
-  //         setCollectionId(res.data.data[0].upsellCollectionId)
-  //       } else {
-  //         setCollectionId('')
-  //       }
+    axios.get(url)
+      .then(res => {
+        console.log(res)
+        if (res.data.data.length) {
+          setCollectionId(res.data.data[0].upsellCollectionId)
+        } else {
+          setCollectionId('')
+        }
         
-  //   })
-  // }
+    })
+  }
 
   // function removeUpsellCollectionApi() {
   //   const url = '/api/collectionUpsell'

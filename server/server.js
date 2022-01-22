@@ -106,6 +106,36 @@ app.prepare().then(async () => {
     }
   });
 
+  router.get("/api/collectionUpsell", async (ctx) => {
+    try {
+      let upsellCollectionIdfromDB = await MongoUpsellCollection.find({});
+      // console.log('db', productsFromDB)
+      ctx.body = {
+        status: 'Success',
+        data:  upsellCollectionIdfromDB
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  })
+
+  router.post('/api/collectionUpsell', koaBody(), async (ctx)=> {
+    try {
+      const body = ctx.request.body;
+    console.log(body)
+      // Check if item in DB
+      var instance = new MongoUpsellCollection({upsellCollectionId: body.collection})
+      await instance.save()
+        .then(() => console.log('saved to db'))
+        .catch(err => console.log(err))
+      
+      // await products.push(body)
+      ctx.body = 'Collection Added'
+    } catch(err) {
+      console.log(err)
+    }
+  })
+
   server.use(router.allowedMethods());
   server.use(router.routes());
   server.listen(port, () => {
