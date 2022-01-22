@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// import gql from 'graphql-tag'
-// import {useQuery} from '@apollo/react-hooks'
+import gql from 'graphql-tag'
+import {useQuery} from '@apollo/react-hooks'
 import axios from 'axios'
 import { EmptyState, Layout, Page, Heading, Card } from '@shopify/polaris';
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
