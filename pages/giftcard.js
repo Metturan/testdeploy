@@ -52,7 +52,7 @@ const giftCard = () => {
 
       axios.get('/api/collectionCard')
         .then(res => {
-          console.log(res.data.data[0].setCardCollectionId)
+          console.log(res.data.data[0].cardCollectionId)
           console.log(res)
         })
         .catch(err => console.log(err))
