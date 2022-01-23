@@ -68,11 +68,8 @@ const giftCard = () => {
   function handleSelection(resources) {
     const collectionIdFromResources = resources.selection[0].id;
     setModal({open:false})
-    // store.set('idsGift', collectionIdFromResources)
-    
-    // change this to removing the products
+
     setCardCollectionFn(collectionIdFromResources)
-    // console.log(collectionIdFromResources)
   }
 
   function setCardCollectionFn(collectionIdFromResources) {
@@ -80,6 +77,7 @@ const giftCard = () => {
 
     axios.post(url, collectionIdFromResources)
     .then(res => {
+      console.log(collectionIdFromResources)
       setCardCollectionId(collectionIdFromResources)
     })
   }
@@ -91,16 +89,6 @@ const giftCard = () => {
   function handleChangeTextFieldFive (textFieldFive) { setTextFieldFive(textFieldFive)};
   function handleChangeTextFieldSix (textFieldSix) { setTextFieldSix(textFieldSix)};
   function handleChangeTextFieldSeven (textFieldSeven) { setTextFieldSeven(textFieldSeven)};
-
-  // function removeCardCollectionApi() {
-  //   const url = '/api/collectionCard'
-  //   store.set('idsGift', '')
-  //   axios.delete(url)
-  //     .then(res => {
-  //       console.log('reloading')
-  //       window.location.reload();
-  //     })
-  // }
 
   async function saveTextFields() {
     const obj = [textFieldOne, textFieldTwo, textFieldThree, textFieldFour, textFieldFive, textFieldSix, textFieldSeven]
@@ -139,7 +127,7 @@ const giftCard = () => {
       </Layout.Section>
 
 <Layout.Section>
-    {console.log(cardCollectionId)}
+    {/* {console.log(cardCollectionId)} */}
         {cardCollectionId ? 
           <EmptyState
             image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
