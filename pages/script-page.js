@@ -75,7 +75,7 @@ console.log(data)
                 createScripts({
                   variables: {
                     input: {
-                      src: "https://enigmatic-oasis-35561.herokuapp.com/" + "test-script.js",
+                      src: APP_URL + "test-script.js",
                       // src: "https://185b-64-137-155-172.ngrok.io/test-script.js",
                       displayScope: "ALL"
                     }
