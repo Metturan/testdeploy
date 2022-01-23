@@ -24,40 +24,39 @@ const giftCard = () => {
   const emptyState = true;
 
   function initFunction() {
-    // axios.get('/api/deliveryInstructions')
-    // .then(res => {
-    //   console.log(res.data.data)
-    //   res.data.data.forEach(option => {
-    //     if (option.deliveryOptionsId.index === 0) {
-    //       setTextFieldOne(option.deliveryOptionsId.field)
-    //     }
-    //     if (option.deliveryOptionsId.index === 1) {
-    //       setTextFieldTwo(option.deliveryOptionsId.field)
-    //     }
-    //     if (option.deliveryOptionsId.index === 2) {
-    //       setTextFieldThree(option.deliveryOptionsId.field)
-    //     }
-    //     if (option.deliveryOptionsId.index === 3) {
-    //       setTextFieldFour(option.deliveryOptionsId.field)
-    //     }
-    //     if (option.deliveryOptionsId.index === 4) {
-    //       setTextFieldFive(option.deliveryOptionsId.field)
-    //     }
-    //     if (option.deliveryOptionsId.index === 5) {
-    //       setTextFieldSix(option.deliveryOptionsId.field)
-    //     }
-    //     if (option.deliveryOptionsId.index === 6) {
-    //       setTextFieldSeven(option.deliveryOptionsId.field)
-    //     }
-    //   })
+    axios.get('/api/deliveryInstructions')
+    .then(res => {
+      res.data.data.forEach(option => {
+        if (option.deliveryOptionsId.index === 0) {
+          setTextFieldOne(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 1) {
+          setTextFieldTwo(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 2) {
+          setTextFieldThree(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 3) {
+          setTextFieldFour(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 4) {
+          setTextFieldFive(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 5) {
+          setTextFieldSix(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 6) {
+          setTextFieldSeven(option.deliveryOptionsId.field)
+        }
+      })
 
       axios.get('/api/collectionCard')
         .then(res => {
-          console.log(res)
+          console.log(res.data.data[0].setCardCollectionId)
         })
         .catch(err => console.log(err))
-    // })
-    // .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
   }
 
   function handleSelection(resources) {
