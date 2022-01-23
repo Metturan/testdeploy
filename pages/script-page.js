@@ -46,19 +46,20 @@ const DELETE_SCRIPTTAG = gql`
 
 function ScriptPage() {
 
-  const [createScripts] = useMutation(CREATE_SCRIPT_TAG);
-  const [deleteScripts] = useMutation(DELETE_SCRIPTTAG);
-  const { loading, error, data } = useQuery(QUERY_SCRIPTTAGS);
+  // const [createScripts] = useMutation(CREATE_SCRIPT_TAG);
+  // const [deleteScripts] = useMutation(DELETE_SCRIPTTAG);
+  // const { loading, error, data } = useQuery(QUERY_SCRIPTTAGS);
 
 
-  if (loading) return <div>Loading…</div>;
-  if (error) return <div>{error.message}</div>;
+  // if (loading) return <div>Loading…</div>;
+  // if (error) return <div>{error.message}</div>;
 
-console.log(data)
+// console.log(data)
 
   return (
     <Page>
-      <Layout>
+      aa
+      {/* <Layout>
         <Layout.Section>
           <Card title="These are the Script Tags:" sectioned>
             <p>
@@ -124,7 +125,7 @@ console.log(data)
             />
           </Card>
         </Layout.Section>
-      </Layout>
+      </Layout> */}
     </Page>
   )
 }
