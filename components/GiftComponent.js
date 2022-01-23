@@ -54,8 +54,6 @@ function GiftComponent (props) {
     return <div></div>
   }
 
-  console.log('Giftcomponent runnign', data, props.cardCollectionId)
-
   var productList = data.nodes[0].products.edges
 
   deleteApiData()
@@ -77,7 +75,7 @@ function GiftComponent (props) {
 
   function removeCardCollectionApi() {
     const url = '/api/collectionCard'
-    // store.set('idsGift', '')
+
     axios.delete(url)
       .then(res => {
         console.log('reloading')

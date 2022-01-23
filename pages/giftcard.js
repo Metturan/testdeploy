@@ -124,7 +124,6 @@ const giftCard = () => {
       </Layout.Section>
 
 <Layout.Section>
-    {console.log("renderCollectionId:", cardCollectionId)}
         {cardCollectionId ? 
           <GiftComponent cardCollectionId={cardCollectionId}/>
           :

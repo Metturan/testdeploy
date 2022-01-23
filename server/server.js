@@ -219,7 +219,7 @@ app.prepare().then(async () => {
 
   router.delete('/api/cardProducts', koaBody(), async (ctx) => {
     try {
-      products = [];
+      
       MongoCardProduct.deleteMany({}, function(err) {
         if (err) return;
 
