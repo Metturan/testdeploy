@@ -20,6 +20,7 @@ const giftCard = () => {
   const [textFieldFive, setTextFieldFive] = useState('')
   const [textFieldSix, setTextFieldSix] = useState('')
   const [textFieldSeven, setTextFieldSeven] = useState('')
+  const [collectionId, setCollectionId] = useState('')
 
   const emptyState = true;
 
@@ -52,8 +53,15 @@ const giftCard = () => {
 
       axios.get('/api/collectionCard')
         .then(res => {
-          console.log(res.data.data[0].cardCollectionId)
-          console.log(res)
+          var collectionId = Object.keys(res.data.data[0].cardCollectionId)[0]
+          // console.log(res.data.data[0].cardCollectionId)
+          console.log(Object.keys(res.data.data[0].cardCollectionId)[0])
+
+          if (collectionId) {
+            setCardCollection(collectionId)
+          } else {
+            setCardCollection('')
+          }
         })
         .catch(err => console.log(err))
     })
@@ -74,6 +82,9 @@ const giftCard = () => {
     const url = '/api/collectionCard'
 
     axios.post(url, collectionIdFromResources)
+    .then(res => {
+      setCollectionId(collectionIdFromResources)
+    })
   }
 
   function handleChangeTextFieldOne (textFieldOne) { setTextFieldOne(textFieldOne)};
