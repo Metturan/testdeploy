@@ -75,11 +75,14 @@ function GiftComponent (props) {
 
   function removeCardCollectionApi() {
     const url = '/api/collectionCard'
+    const cardProductsUrl = '/api/cardProducts'
 
     axios.delete(url)
       .then(res => {
-        console.log('reloading')
-        window.location.reload();
+        axios.delete(cardProductsUrl)
+          .then(res => {
+            window.location.reload();
+          })
       })
   }
 
