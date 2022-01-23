@@ -54,6 +54,8 @@ function GiftComponent (props) {
     return <div></div>
   }
 
+  console.log('Giftcomponent runnign', data, props.cardCollectionId)
+
   var productList = data.nodes[0].products.edges
 
   deleteApiData()
