@@ -59,6 +59,12 @@ app.prepare().then(async () => {
             delete ACTIVE_SHOPIFY_SHOPS[shop],
         });
 
+        ctx.cookies.set("shopOrigin", shop, {
+          httpOnly: false,
+          secure: true,
+          sameSite: "none",
+        });
+
         mongoose.connect(process.env.MONGO_URI)
 
         if (!response.success) {
@@ -120,7 +126,7 @@ app.prepare().then(async () => {
   router.get("/api/collectionUpsell", async (ctx) => {
     try {
       let upsellCollectionIdfromDB = await MongoUpsellCollection.find({});
-      // console.log('db', productsFromDB)
+
       ctx.body = {
         status: 'Success',
         data:  upsellCollectionIdfromDB
@@ -161,6 +167,7 @@ app.prepare().then(async () => {
   })
 
   // Products API
+
   router.get("/api/products", async (ctx) => {
     try {
       let productsFromDB = await MongoProduct.find({});
