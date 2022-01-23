@@ -249,7 +249,7 @@ const sideBar = data => {
         <hr>
         <div id="lower-rung-sidebar">
           <p class="second-para">Choose a delivery day</p>
-          <input class="date-present" id="twodate" type="text" placeholder="Delivery date"  />
+          <input autocomplete="off" class="date-present" id="twodate" type="text" placeholder="Delivery date"  />
           <p style="font-weight:bold;">Delivery date selected, please confirm & close. You will be able to choose a time slot at the checkout.</p>
           <button onclick="click_confirmBtn()" id="confirmBtn">CONFIRM & CLOSE</button>
         </div>
@@ -298,11 +298,13 @@ function addCurrentHighlightTimeline(num) {
 }
 
 function one_click_next() {
-  console.log('clicked')
-  baseEl.style.display = "none";
-  base2El.style.display = "block"
-  removeCurrentHighlightTimeline();
-  addCurrentHighlightTimeline(1);
+  if (localStorage.getItem('postcode')) {
+    console.log('clicked')
+    baseEl.style.display = "none";
+    base2El.style.display = "block"
+    removeCurrentHighlightTimeline();
+    addCurrentHighlightTimeline(1);
+  }
 }
 
 function two_click_prev() {
@@ -657,6 +659,14 @@ function submitCustomCheckoutButton() {
     });
   }
 
+}
+
+function getInitPostCode() {
+  if (localStorage.getItem('postcode')) {
+    var el = localStorage.getItem('postcode');
+
+    document.querySelector('.button-title').innerHTML = el
+  }
 }
 
 function cloneCartCheckoutButton() {
