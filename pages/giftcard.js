@@ -2,8 +2,9 @@ import {useState, useEffect} from 'react'
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import axios from 'axios'
 import {Card, Stack, Page, EmptyState, TextField, ResourceList, TextStyle, PageActions, Layout, DisplayText} from '@shopify/polaris'
+import GiftComponent from '../components/GiftComponent';
 
-// import GiftComponent from '../components/GiftComponent'
+import GiftComponent from '../components/GiftComponent'
 
 const giftCard = () => {
 
@@ -20,9 +21,7 @@ const giftCard = () => {
   const [textFieldFive, setTextFieldFive] = useState('')
   const [textFieldSix, setTextFieldSix] = useState('')
   const [textFieldSeven, setTextFieldSeven] = useState('')
-  const [collectionId, setCollectionId] = useState('')
-
-  const emptyState = true;
+  const [cardCollectionId, setCardCollectionId] = useState('')
 
   function initFunction() {
     axios.get('/api/deliveryInstructions')
@@ -58,9 +57,9 @@ const giftCard = () => {
           console.log(Object.keys(res.data.data[0].cardCollectionId)[0])
 
           if (collectionId) {
-            setCardCollection(collectionId)
+            setCardCollectionId(collectionId)
           } else {
-            setCardCollection('')
+            setCardCollectionId('')
           }
         })
         .catch(err => console.log(err))
@@ -142,7 +141,7 @@ const giftCard = () => {
       </Layout.Section>
 
 <Layout.Section>
-
+        {cardCollectionId ? 
           <EmptyState
             image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
             action={{
@@ -151,6 +150,9 @@ const giftCard = () => {
             }}
           >
           </EmptyState>
+          :
+          <GiftComponent cardCollectionId={cardCollectionId}/>
+          }
 
             <Card sectioned title="Delivery Instructions">
               <p style={{"marginBottom":"14px"}}>Fill in your specific delivery instructions options to show in the delivery instructions dropdown on the cart page.</p>
