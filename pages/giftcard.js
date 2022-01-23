@@ -52,7 +52,7 @@ const giftCard = () => {
         .then(res => {
           var collectionId = Object.keys(res.data.data[0].cardCollectionId)[0]
           // console.log(res.data.data[0].cardCollectionId)
-          console.log(Object.keys(res.data.data[0].cardCollectionId)[0])
+          // console.log(Object.keys(res.data.data[0].cardCollectionId)[0])
 
           if (collectionId) {
             setCardCollectionId(collectionId)
@@ -72,7 +72,7 @@ const giftCard = () => {
     
     // change this to removing the products
     setCardCollectionFn(collectionIdFromResources)
-    console.log(collectionIdFromResources)
+    // console.log(collectionIdFromResources)
   }
 
   function setCardCollectionFn(collectionIdFromResources) {
@@ -139,6 +139,7 @@ const giftCard = () => {
       </Layout.Section>
 
 <Layout.Section>
+    {console.log(cardCollectionId)}
         {cardCollectionId ? 
           <EmptyState
             image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
