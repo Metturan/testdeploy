@@ -1,44 +1,42 @@
 import {useState, useCallback, useEffect} from 'react'
-import gql from 'graphql-tag'
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import axios from 'axios'
 import {Card, Stack, Page, EmptyState, TextField, ResourceList, TextStyle, PageActions, Layout, DisplayText} from '@shopify/polaris'
 
 // import GiftComponent from '../components/GiftComponent'
 
-
 const giftCard = () => {
 
-  useEffect(() => {
-    axios.get('/api/deliveryInstructions')
-    .then(res => {
-      console.log(res.data.data)
-      res.data.data.forEach(option => {
-        if (option.deliveryOptionsId.index === 0) {
-          setTextFieldOne(option.deliveryOptionsId.field)
-        }
-        if (option.deliveryOptionsId.index === 1) {
-          setTextFieldTwo(option.deliveryOptionsId.field)
-        }
-        if (option.deliveryOptionsId.index === 2) {
-          setTextFieldThree(option.deliveryOptionsId.field)
-        }
-        if (option.deliveryOptionsId.index === 3) {
-          setTextFieldFour(option.deliveryOptionsId.field)
-        }
-        if (option.deliveryOptionsId.index === 4) {
-          setTextFieldFive(option.deliveryOptionsId.field)
-        }
-        if (option.deliveryOptionsId.index === 5) {
-          setTextFieldSix(option.deliveryOptionsId.field)
-        }
-        if (option.deliveryOptionsId.index === 6) {
-          setTextFieldSeven(option.deliveryOptionsId.field)
-        }
-      })
-    })
-    .catch(err => console.log(err))
-  }, [])
+  // useEffect(() => {
+  //   axios.get('/api/deliveryInstructions')
+  //   .then(res => {
+  //     console.log(res.data.data)
+  //     res.data.data.forEach(option => {
+  //       if (option.deliveryOptionsId.index === 0) {
+  //         setTextFieldOne(option.deliveryOptionsId.field)
+  //       }
+  //       if (option.deliveryOptionsId.index === 1) {
+  //         setTextFieldTwo(option.deliveryOptionsId.field)
+  //       }
+  //       if (option.deliveryOptionsId.index === 2) {
+  //         setTextFieldThree(option.deliveryOptionsId.field)
+  //       }
+  //       if (option.deliveryOptionsId.index === 3) {
+  //         setTextFieldFour(option.deliveryOptionsId.field)
+  //       }
+  //       if (option.deliveryOptionsId.index === 4) {
+  //         setTextFieldFive(option.deliveryOptionsId.field)
+  //       }
+  //       if (option.deliveryOptionsId.index === 5) {
+  //         setTextFieldSix(option.deliveryOptionsId.field)
+  //       }
+  //       if (option.deliveryOptionsId.index === 6) {
+  //         setTextFieldSeven(option.deliveryOptionsId.field)
+  //       }
+  //     })
+  //   })
+  //   .catch(err => console.log(err))
+  // }, [])
 
   const [modal, setModal] = useState({ open: false })
   const [textFieldOne, setTextFieldOne] = useState('')
