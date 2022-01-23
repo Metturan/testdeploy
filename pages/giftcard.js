@@ -4,8 +4,6 @@ import axios from 'axios'
 import {Card, Stack, Page, EmptyState, TextField, ResourceList, TextStyle, PageActions, Layout, DisplayText} from '@shopify/polaris'
 import GiftComponent from '../components/GiftComponent';
 
-import GiftComponent from '../components/GiftComponent'
-
 const giftCard = () => {
 
   useEffect(() => {
