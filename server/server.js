@@ -171,6 +171,19 @@ app.prepare().then(async () => {
     }
   })
 
+  router.get("/api/collectionCard", async (ctx) => {
+    try {
+      let collectionCardIdfromDB = await MongoCardCollection.find({});
+
+      ctx.body = {
+        status: 'Success',
+        data:  collectionCardIdfromDB
+      }
+    } catch(error) {
+      console.log('error getting upsell collection:', error)
+    }
+  })
+
   router.post('/api/collectionCard', koaBody(), async (ctx)=> {
     try {
       const body = ctx.request.body;
