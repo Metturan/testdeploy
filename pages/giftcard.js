@@ -2,7 +2,6 @@ import {useState, useEffect} from 'react'
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import axios from 'axios'
 import {Card, Stack, Page, EmptyState, TextField, ResourceList, TextStyle, PageActions, Layout, DisplayText} from '@shopify/polaris'
-import { intersectionWithViewport } from '@shopify/polaris/dist/types/latest/src/components/PositionedOverlay/utilities/math';
 
 // import GiftComponent from '../components/GiftComponent'
 
