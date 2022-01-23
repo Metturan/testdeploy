@@ -4,6 +4,7 @@ import "isomorphic-fetch";
 import createShopifyAuth, { verifyRequest } from "@shopify/koa-shopify-auth";
 import Shopify, { ApiVersion } from "@shopify/shopify-api";
 import Koa from "koa";
+import CORS from '@koa/cors'
 import koaBody from 'koa-body'
 import next from "next";
 import Router from "koa-router";
@@ -219,7 +220,7 @@ app.prepare().then(async () => {
 
   router.delete('/api/cardProducts', koaBody(), async (ctx) => {
     try {
-      
+
       MongoCardProduct.deleteMany({}, function(err) {
         if (err) return;
 
@@ -391,6 +392,7 @@ app.prepare().then(async () => {
     }
   });
 
+  server.use(CORS({ origin: "*" }))
   server.use(router.allowedMethods());
   server.use(router.routes());
   server.listen(port, () => {
