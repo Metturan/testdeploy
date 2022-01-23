@@ -1,0 +1,14 @@
+.inner-postcodes > div {
+  display: inline-block;
+  margin: 2px 3px;
+  padding: 2px 5px;
+  background: #eee;
+  border-radius: 7px;
+}
+
+.inner-postcodes > div:first-child {
+  margin-left: 0;
+}
+.inner-postcodes > div:last-child {
+  margin-right: 0;
+}

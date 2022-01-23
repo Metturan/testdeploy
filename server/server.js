@@ -111,6 +111,123 @@ app.prepare().then(async () => {
   const MongoCardProduct = mongoose.model('cardProducts')
   const MongoDeliveryInstructions = mongoose.model('deliveryOptions')
 
+  // Giftcard APIs
+  router.get("/api/cardProducts", async (ctx) => {
+    try {
+      let cardProductsFromDB = await MongoCardProduct.find({});
+      
+      // console.log('db', productsFromDB)
+      ctx.body = {
+        status: 'Success',
+        data: cardProductsFromDB
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  })
+
+  router.get("/api/deliveryInstructions", async (ctx) => {
+    try {
+      let deliveryOptionsfromDB = await MongoDeliveryInstructions.find({});
+      
+      // console.log('db', productsFromDB)
+      ctx.body = {
+        status: 'Success',
+        data:  deliveryOptionsfromDB
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  })
+
+  router.post('/api/deliveryInstructions', koaBody(), async (ctx)=> {
+    try {
+      const body = ctx.request.body;
+      // Check if item in DB
+      var instance = new MongoDeliveryInstructions({deliveryOptionsId: body})
+      await instance.save()
+        .then(() => console.log('saved to db'))
+        .catch(err => console.log(err))
+      
+      ctx.body = 'Delivery Instructions saved'
+    } catch(err) {
+      console.log(err)
+    }
+  })
+
+  router.post('/api/cardProducts', koaBody(), async (ctx)=> {
+    try {
+      const body = ctx.request.body;
+      // Check if item in DB
+      var instance = new MongoCardProduct({productId: body})
+      await instance.save()
+        .then(() => console.log('saved to db'))
+        .catch(err => console.log(err))
+      
+      // await products.push(body)
+      ctx.body = 'Card Products Added'
+    } catch(err) {
+      console.log(err)
+    }
+  })
+
+  router.post('/api/collectionCard', koaBody(), async (ctx)=> {
+    try {
+      const body = ctx.request.body;
+
+      // Check if item in DB
+      var instance = new MongoCardCollection({cardCollectionId: body})
+      await instance.save()
+        .then(() => console.log('saved to db'))
+        .catch(err => console.log(err))
+      
+      // await products.push(body)
+      ctx.body = 'Collection Added'
+    } catch(err) {
+      console.log(err)
+    }
+  })
+
+  router.delete('/api/collectionCard', koaBody(), async (ctx) => {
+    try {
+      MongoCardCollection.deleteMany({}, function (err) {
+        if (err) return;
+
+        console.log('card collection deleted')
+      })
+      ctx.body = "Card Collection deleted"
+    } catch(err) {
+      console.log(err)
+    }
+  })
+
+  router.delete('/api/cardProducts', koaBody(), async (ctx) => {
+    try {
+      products = [];
+      MongoCardProduct.deleteMany({}, function(err) {
+        if (err) return;
+
+        console.log('Products deleted')
+      })
+      ctx.body = "All Products deleted"
+    } catch(err) {
+      console.log(err)
+    }
+  })
+
+  router.delete('/api/deliveryInstructions', koaBody(), async (ctx) => {
+    try {
+      MongoDeliveryInstructions.deleteMany({}, function(err) {
+        if (err) return;
+
+        console.log('Delivery Options deleted')
+      })
+      ctx.body = "All delivery options deleted"
+    } catch(err) {
+      console.log(err)
+    }
+  })
+
   // Delivery POSTCODE APIs
   router.post('/api/postcode', koaBody(), async (ctx)=> {
     try {

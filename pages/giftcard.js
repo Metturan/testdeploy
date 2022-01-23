@@ -1,0 +1,216 @@
+import {useState, useCallback, useEffect} from 'react'
+import gql from 'graphql-tag'
+import {useQuery} from '@apollo/react-hooks'
+import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
+import axios from 'axios'
+import mongoose from 'mongoose'
+import store from 'store';
+import {Card, Stack, Page, EmptyState, TextField, ResourceList, TextStyle, PageActions, Layout, DisplayText} from '@shopify/polaris'
+
+import GiftComponent from '../components/GiftComponent'
+
+
+const giftCard = () => {
+
+  useEffect(() => {
+    axios.get('/api/deliveryInstructions')
+    .then(res => {
+      console.log(res.data.data)
+      res.data.data.forEach(option => {
+        if (option.deliveryOptionsId.index === 0) {
+          setTextFieldOne(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 1) {
+          setTextFieldTwo(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 2) {
+          setTextFieldThree(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 3) {
+          setTextFieldFour(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 4) {
+          setTextFieldFive(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 5) {
+          setTextFieldSix(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 6) {
+          setTextFieldSeven(option.deliveryOptionsId.field)
+        }
+      })
+    })
+    .catch(err => console.log(err))
+  }, [])
+
+  const [modal, setModal] = useState({ open: false })
+  const [textFieldOne, setTextFieldOne] = useState('')
+  const [textFieldTwo, setTextFieldTwo] = useState('')
+  const [textFieldThree, setTextFieldThree] = useState('')
+  const [textFieldFour, setTextFieldFour] = useState('')
+  const [textFieldFive, setTextFieldFive] = useState('')
+  const [textFieldSix, setTextFieldSix] = useState('')
+  const [textFieldSeven, setTextFieldSeven] = useState('')
+
+  const emptyState = !store.get('idsGift');
+
+  function handleSelection(resources) {
+    const collectionIdFromResources = resources.selection[0].id;
+    setModal({open:false})
+    store.set('idsGift', collectionIdFromResources)
+    
+    // change this to removing the products
+    setCardCollection(collectionIdFromResources)
+    console.log(collectionIdFromResources)
+  }
+
+  function setCardCollection(collectionIdFromResources) {
+    const url = '/api/collectionCard'
+
+    axios.post(url, collectionIdFromResources)
+  }
+
+  function handleChangeTextFieldOne (textFieldOne) { setTextFieldOne(textFieldOne)};
+  function handleChangeTextFieldTwo (textFieldTwo) { setTextFieldTwo(textFieldTwo)};
+  function handleChangeTextFieldThree (textFieldThree) { setTextFieldThree(textFieldThree)};
+  function handleChangeTextFieldFour (textFieldFour) { setTextFieldFour(textFieldFour)};
+  function handleChangeTextFieldFive (textFieldFive) { setTextFieldFive(textFieldFive)};
+  function handleChangeTextFieldSix (textFieldSix) { setTextFieldSix(textFieldSix)};
+  function handleChangeTextFieldSeven (textFieldSeven) { setTextFieldSeven(textFieldSeven)};
+
+  // function removeCardCollectionApi() {
+  //   const url = '/api/collectionCard'
+  //   store.set('idsGift', '')
+  //   axios.delete(url)
+  //     .then(res => {
+  //       console.log('reloading')
+  //       window.location.reload();
+  //     })
+  // }
+
+  async function saveTextFields() {
+    const obj = [textFieldOne, textFieldTwo, textFieldThree, textFieldFour, textFieldFive, textFieldSix, textFieldSeven]
+    deliveryInstructionsDeleteApi()
+    obj.map((textField, i) => {deliveryInstructionsApi({index: i, field: textField})})
+  }
+
+  function deliveryInstructionsDeleteApi() {
+    const url = '/api/deliveryInstructions'
+
+    axios.delete(url)
+  }
+
+  function deliveryInstructionsApi(fieldInput) {
+    const url = '/api/deliveryInstructions'
+
+    axios.post(url, fieldInput)
+      .then(res => window.location.reload())
+      .catch(err => console.log(err))
+  }
+
+  return (
+    <>
+    <Page>
+     
+    <Layout>
+      <Layout.Section>
+      <ResourcePicker
+          resourceType="Collection"
+          selectMultiple={false}
+          open={modal.open}
+          onCancel={() =>  setModal({open: false}) }
+          onSelection={(resources) => handleSelection(resources)}
+        />
+
+      </Layout.Section>
+
+<Layout.Section>
+{emptyState ?
+          <EmptyState
+            image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
+            action={{
+              content: 'Select Card Collection',
+              onAction: () => setModal({open:true})
+            }}
+          >
+          </EmptyState>
+          :
+          <GiftComponent />
+          }
+            <Card sectioned title="Delivery Instructions">
+              <p style={{"marginBottom":"14px"}}>Fill in your specific delivery instructions options to show in the delivery instructions dropdown on the cart page.</p>
+              <TextField
+                label="Delivery Instructions 1"
+                value={textFieldOne}
+                multiline={3}
+                onChange={handleChangeTextFieldOne}
+                autoComplete="off"
+              />
+              <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Delivery Instructions 2"
+                value={textFieldTwo}
+                multiline={3}
+                onChange={handleChangeTextFieldTwo}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Delivery Instructions 3"
+                value={textFieldThree}
+                multiline={3}
+                onChange={handleChangeTextFieldThree}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Delivery Instructions 4"
+                value={textFieldFour}
+                multiline={3}
+                onChange={handleChangeTextFieldFour}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Delivery Instructions 5"
+                value={textFieldFive}
+                multiline={3}
+                onChange={handleChangeTextFieldFive}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Delivery Instructions 6"
+                value={textFieldSix}
+                multiline={3}
+                onChange={handleChangeTextFieldSix}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Delivery Instructions 7"
+                value={textFieldSeven}
+                multiline={3}
+                onChange={handleChangeTextFieldSeven}
+                autoComplete="off"
+              />
+              <PageActions
+                primaryAction={{
+                  content: 'Save',
+                  onAction: () => saveTextFields()
+                }}
+              />
+
+            </Card>
+</Layout.Section>
+
+            </Layout>
+          
+        
+
+    </Page>
+    </>
+  )
+}
+
+export default giftCard;
