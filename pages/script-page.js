@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 import { useQuery, useMutation } from 'react-apollo';
 import { Button, Card, Layout, Page, ResourceList, Stack } from '@shopify/polaris';
 
-const APP_URL = "https://calm-fjord-82942.herokuapp.com/"
+const APP_URL = "https://novabloomscript.s3.eu-west-2.amazonaws.com/test-script.js"
 
 const CREATE_SCRIPT_TAG = gql`
     mutation scriptTagCreate($input: ScriptTagInput!) {
