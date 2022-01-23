@@ -102,18 +102,7 @@ app.prepare().then(async () => {
     }
   );
 
-  router.get("(/_next/static/.*)", handleRequest); // Static content is clear
-  router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
-  router.get("(.*)", async (ctx) => {
-    const shop = ctx.query.shop;
-    console.log('shop', ctx.query.shop, 'shopcookie:',ctx.cookies.shop )
-    // This shop hasn't been seen yet, go through OAuth to create a session
-    if (ACTIVE_SHOPIFY_SHOPS[shop] === undefined) {
-      ctx.redirect(`/auth?shop=${shop}`);
-    } else {
-      await handleRequest(ctx);
-    }
-  });
+
 
   const MongoProduct = mongoose.model('products')
   const MongoPostcode = mongoose.model('postalcode')
@@ -210,6 +199,19 @@ app.prepare().then(async () => {
       console.log(err)
     }
   })
+
+  router.get("(/_next/static/.*)", handleRequest); // Static content is clear
+  router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
+  router.get("(.*)", async (ctx) => {
+    const shop = ctx.query.shop;
+    console.log('shop', ctx.query.shop, 'shopcookie:',ctx.cookies )
+    // This shop hasn't been seen yet, go through OAuth to create a session
+    if (ACTIVE_SHOPIFY_SHOPS[shop] === undefined) {
+      ctx.redirect(`/auth?shop=${shop}`);
+    } else {
+      await handleRequest(ctx);
+    }
+  });
 
   server.use(router.allowedMethods());
   server.use(router.routes());
