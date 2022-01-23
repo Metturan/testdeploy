@@ -58,8 +58,8 @@ const giftCard = () => {
           }
         })
         .catch(err => console.log(err))
-    // })
-    // .catch(err => console.log(err))
+    })
+    .catch(err => console.log(err))
   }
 
   function handleSelection(resources) {
@@ -128,14 +128,16 @@ const giftCard = () => {
         {cardCollectionId ? 
           <GiftComponent cardCollectionId={cardCollectionId}/>
           :
-          <EmptyState
-            image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
-            action={{
-              content: 'Select Card Collection',
-              onAction: () => setModal({open:true})
-            }}
-          >
-          </EmptyState>
+          <Card sectioned>
+            <EmptyState
+              image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
+              action={{
+                content: 'Select Card Collection',
+                onAction: () => setModal({open:true})
+              }}
+            >
+            </EmptyState>
+          </Card>
           }
 
             <Card sectioned title="Delivery Instructions">
