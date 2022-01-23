@@ -75,7 +75,7 @@ console.log(data)
                 createScripts({
                   variables: {
                     input: {
-                      src: APP_URL + "test-script.js",
+                      src: APP_URL,
                       // src: "https://185b-64-137-155-172.ngrok.io/test-script.js",
                       displayScope: "ALL"
                     }
