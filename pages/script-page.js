@@ -58,7 +58,7 @@ console.log(data)
 
   return (
     <Page>
-      {/* <Layout>
+      <Layout>
         <Layout.Section>
           <Card title="These are the Script Tags:" sectioned>
             <p>
@@ -124,7 +124,7 @@ console.log(data)
             />
           </Card>
         </Layout.Section>
-      </Layout> */}
+      </Layout>
     </Page>
   )
 }
