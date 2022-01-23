@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 import { memo } from 'react';
 import {useQuery} from '@apollo/react-hooks'
 import axios from 'axios'
-import store from 'store';
+// import store from 'store';
 import {Card, Page,ResourceList, Stack, TextStyle, PageActions, Layout, DisplayText} from '@shopify/polaris'
 
 const GET_COLLECTION_BY_ID = gql`
@@ -50,13 +50,13 @@ function GiftComponent () {
   if (error) return <div>{error.message}</div>
 
   if (data.nodes[0] === null) {
-    store.set('idsGift', '');
+    // store.set('idsGift', '');
     window.location.reload();
     return <div></div>
   }
 
   var productList = data.nodes[0].products.edges
-  console.log(store.get('idsGift'))
+  // console.log(store.get('idsGift'))
 
   deleteApiData()
   productList.map(product => makeApiCall(product.node))
@@ -77,7 +77,7 @@ function GiftComponent () {
 
   function removeCardCollectionApi() {
     const url = '/api/collectionCard'
-    store.set('idsGift', '')
+    // store.set('idsGift', '')
     axios.delete(url)
       .then(res => {
         console.log('reloading')

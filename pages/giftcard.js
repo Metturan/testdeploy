@@ -4,7 +4,6 @@ import {useQuery} from '@apollo/react-hooks'
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import axios from 'axios'
 import mongoose from 'mongoose'
-import store from 'store';
 import {Card, Stack, Page, EmptyState, TextField, ResourceList, TextStyle, PageActions, Layout, DisplayText} from '@shopify/polaris'
 
 import GiftComponent from '../components/GiftComponent'
@@ -52,12 +51,12 @@ const giftCard = () => {
   const [textFieldSix, setTextFieldSix] = useState('')
   const [textFieldSeven, setTextFieldSeven] = useState('')
 
-  const emptyState = !store.get('idsGift');
+  const emptyState = true;
 
   function handleSelection(resources) {
     const collectionIdFromResources = resources.selection[0].id;
     setModal({open:false})
-    store.set('idsGift', collectionIdFromResources)
+    // store.set('idsGift', collectionIdFromResources)
     
     // change this to removing the products
     setCardCollection(collectionIdFromResources)
