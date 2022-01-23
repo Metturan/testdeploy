@@ -71,16 +71,16 @@ const giftCard = () => {
     // store.set('idsGift', collectionIdFromResources)
     
     // change this to removing the products
-    setCardCollection(collectionIdFromResources)
+    setCardCollectionFn(collectionIdFromResources)
     console.log(collectionIdFromResources)
   }
 
-  function setCardCollection(collectionIdFromResources) {
+  function setCardCollectionFn(collectionIdFromResources) {
     const url = '/api/collectionCard'
 
     axios.post(url, collectionIdFromResources)
     .then(res => {
-      setCollectionId(collectionIdFromResources)
+      setCardCollectionId(collectionIdFromResources)
     })
   }
 
