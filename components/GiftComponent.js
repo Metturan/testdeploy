@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 import { memo } from 'react';
-import {useQuery} from '@apollo/react-hooks'
+import {useQuery} from 'react-apollo'
 import axios from 'axios'
 // import store from 'store';
 import {Card, Page,ResourceList, Stack, TextStyle, PageActions, Layout, DisplayText} from '@shopify/polaris'
