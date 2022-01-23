@@ -1,9 +1,7 @@
 import {useState, useCallback, useEffect} from 'react'
 import gql from 'graphql-tag'
-import {useQuery} from '@apollo/react-hooks'
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import axios from 'axios'
-import mongoose from 'mongoose'
 import {Card, Stack, Page, EmptyState, TextField, ResourceList, TextStyle, PageActions, Layout, DisplayText} from '@shopify/polaris'
 
 // import GiftComponent from '../components/GiftComponent'
