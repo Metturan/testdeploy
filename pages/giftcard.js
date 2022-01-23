@@ -5,10 +5,8 @@ import {Card, Stack, Page, EmptyState, TextField, ResourceList, TextStyle, PageA
 import GiftComponent from '../components/GiftComponent';
 
 const giftCard = () => {
-
   useEffect(() => {
     initFunction();
- 
   }, [])
 
   const [modal, setModal] = useState({ open: false })
@@ -51,9 +49,8 @@ const giftCard = () => {
       axios.get('/api/collectionCard')
         .then(res => {
           var collectionId = Object.keys(res.data.data[0].cardCollectionId)[0]
-          // console.log(res.data.data[0].cardCollectionId)
-          // console.log(Object.keys(res.data.data[0].cardCollectionId)[0])
 
+          console.log("collectionId:", collectionId)
           if (collectionId) {
             setCardCollectionId(collectionId)
           } else {
@@ -77,7 +74,7 @@ const giftCard = () => {
 
     axios.post(url, collectionIdFromResources)
     .then(res => {
-      console.log(collectionIdFromResources)
+      console.log("collectionIdFromResources:",collectionIdFromResources)
       setCardCollectionId(collectionIdFromResources)
     })
   }
