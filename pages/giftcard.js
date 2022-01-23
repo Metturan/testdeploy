@@ -1,4 +1,4 @@
-import {useState, useCallback, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
 import axios from 'axios'
 import {Card, Stack, Page, EmptyState, TextField, ResourceList, TextStyle, PageActions, Layout, DisplayText} from '@shopify/polaris'
@@ -120,7 +120,7 @@ const giftCard = () => {
       </Layout.Section>
 
 <Layout.Section>
-{/* {emptyState ? */}
+
           <EmptyState
             image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
             action={{
@@ -129,9 +129,7 @@ const giftCard = () => {
             }}
           >
           </EmptyState>
-          {/* :
-          <GiftComponent />
-          } */}
+
             <Card sectioned title="Delivery Instructions">
               <p style={{"marginBottom":"14px"}}>Fill in your specific delivery instructions options to show in the delivery instructions dropdown on the cart page.</p>
               <TextField

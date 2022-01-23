@@ -44,16 +44,16 @@ query getProductsFromCollection($ids: [ID!]!) {
 
 
 function GiftComponent () {
-  const { loading, error, data } = useQuery(GET_COLLECTION_BY_ID, { variables: { ids: '' } })
+  // const { loading, error, data } = useQuery(GET_COLLECTION_BY_ID, { variables: { ids: '' } })
 
-  if (loading) return <div>Loading...</div>
-  if (error) return <div>{error.message}</div>
+  // if (loading) return <div>Loading...</div>
+  // if (error) return <div>{error.message}</div>
 
-  if (data.nodes[0] === null) {
-    // store.set('idsGift', '');
-    window.location.reload();
-    return <div></div>
-  }
+  // if (data.nodes[0] === null) {
+  //   // store.set('idsGift', '');
+  //   window.location.reload();
+  //   return <div></div>
+  // }
 
   var productList = data.nodes[0].products.edges
   // console.log(store.get('idsGift'))
