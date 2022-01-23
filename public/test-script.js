@@ -664,7 +664,6 @@ function submitCustomCheckoutButton() {
 function getInitPostCode() {
   if (localStorage.getItem('postcode')) {
     var el = localStorage.getItem('postcode');
-
     document.querySelector('.button-title').innerHTML = el
   }
 }
@@ -685,6 +684,7 @@ if (baseEl) {
   .then(data2 => {
 
   secondPartCart(data2)
+  getInitPostCode();
   sideBar();
 
   $("#twodate").datepicker({ minDate: 0, maxDate: "+1M +10D" });
