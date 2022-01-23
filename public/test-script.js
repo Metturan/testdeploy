@@ -670,7 +670,7 @@ function cloneCartCheckoutButton() {
 }
 
 if (baseEl) {
-  fetch('https://calm-fjord-82942.herokuapp.com/api/postcode?shop=extestdevstore.myshopify.com')
+  fetch('https://cors-anywhere.herokuapp.com/https://calm-fjord-82942.herokuapp.com/api/postcode?shop=extestdevstore.myshopify.com')
   .then(res => res.json())
   .then(data2 => {
 
@@ -681,21 +681,21 @@ if (baseEl) {
   $("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")
   // $("#twodate").datepicker({ minDate: -20, maxDate: "+1M +10D" });
   // Grab second step (naming is backward)
-  fetch('https://calm-fjord-82942.herokuapp.com/api/products?shop=extestdevstore.myshopify.com')
+  fetch('https://cors-anywhere.herokuapp.com/https://calm-fjord-82942.herokuapp.com/api/products?shop=extestdevstore.myshopify.com')
   .then(res => res.json())
   .then(async data => {
     multiStepCart(data)
     stepBar()
     
     // grab card products and render them to third step
-    fetch('https://calm-fjord-82942.herokuapp.com/api/cardProducts?shop=extestdevstore.myshopify.com')
+    fetch('https://cors-anywhere.herokuapp.com/https://calm-fjord-82942.herokuapp.com/api/cardProducts?shop=extestdevstore.myshopify.com')
       .then(res => res.json())
       .then(async data => {
           // Render 3rd UI
           thirdPartCart(data)
           getProductsInfoForUpsell()
 
-          fetch('https://calm-fjord-82942.herokuapp.com/api/deliveryInstructions?shop=extestdevstore.myshopify.com')
+          fetch('https://cors-anywhere.herokuapp.com/https://calm-fjord-82942.herokuapp.com/api/deliveryInstructions?shop=extestdevstore.myshopify.com')
             .then(res => res.json())
             .then(async data => {
               deliveryOptionsSelect(data)
