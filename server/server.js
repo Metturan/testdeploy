@@ -111,6 +111,51 @@ app.prepare().then(async () => {
   const MongoCardProduct = mongoose.model('cardProducts')
   const MongoDeliveryInstructions = mongoose.model('deliveryOptions')
 
+  // Delivery POSTCODE APIs
+  router.post('/api/postcode', koaBody(), async (ctx)=> {
+    try {
+      const body = ctx.request.body;
+
+      console.log(body)
+
+      if (body.status == 'blacklisted') {
+        MongoPostcode.findOneAndUpdate({"status": "blacklisted"}, {postcode:body.postcodeRecord}, function (err) {
+          if (err) return;
+  
+          console.log('postcode updated')
+        })
+      }
+
+      if (body.status == 'whitelisted') {
+        MongoPostcode.findOneAndUpdate({"status": "whitelisted"}, {postcode:body.postcodeRecord}, function (err) {
+          if (err) return;
+  
+          console.log('postcode updated')
+        })
+      }
+
+      // MongoPostcode.deleteMany
+      
+      ctx.body = 'Postcode Added'
+    } catch(err) {
+      console.log(err)
+    }
+  })
+
+  router.get("/api/postcode", async (ctx) => {
+    try {
+      let postcodesFromDB = await MongoPostcode.find({});
+      
+      console.log('db', postcodesFromDB)
+      ctx.body = {
+        status: 'Success',
+        data: postcodesFromDB
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  })
+
     // Collection Upsells APIs
   router.get("/api/collectionUpsell", async (ctx) => {
     try {
@@ -204,7 +249,7 @@ app.prepare().then(async () => {
   router.get("/_next/webpack-hmr", handleRequest); // Webpack content is clear
   router.get("(.*)", async (ctx) => {
     const shop = ctx.query.shop;
-    console.log('shop', ctx.query.shop, 'shopcookie:',ctx.cookies )
+
     // This shop hasn't been seen yet, go through OAuth to create a session
     if (ACTIVE_SHOPIFY_SHOPS[shop] === undefined) {
       ctx.redirect(`/auth?shop=${shop}`);
