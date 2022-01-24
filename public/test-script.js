@@ -664,13 +664,6 @@ function submitCustomCheckoutButton() {
 
 }
 
-function getInitPostCode() {
-  if (localStorage.getItem('postcode')) {
-    var el = localStorage.getItem('postcode');
-    document.querySelector('.button-title').innerHTML = el
-  }
-}
-
 function cloneCartCheckoutButton() {
     // change out checkout button
     var cartButton = document.querySelector('.button-primary[form="cart-form"]');
@@ -687,7 +680,6 @@ if (baseEl) {
   .then(data2 => {
 
   secondPartCart(data2)
-  getInitPostCode();
   sideBar();
 
   $("#twodate").datepicker({ minDate: 0, maxDate: "+1M +10D" });
