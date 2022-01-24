@@ -682,8 +682,8 @@ if (baseEl) {
   secondPartCart(data2)
   sideBar();
 
-  $("#twodate").datepicker({ minDate: 0, maxDate: "+1M +10D" });
-  $("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")
+  jQuery("#twodate").datepicker({ minDate: 0, maxDate: "+1M +10D" });
+  jQuery("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")
   // $("#twodate").datepicker({ minDate: -20, maxDate: "+1M +10D" });
   // Grab second step (naming is backward)
   fetch('https://calm-fjord-82942.herokuapp.com/api/products?shop=extestdevstore.myshopify.com')
