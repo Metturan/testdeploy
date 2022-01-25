@@ -1,4 +1,16 @@
-document.addEventListener('DOMContentLoaded', function() {
+
+
+var script = document.createElement('script');
+script.onload = function () {
+    console.log('loaded')
+};
+script.src = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js';
+
+document.head.appendChild(script); 
+
+
+
+
 
   var baseEl = document.querySelector('.baseEl');
   var base2El = document.querySelector('.base2El');
@@ -14,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var whitelistArr
   var blacklistArr
   
-  
+  console.log('execute')
   
   const stepBar = number => {
     if (timeline) {
@@ -193,7 +205,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var deliveryOptionsContainer = 
      `<select id="deliverySelect">
         ${data.data.map(item => {
+          if (item.deliveryOptionsId.field) {
             return `<option value="${item.deliveryOptionsId.index}">${item.deliveryOptionsId.field}</option>`
+          }
+            
         }).join('')}
       </select>`
   
@@ -325,6 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
       items: arrOfProds
     }, function() {
       console.log('success, window reload')
+      window.location.reload()
     });
   }
   
@@ -669,10 +685,8 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(data2 => {
   
     secondPartCart(data2)
-    sideBar();
-  
-    jQuery("#twodate").datepicker({ minDate: 0, maxDate: "+1M +10D" });
-    jQuery("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")
+    sideBar();    
+
     // $("#twodate").datepicker({ minDate: -20, maxDate: "+1M +10D" });
     // Grab second step (naming is backward)
     fetch('https://calm-fjord-82942.herokuapp.com/api/products?shop=extestdevstore.myshopify.com')
@@ -680,6 +694,10 @@ document.addEventListener('DOMContentLoaded', function() {
     .then(async data => {
       multiStepCart(data)
       stepBar()
+
+
+      $("#twodate").datepicker({ minDate: 0, maxDate: "+1M +10D" });
+      $("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")
       
       // grab card products and render them to third step
       fetch('https://calm-fjord-82942.herokuapp.com/api/cardProducts?shop=extestdevstore.myshopify.com')
@@ -702,24 +720,3 @@ document.addEventListener('DOMContentLoaded', function() {
   })  
   .catch(err => {console.log(err)})
   }
-  
-
-
-
-
-})
-
-// var script = document.createElement('script');
-// script.src = 'https://code.jquery.com/jquery-3.4.1.min.js';
-// script.type = 'text/javascript';
-// document.getElementsByTagName('head')[0].appendChild(script);
-
-// var script = document.createElement('script');
-// script.onload = function () {
-//     console.log('loaded')
-// };
-// script.src = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js';
-
-// document.head.appendChild(script); //or something of the likes
-
-
