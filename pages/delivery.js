@@ -130,6 +130,10 @@ const Delivery = () => {
       .catch(err => console.log(err))
   }
 
+  function showBlacklistedModal () {
+    console.log('ckucjed')
+  }
+
   return (
     <Page>
           <Card title="Add Blacklisted Postcodes" sectioned>
@@ -147,6 +151,7 @@ const Delivery = () => {
               >
                 Save
               </Button>
+              <p><span onClick={showBlacklistedModal}>Click here</span> to see list of post codes currently blacklisted</p>
           </Card>
           <Card title="Remove Blacklisted Postcodes" sectioned>
               <TextField
