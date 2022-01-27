@@ -151,7 +151,7 @@ const Delivery = () => {
               >
                 Save
               </Button>
-              <p><span onClick={showBlacklistedModal}>Click here</span> to see list of post codes currently blacklisted</p>
+              <p><span style={{textDecoration: 'underline'}} onClick={() => showBlacklistedModal()}>Click here</span> to see list of post codes currently blacklisted</p>
           </Card>
           <Card title="Remove Blacklisted Postcodes" sectioned>
               <TextField
