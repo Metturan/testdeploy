@@ -151,7 +151,7 @@ const Delivery = () => {
               >
                 Save
               </Button>
-              <p><span style={{textDecoration: 'underline'}} onClick={() => showBlacklistedModal()}>Click here</span> to see list of post codes currently blacklisted</p>
+              <p><span style={{textDecoration: 'underline', marginTop: '17px'}} onClick={() => showBlacklistedModal()}>Click here</span> to see list of post codes currently blacklisted</p>
           </Card>
           <Card title="Remove Blacklisted Postcodes" sectioned>
               <TextField
@@ -171,17 +171,19 @@ const Delivery = () => {
           </Card>
           {
             blacklistedPostcodes.length ?
-            <Card sectioned title="Blacklisted postcodes">
-            <div className="inner-postcodes">
-                {
-                  blacklistedPostcodes.map((code, i) => {
-                    return (
-                      <div key={i}>{code}</div>
-                    )
-                  })
-                }
-            </div>
-          </Card>
+            <div id="modal-blacklisted">
+              <Card sectioned title="Blacklisted postcodes">
+              <div className="inner-postcodes">
+                  {
+                    blacklistedPostcodes.map((code, i) => {
+                      return (
+                        <div key={i}>{code}</div>
+                      )
+                    })
+                  }
+              </div>
+            </Card>
+          </div>
             :
             null
           }
