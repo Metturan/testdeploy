@@ -16,6 +16,7 @@ const Delivery = () => {
   const [removeValueWhite, setRemoveValueWhite] = useState('')
 
   const [modalBlacklist, setModalBlacklist] = useState(false);
+  const [modalWhitelist, setModalWhitelist] = useState(false);
 
   useEffect(() => {
     // setInitial value for postcodes from db
@@ -132,10 +133,6 @@ const Delivery = () => {
       .catch(err => console.log(err))
   }
 
-  function removeBlacklistedModal () {
-    setModalBlacklist(false)
-  }
-
   return (
     <Page>
           <Card title="Add Blacklisted Postcodes" sectioned>
@@ -153,7 +150,7 @@ const Delivery = () => {
               >
                 Save
               </Button>
-              <p style={{marginTop: '17px;'}}><span style={{textDecoration: 'underline'}} onClick={() => setModalBlacklist(true)}>Click here</span> to see list of post codes currently blacklisted</p>
+              <p style={{marginTop: '17px;'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalBlacklist(true)}>Click here</span> to see list of post codes currently blacklisted</p>
           </Card>
           <Card title="Remove Blacklisted Postcodes" sectioned>
               <TextField
@@ -225,17 +222,20 @@ const Delivery = () => {
           </Card>
           {
             whitelistedPostcodes.length ?
-            <Card sectioned title="Whitelisted postcodes">
-            <div className="inner-postcodes">
-                {
-                  whitelistedPostcodes.map((code, i) => {
-                    return (
-                      <div key={i}>{code}</div>
-                    )
-                  })
-                }
-            </div>
-          </Card>
+            <div id="modal-whitelisted" className={ modalWhitelist ? 'show' : 'hide' }>
+              <p class="closeModal" onClick={() => setModalWhitelist(false)}>Close</p>
+              <Card sectioned title="Whitelisted postcodes">
+              <div className="inner-postcodes">
+                  {
+                    whitelistedPostcodes.map((code, i) => {
+                      return (
+                        <div key={i}>{code}</div>
+                      )
+                    })
+                  }
+              </div>
+            </Card>
+          </div>
             :
             null
           }
