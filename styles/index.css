@@ -25,4 +25,21 @@
   background: #eee;
   border-radius: 10px;
   max-height: 500px;
+  visibility: hidden;
+  transition: all 0.2s ease-out;
+  opacity: 0;
+}
+
+#modal-blacklisted.show {
+  visibility: visible;
+  opacity: 1;
+}
+
+.closeModal {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  z-index: 1;
+  text-decoration: underline;
+  font-size: 14px;
 }

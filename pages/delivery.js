@@ -15,6 +15,8 @@ const Delivery = () => {
   const [removeValueBlack, setRemoveValueBlack] = useState('')
   const [removeValueWhite, setRemoveValueWhite] = useState('')
 
+  const [modalBlacklist, setModalBlacklist] = useState(false);
+
   useEffect(() => {
     // setInitial value for postcodes from db
     getAndSetPostcode()
@@ -130,8 +132,8 @@ const Delivery = () => {
       .catch(err => console.log(err))
   }
 
-  function showBlacklistedModal () {
-    console.log('ckucjed')
+  function removeBlacklistedModal () {
+    setModalBlacklist(false)
   }
 
   return (
@@ -151,7 +153,7 @@ const Delivery = () => {
               >
                 Save
               </Button>
-              <p><span style={{textDecoration: 'underline', marginTop: '17px'}} onClick={() => showBlacklistedModal()}>Click here</span> to see list of post codes currently blacklisted</p>
+              <p style={{marginTop: '17px;'}}><span style={{textDecoration: 'underline'}} onClick={() => setModalBlacklist(true)}>Click here</span> to see list of post codes currently blacklisted</p>
           </Card>
           <Card title="Remove Blacklisted Postcodes" sectioned>
               <TextField
@@ -171,7 +173,8 @@ const Delivery = () => {
           </Card>
           {
             blacklistedPostcodes.length ?
-            <div id="modal-blacklisted">
+            <div id="modal-blacklisted" className={ modalBlacklist ? 'show' : 'hide' }>
+              <p class="closeModal" onClick={() => setModalBlacklist(false)}>Close</p>
               <Card sectioned title="Blacklisted postcodes">
               <div className="inner-postcodes">
                   {
