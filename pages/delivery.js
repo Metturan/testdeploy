@@ -136,8 +136,8 @@ const Delivery = () => {
   return (
     <Page>
           <Card sectioned>
-            <h2>Blacklisted Postcodes</h2>
-          <p style={{marginTop: '4px',marginBottom: '14px'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalBlacklist(true)}>Click here</span> to see list of post codes currently blacklisted</p>
+            <h2 style={{fontWeight: 'bold', fontSize: '16px'}}>Blacklisted Postcodes</h2>
+          <p style={{marginTop: '4px',marginBottom: '35px'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalBlacklist(true)}>Click here</span> to see list of post codes currently blacklisted</p>
               <TextField
                 label="Add postcodes (separate postcodes by comma)"
                 value={value}
@@ -153,6 +153,8 @@ const Delivery = () => {
                 Save
               </Button>
 
+              <br/>
+              <br/>
               {/* whitelist */}
               
               <TextField
@@ -205,10 +207,11 @@ const Delivery = () => {
             :
             null
           }
-         
+         <br/>
+         <br/>
           <Card title="Whitelisted Postcodes" sectioned>
-          <h2>Whitelisted Postcodes</h2>
-          <p style={{marginTop: '4px',marginBottom: '14px'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalWhitelist(true)}>Click here</span> to see list of post codes currently whitelisted</p>
+          <h2 style={{fontWeight: 'bold', fontSize: '16px'}}>Whitelisted Postcodes</h2>
+          <p style={{marginTop: '4px',marginBottom: '35px'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalWhitelist(true)}>Click here</span> to see list of post codes currently whitelisted</p>
               <TextField
                 label="Add postcodes (separate postcodes by comma)"
                 value={valueWhite}
