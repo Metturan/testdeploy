@@ -711,8 +711,12 @@ document.head.appendChild(script);
       multiStepCart(data)
       stepBar()
 
+      function sundays(date) {
+        var day = date.getDay();
+        return (day === 0);
+      }
 
-      $("#twodate").datepicker({ minDate: 0, maxDate: "+1M +10D" });
+      $("#twodate").datepicker({ minDate: 0, maxDate: "+1M +10D", beforeShowDay: sundays() });
       $("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")
       
       // grab card products and render them to third step
