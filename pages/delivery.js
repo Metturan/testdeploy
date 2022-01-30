@@ -135,7 +135,8 @@ const Delivery = () => {
 
   return (
     <Page>
-          <Card title="Blacklisted Postcodes" sectioned>
+          <Card sectioned>
+            <h2>Blacklisted Postcodes</h2>
           <p style={{marginTop: '4px',marginBottom: '14px'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalBlacklist(true)}>Click here</span> to see list of post codes currently blacklisted</p>
               <TextField
                 label="Add postcodes (separate postcodes by comma)"
