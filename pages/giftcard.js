@@ -66,26 +66,27 @@ const giftCard = () => {
           // put in third call for occassions dropdown
           axios.get('/api/occasion')
             .then(res => {
+
               res.data.data.forEach(option => {
-                if (option.deliveryOptionsId.index === 0) {
+                if (option.occasionsOptionsId.index === 0) {
                   setOccasionFieldOne(option.occasionsOptionsId.field)
                 }
-                if (option.deliveryOptionsId.index === 1) {
+                if (option.occasionsOptionsId.index === 1) {
                   setOccasionFieldTwo(option.occasionsOptionsId.field)
                 }
-                if (option.deliveryOptionsId.index === 2) {
+                if (option.occasionsOptionsId.index === 2) {
                   setOccasionFieldThree(option.occasionsOptionsId.field)
                 }
-                if (option.deliveryOptionsId.index === 3) {
+                if (option.occasionsOptionsId.index === 3) {
                   setOccasionFieldFour(option.occasionsOptionsId.field)
                 }
-                if (option.deliveryOptionsId.index === 4) {
+                if (option.occasionsOptionsId.index === 4) {
                   setOccasionFieldFive(option.occasionsOptionsId.field)
                 }
-                if (option.deliveryOptionsId.index === 5) {
+                if (option.occasionsOptionsId.index === 5) {
                   setOccasionFieldSix(option.occasionsOptionsId.field)
                 }
-                if (option.deliveryOptionsId.index === 6) {
+                if (option.occasionsOptionsId.index === 6) {
                   setOccasionFieldSeven(option.occasionsOptionsId.field)
                 }
               })
