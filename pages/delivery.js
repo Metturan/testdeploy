@@ -203,6 +203,7 @@ const Delivery = () => {
               >
                 Save
               </Button>
+              <p style={{marginTop: '17px;'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalBlacklist(true)}>Click here</span> to see list of post codes currently whitelisted</p>
           </Card>
           <Card title="Remove Whitelisted Postcodes" sectioned>
               <TextField
