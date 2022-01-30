@@ -209,7 +209,7 @@ const Delivery = () => {
           }
          <br/>
          <br/>
-          <Card title="Whitelisted Postcodes" sectioned>
+          <Card sectioned>
           <h2 style={{fontWeight: 'bold', fontSize: '16px'}}>Whitelisted Postcodes</h2>
           <p style={{marginTop: '4px',marginBottom: '35px'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalWhitelist(true)}>Click here</span> to see list of post codes currently whitelisted</p>
               <TextField
@@ -226,7 +226,8 @@ const Delivery = () => {
               >
                 Save
               </Button>
-              
+              <br/>
+              <br/>
               <TextField
                 label="Remove postcodes (separate postcodes by comma)"
                 value={removeValueWhite}
