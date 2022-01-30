@@ -112,7 +112,7 @@ const giftCard = () => {
   async function saveOccasionFields() {
     const obj = [occasionFieldOne, occasionFieldTwo, occasionFieldThree, occasionFieldFour, occasionFieldFive, occasionFieldSix, occasionFieldSeven]
     occasionsDeleteApi()
-    // obj.map((textField, i) => {occasionsApi({index: i, field: textField})})
+    obj.map((textField, i) => {occasionsApi({index: i, field: textField})})
     obj.map((textField, i) => {console.log({index: i, field: textField})})
   }
 
