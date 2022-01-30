@@ -150,9 +150,9 @@ const Delivery = () => {
               >
                 Save
               </Button>
+
+              {/* whitelist */}
               <p style={{marginTop: '17px;'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalBlacklist(true)}>Click here</span> to see list of post codes currently blacklisted</p>
-          </Card>
-          <Card title="Remove Blacklisted Postcodes" sectioned>
               <TextField
                 label="Separate postcodes by comma"
                 value={removeValueBlack}
@@ -168,6 +168,22 @@ const Delivery = () => {
                 Remove
               </Button>
           </Card>
+          {/* <Card title="Remove Blacklisted Postcodes" sectioned>
+              <TextField
+                label="Separate postcodes by comma"
+                value={removeValueBlack}
+                onChange={handleChangeRemoveBlack}
+                autoComplete="off"
+              />
+              <div style={{paddingTop: '10px'}}></div>
+              <Button
+                large
+                primary
+                onClick={() => removePostcodeAPI('blacklisted')}
+              >
+                Remove
+              </Button>
+          </Card> */}
           {
             blacklistedPostcodes.length ?
             <div id="modal-blacklisted" className={ modalBlacklist ? 'show' : 'hide' }>
@@ -203,7 +219,7 @@ const Delivery = () => {
               >
                 Save
               </Button>
-              <p style={{marginTop: '17px;'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalBlacklist(true)}>Click here</span> to see list of post codes currently whitelisted</p>
+              <p style={{marginTop: '17px;'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalWhitelist(true)}>Click here</span> to see list of post codes currently whitelisted</p>
           </Card>
           <Card title="Remove Whitelisted Postcodes" sectioned>
               <TextField
