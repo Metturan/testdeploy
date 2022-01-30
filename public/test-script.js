@@ -660,7 +660,7 @@ document.head.appendChild(script);
     }
   
     // take selected delivery instruction and add to note obj
-    notesArr.push({"DeliveryInstructions": deliveryInstructionsValue, "Occasion": occasionValue})
+    notesArr.push({"DeliveryInstructions": deliveryInstructionsValue}, {"Occasion": occasionValue})
   
   
     // if card is selected and has message
