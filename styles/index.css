@@ -44,3 +44,9 @@
   cursor: pointer;
   font-size: 14px;
 }
+
+#modal-blacklisted .Polaris-Card__Section, #modal-whitelisted .Polaris-Card__Section {
+  overflow-x: hidden;
+  overflow-y:scroll;
+  height: 400px;
+}

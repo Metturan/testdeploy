@@ -716,7 +716,7 @@ document.head.appendChild(script);
         return (day === 0);
       }
 
-      $("#twodate").datepicker({ minDate: 0, maxDate: "+1M +10D", beforeShowDay: sundays() });
+      $("#twodate").datepicker({ minDate: 0, maxDate: "+1M +10D", beforeShowDay: $.datepicker.noWeekends });
       $("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")
       
       // grab card products and render them to third step
