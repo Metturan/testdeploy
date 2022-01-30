@@ -17,6 +17,13 @@ const giftCard = () => {
   const [textFieldFive, setTextFieldFive] = useState('')
   const [textFieldSix, setTextFieldSix] = useState('')
   const [textFieldSeven, setTextFieldSeven] = useState('')
+  const [occasionFieldOne, setOccasionFieldOne] = useState('')
+  const [occasionFieldTwo, setOccasionFieldTwo] = useState('')
+  const [occasionFieldThree, setOccasionFieldThree] = useState('')
+  const [occasionFieldFour, setOccasionFieldFour] = useState('')
+  const [occasionFieldFive, setOccasionFieldFive] = useState('')
+  const [occasionFieldSix, setOccasionFieldSix] = useState('')
+  const [occasionFieldSeven, setOccasionFieldSeven] = useState('')
   const [cardCollectionId, setCardCollectionId] = useState('')
 
   function initFunction() {
@@ -50,14 +57,15 @@ const giftCard = () => {
         .then(res => {
           var collectionId = Object.keys(res.data.data[0].cardCollectionId)[0]
 
-          console.log("collectionId:", collectionId)
           if (collectionId) {
             setCardCollectionId(collectionId)
           } else {
             setCardCollectionId('')
           }
+
+          // put in third call for occassions dropdown
+
         })
-        .catch(err => console.log(err))
     })
     .catch(err => console.log(err))
   }
@@ -87,10 +95,24 @@ const giftCard = () => {
   function handleChangeTextFieldSix (textFieldSix) { setTextFieldSix(textFieldSix)};
   function handleChangeTextFieldSeven (textFieldSeven) { setTextFieldSeven(textFieldSeven)};
 
+  function handleChangeOccasionFieldOne (textFieldOne) { setOccasionFieldOne(textFieldOne)};
+  function handleChangeOccasionFieldTwo (textFieldTwo) { setOccasionFieldTwo(textFieldTwo)};
+  function handleChangeOccasionFieldThree (textFieldThree) { setOccasionFieldThree(textFieldThree)};
+  function handleChangeOccasionFieldFour (textFieldFour) { setOccasionFieldFour(textFieldFour)};
+  function handleChangeOccasionFieldFive (textFieldFive) { setOccasionFieldFive(textFieldFive)};
+  function handleChangeOccasionFieldSix (textFieldSix) { setOccasionFieldSix(textFieldSix)};
+  function handleChangeOccasionFieldSeven (textFieldSeven) { setOccasionFieldSeven(textFieldSeven)};
+
   async function saveTextFields() {
     const obj = [textFieldOne, textFieldTwo, textFieldThree, textFieldFour, textFieldFive, textFieldSix, textFieldSeven]
     deliveryInstructionsDeleteApi()
     obj.map((textField, i) => {deliveryInstructionsApi({index: i, field: textField})})
+  }
+
+  async function saveOccasionFields() {
+    const obj = [occasionFieldOne, occasionFieldTwo, occasionFieldThree, occasionFieldFour, occasionFieldFive, occasionFieldSix, occasionFieldSeven]
+    occasionsDeleteApi()
+    obj.map((textField, i) => {occasionsApi({index: i, field: textField})})
   }
 
   function deliveryInstructionsDeleteApi() {
@@ -99,8 +121,22 @@ const giftCard = () => {
     axios.delete(url)
   }
 
+  function occasionsDeleteApi() {
+    const url = '/api/occasion'
+
+    axios.delete(url)
+  }
+
   function deliveryInstructionsApi(fieldInput) {
     const url = '/api/deliveryInstructions'
+
+    axios.post(url, fieldInput)
+      .then(res => window.location.reload())
+      .catch(err => console.log(err))
+  }
+
+  function occasionsApi(fieldInput) {
+    const url = '/api/occasion'
 
     axios.post(url, fieldInput)
       .then(res => window.location.reload())
@@ -144,7 +180,7 @@ const giftCard = () => {
               <TextField
                 label="Delivery Instructions 1"
                 value={textFieldOne}
-                multiline={3}
+                multiline={1}
                 onChange={handleChangeTextFieldOne}
                 autoComplete="off"
               />
@@ -152,7 +188,7 @@ const giftCard = () => {
               <TextField
                 label="Delivery Instructions 2"
                 value={textFieldTwo}
-                multiline={3}
+                multiline={1}
                 onChange={handleChangeTextFieldTwo}
                 autoComplete="off"
               />
@@ -160,7 +196,7 @@ const giftCard = () => {
               <TextField
                 label="Delivery Instructions 3"
                 value={textFieldThree}
-                multiline={3}
+                multiline={1}
                 onChange={handleChangeTextFieldThree}
                 autoComplete="off"
               />
@@ -168,7 +204,7 @@ const giftCard = () => {
               <TextField
                 label="Delivery Instructions 4"
                 value={textFieldFour}
-                multiline={3}
+                multiline={1}
                 onChange={handleChangeTextFieldFour}
                 autoComplete="off"
               />
@@ -176,7 +212,7 @@ const giftCard = () => {
               <TextField
                 label="Delivery Instructions 5"
                 value={textFieldFive}
-                multiline={3}
+                multiline={1}
                 onChange={handleChangeTextFieldFive}
                 autoComplete="off"
               />
@@ -184,7 +220,7 @@ const giftCard = () => {
               <TextField
                 label="Delivery Instructions 6"
                 value={textFieldSix}
-                multiline={3}
+                multiline={1}
                 onChange={handleChangeTextFieldSix}
                 autoComplete="off"
               />
@@ -192,7 +228,7 @@ const giftCard = () => {
               <TextField
                 label="Delivery Instructions 7"
                 value={textFieldSeven}
-                multiline={3}
+                multiline={1}
                 onChange={handleChangeTextFieldSeven}
                 autoComplete="off"
               />
@@ -200,6 +236,73 @@ const giftCard = () => {
                 primaryAction={{
                   content: 'Save',
                   onAction: () => saveTextFields()
+                }}
+              />
+
+            </Card>
+
+
+            <Card sectioned title="Ocassions">
+              <p style={{"marginBottom":"14px"}}>Fill in your ocassion options to show on the cart page.</p>
+              <TextField
+                label="Occasion 1"
+                value={occasionFieldOne}
+                multiline={1}
+                onChange={handleChangeOccasionFieldOne}
+                autoComplete="off"
+              />
+              <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Occasion 2"
+                value={occasionFieldTwo}
+                multiline={1}
+                onChange={handleChangeOccasionFieldTwo}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Occasion 3"
+                value={occasionFieldThree}
+                multiline={1}
+                onChange={handleChangeOccasionFieldThree}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Occasion 4"
+                value={occasionFieldFour}
+                multiline={1}
+                onChange={handleChangeOccasionFieldFour}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Occasion 5"
+                value={occasionFieldFive}
+                multiline={1}
+                onChange={handleChangeOccasionFieldFive}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Occasion 6"
+                value={occasionFieldSix}
+                multiline={1}
+                onChange={handleChangeOccasionFieldSix}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Occasion 7"
+                value={occasionFieldSeven}
+                multiline={1}
+                onChange={handleChangeOccasionFieldSeven}
+                autoComplete="off"
+              />
+              <PageActions
+                primaryAction={{
+                  content: 'Save',
+                  onAction: () => saveOccasionFields()
                 }}
               />
 

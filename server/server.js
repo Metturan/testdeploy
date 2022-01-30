@@ -15,6 +15,7 @@ import '../models/UpsellCollection'
 import '../models/CardCollection'
 import '../models/CardProducts'
 import '../models/DeliveryOptions'
+import '../models/Occassions'
 
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 8081;
@@ -111,13 +112,26 @@ app.prepare().then(async () => {
   const MongoCardCollection = mongoose.model('cardCollection')
   const MongoCardProduct = mongoose.model('cardProducts')
   const MongoDeliveryInstructions = mongoose.model('deliveryOptions')
+  const MongoOccasions = mongoose.model('occasionOptions')
 
   // Giftcard APIs
+  router.get("/api/occasion", async (ctx) => {
+    try {
+      let occasionOptionFromDB = await MongoOccasions.find({});
+
+      ctx.body = {
+        status: 'Success',
+        data: occasionOptionFromDB
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  })
+
   router.get("/api/cardProducts", async (ctx) => {
     try {
       let cardProductsFromDB = await MongoCardProduct.find({});
-      
-      // console.log('db', productsFromDB)
+
       ctx.body = {
         status: 'Success',
         data: cardProductsFromDB
@@ -169,7 +183,20 @@ app.prepare().then(async () => {
     }
   })
 
-  
+  router.post('/api/occasion', koaBody(), async (ctx)=> {
+    try {
+      const body = ctx.request.body;
+      // Check if item in DB
+      var instance = new MongoOccasions({occasionsOptionsId: body})
+      await instance.save()
+        .then(() => console.log('saved to db'))
+        .catch(err => console.log(err))
+      
+      ctx.body = 'Occasions options saved'
+    } catch(err) {
+      console.log(err)
+    }
+  })
 
   router.post('/api/cardProducts', koaBody(), async (ctx)=> {
     try {
@@ -240,6 +267,19 @@ app.prepare().then(async () => {
         console.log('Delivery Options deleted')
       })
       ctx.body = "All delivery options deleted"
+    } catch(err) {
+      console.log(err)
+    }
+  })
+
+  router.delete('/api/occasion', koaBody(), async (ctx) => {
+    try {
+      MongoOccasions.deleteMany({}, function(err) {
+        if (err) return;
+
+        console.log('Occasions deleted')
+      })
+      ctx.body = "All occasions deleted"
     } catch(err) {
       console.log(err)
     }
