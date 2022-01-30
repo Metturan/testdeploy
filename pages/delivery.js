@@ -135,9 +135,10 @@ const Delivery = () => {
 
   return (
     <Page>
-          <Card title="Add Blacklisted Postcodes" sectioned>
+          <Card title="Blacklisted Postcodes" sectioned>
+          <p style={{marginTop: '4px',marginBottom: '14px'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalBlacklist(true)}>Click here</span> to see list of post codes currently blacklisted</p>
               <TextField
-                label="Separate postcodes by comma"
+                label="Add postcodes (separate postcodes by comma)"
                 value={value}
                 onChange={handleChange}
                 autoComplete="off"
@@ -152,9 +153,9 @@ const Delivery = () => {
               </Button>
 
               {/* whitelist */}
-              <p style={{marginTop: '17px;'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalBlacklist(true)}>Click here</span> to see list of post codes currently blacklisted</p>
+              
               <TextField
-                label="Separate postcodes by comma"
+                label="Remove postcodes (separate postcodes by comma)"
                 value={removeValueBlack}
                 onChange={handleChangeRemoveBlack}
                 autoComplete="off"
