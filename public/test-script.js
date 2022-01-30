@@ -8,10 +8,6 @@ script.src = 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min
 
 document.head.appendChild(script); 
 
-
-
-
-
   var baseEl = document.querySelector('.baseEl');
   var base2El = document.querySelector('.base2El');
   var base3El = document.querySelector('.base3El');
@@ -172,6 +168,11 @@ document.head.appendChild(script);
         <div id="deliverySelectContainer" style="margin-top:5px;">
   
           </div>
+          <br/>
+        <div>Occasion</div>
+        <div id="occasionSelectContainer" style="margin-top:5px;">
+  
+        </div>
       </div>
       <div class="button-row" style="margin-top:30px;">
         <button onclick="three_click_prev()" class="row-btn-prev row-btn">Back</button>
@@ -215,7 +216,20 @@ document.head.appendChild(script);
       document.getElementById('deliverySelectContainer').innerHTML = deliveryOptionsContainer
   }
   
+  var occasionOptionsSelect = (data) => {
+    console.log(data)
+    var occasionOptionsContainer = 
+     `<select id="occasionSelect">
+        ${data.data.map(item => {
+          if (item.occasionsOptionsId.field) {
+            return `<option value="${item.occasionsOptionsId.index}">${item.occasionsOptionsId.field}</option>`
+          }
+            
+        }).join('')}
+      </select>`
   
+      document.getElementById('occasionSelectContainer').innerHTML = occasionOptionsContainer
+  }
   
   const fourthPartCart = (data, itemCount) => {
       console.log(data)
@@ -622,7 +636,9 @@ document.head.appendChild(script);
     var cardOptionalCheckbox = document.getElementById('nocardreq');
     var messageOptionalCheckbox = document.getElementById('nonotereq');
     var deliveryInstructionsSelect = document.getElementById('deliverySelect')
+    var occasionSelect = document.getElementById('occasionSelect')
     var cardMessage = document.querySelector('.giftnote')
+    var occasionValue = occasionSelect.options[deliveryInstructionsSelect.selectedIndex].text
     var deliveryInstructionsValue = deliveryInstructionsSelect.options[deliveryInstructionsSelect.selectedIndex].text
     var itemsArr = []
     var notesArr = []
@@ -644,7 +660,7 @@ document.head.appendChild(script);
     }
   
     // take selected delivery instruction and add to note obj
-    notesArr.push({"DeliveryInstructions": deliveryInstructionsValue})
+    notesArr.push({"DeliveryInstructions": deliveryInstructionsValue, "Occasion": occasionValue})
   
   
     // if card is selected and has message
@@ -712,9 +728,13 @@ document.head.appendChild(script);
               .then(async data => {
                 deliveryOptionsSelect(data)
                 cloneCartCheckoutButton()
-  
-              })
-              
+
+                fetch('https://calm-fjord-82942.herokuapp.com/api/occasion?shop=extestdevstore.myshopify.com')
+                  .then(res => res.json())
+                  .then(async data => {
+                    occasionOptionsSelect(data)
+                  })
+              })   
         })
     })
   })  
