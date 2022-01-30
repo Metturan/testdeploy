@@ -206,9 +206,11 @@ const Delivery = () => {
             null
           }
          
-          <Card title="Add Whitelisted Postcodes" sectioned>
+          <Card title="Whitelisted Postcodes" sectioned>
+          <h2>Whitelisted Postcodes</h2>
+          <p style={{marginTop: '4px',marginBottom: '14px'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalWhitelist(true)}>Click here</span> to see list of post codes currently whitelisted</p>
               <TextField
-                label="Separate postcodes by comma"
+                label="Add postcodes (separate postcodes by comma)"
                 value={valueWhite}
                 onChange={handleChangeWhite}
                 autoComplete="off"
@@ -221,11 +223,9 @@ const Delivery = () => {
               >
                 Save
               </Button>
-              <p style={{marginTop: '17px;'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalWhitelist(true)}>Click here</span> to see list of post codes currently whitelisted</p>
-          </Card>
-          <Card title="Remove Whitelisted Postcodes" sectioned>
+              
               <TextField
-                label="Separate postcodes by comma"
+                label="Remove postcodes (separate postcodes by comma)"
                 value={removeValueWhite}
                 onChange={handleChangeRemoveWhite}
                 autoComplete="off"
@@ -239,6 +239,7 @@ const Delivery = () => {
                 Remove
               </Button>
           </Card>
+
           {
             whitelistedPostcodes.length ?
             <div id="modal-whitelisted" className={ modalWhitelist ? 'show' : 'hide' }>
