@@ -87,7 +87,14 @@ document.head.appendChild(script);
   
       data.data.forEach(postcodeGroup => {
         if (postcodeGroup.status == 'whitelisted') {
+          
+          var whitelistArrNoSpacesLowercase = postcodeGroup.postcode.map(postcode => {
+            var postcodeNoSpaces = postcode.replace(/\s/g, ``);
+            return postcodeNoSpaces.toLowerCase()
+          })
           whitelistArr = postcodeGroup.postcode;
+
+          console.log(whitelistArrNoSpacesLowercase)
         }
         if (postcodeGroup.status == 'blacklisted') {
           blacklistArr = postcodeGroup.postcode;
@@ -291,7 +298,8 @@ document.head.appendChild(script);
       e.preventDefault();
       var formData = new FormData(form);
       var postcodeValue = formData.get('postcode')
-      checkPostcode(postcodeValue);
+      var postcodeValueNoSpacesLowercase = postcodeValue.replace(/\s/g, ``);
+      checkPostcode(postcodeValueNoSpacesLowercase);
       
     })
   }
@@ -580,28 +588,49 @@ document.head.appendChild(script);
     let postcodeMsg = document.getElementById('postcode-msg')
     let lowerRung = document.getElementById('lower-rung-sidebar')
   
-    if (whitelistArr.find(checkpostcodeList)) {
-      console.log('matches whitelist')
-      postcodeMsg.innerHTML = "valid"
-      postcodeMsg.classList.add('white')
-      postcodeMsg.classList.remove('black')
-      lowerRung.classList.add('show')
+    // if (whitelistArr.find(checkpostcodeList)) {
+    //   console.log('matches whitelist')
+    //   postcodeMsg.innerHTML = "valid"
+    //   postcodeMsg.classList.add('white')
+    //   postcodeMsg.classList.remove('black')
+    //   lowerRung.classList.add('show')
+
+    //   localStorage.setItem("postcode", value)
   
-      // localStorage.setItem("postcode", JSON.stringify(value));
-      localStorage.setItem("postcode", value)
-  
-    } else if (blacklistArr.find(checkpostcodeList)) {
+    // } else if (blacklistArr.find(checkpostcodeList)) {
+    //   console.log('matches blacklist')
+    //   postcodeMsg.classList.add('black')
+    //   postcodeMsg.classList.remove('white')
+    //   postcodeMsg.innerHTML = "invalid"
+    //   lowerRung.classList.remove('show')
+    // } else {
+    //   console.log('no match')
+    //   postcodeMsg.innerHTML = "invalid"
+    //   postcodeMsg.classList.add('black')
+    //   postcodeMsg.classList.remove('white')
+    //   lowerRung.classList.remove('show')
+    // }
+
+    if (blacklistArr.find(checkpostcodeList)) {
       console.log('matches blacklist')
       postcodeMsg.classList.add('black')
       postcodeMsg.classList.remove('white')
       postcodeMsg.innerHTML = "invalid"
       lowerRung.classList.remove('show')
+    } else if (whitelistArr.find(checkpostcodeList)) {
+      console.log('matches whitelist')
+      postcodeMsg.innerHTML = "valid"
+      postcodeMsg.classList.add('white')
+      postcodeMsg.classList.remove('black')
+      lowerRung.classList.add('show')
+
+      localStorage.setItem("postcode", value)
     } else {
-      console.log('no match')
-      postcodeMsg.innerHTML = "invalid"
-      postcodeMsg.classList.add('black')
-      postcodeMsg.classList.remove('white')
-      lowerRung.classList.remove('show')
+      console.log('matches nothing')
+      postcodeMsg.innerHTML = "valid"
+      postcodeMsg.classList.add('white')
+      postcodeMsg.classList.remove('black')
+      lowerRung.classList.add('show')
     }
   
     function checkpostcodeList(postcode) {
@@ -710,11 +739,6 @@ document.head.appendChild(script);
     .then(async data => {
       multiStepCart(data)
       stepBar()
-
-      function sundays(date) {
-        var day = date.getDay();
-        return (day === 0);
-      }
 
       $("#twodate").datepicker({ minDate: 0, maxDate: "+1M +10D", beforeShowDay: $.datepicker.noWeekends });
       $("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")

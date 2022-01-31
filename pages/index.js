@@ -1,93 +1,271 @@
-import React, { useState, useEffect } from 'react';
+import {useState, useEffect} from 'react'
 import axios from 'axios'
-import { EmptyState, Layout, Page, Heading, Card } from '@shopify/polaris';
-import { ResourcePicker, TitleBar } from '@shopify/app-bridge-react';
+import { EmptyState, Layout, Page, Heading, TextField, Card, Button } from '@shopify/polaris';
+import { badValueMessage } from 'graphql/validation/rules/ValuesOfCorrectType';
 
-import TestComponent from '../components/TestComponent'
+const Delivery = () => {
 
+  const [initialValue, setInitialValueBlack] = useState([]);
+  const [initialValueWhite, setInitialValueWhite] = useState([]);
 
-const Index = () => {
+  const [value, setValue] = useState('');
+  const [valueWhite, setValueWhite] = useState('');
+  const [whitelistedPostcodes, setWhitelistedPostcodes] = useState([])
+  const [blacklistedPostcodes, setBlacklistedPostcodes] = useState([])
+  const [removeValueBlack, setRemoveValueBlack] = useState('')
+  const [removeValueWhite, setRemoveValueWhite] = useState('')
 
-  const [modal, setModal] = useState({ open: false })
-  const [modalProd, setModalProd] = useState({ open: false })
-  const [collectionId, setCollectionId] = useState('')
+  const [modalBlacklist, setModalBlacklist] = useState(false);
+  const [modalWhitelist, setModalWhitelist] = useState(false);
 
   useEffect(() => {
-    getUpsellCollection() 
-    console.log('starting req')
-  }, [])
+    // setInitial value for postcodes from db
+    getAndSetPostcode()
+  }, []);
 
-  
-  function handleSelection(resources) {
-    const collectionIdFromResources = resources.selection[0].id;
-    setModal({open:false})
-    
-    // change this to removing the products
-    setUpsellCollection(collectionIdFromResources)
+  const handleChange = (newValue) => {
+    setValue(newValue)
+  };
+
+  const handleChangeWhite = (newValue) => {
+    setValueWhite(newValue)
+  };
+
+  const handleChangeRemoveBlack = (newValue) => {
+    setRemoveValueBlack(newValue)
+
+  }
+  const handleChangeRemoveWhite = (newValue) => {
+    setRemoveValueWhite(newValue)
   }
 
-  function setUpsellCollection(collectionIdFromResources) {
-    const url = '/api/collectionUpsell'
-    console.log(collectionIdFromResources)
-
-    axios.post(url, {"collection": collectionIdFromResources})
-      .then(res => {
-        setCollectionId(collectionIdFromResources)
-      })
-  }
-
-  function getUpsellCollection() {
-    const url = '/api/collectionUpsell'
-
+  async function getAndSetPostcode() {
+    const url = '/api/postcode'
     axios.get(url)
-      .then(res => {
-        console.log('res', res)
-        if (res.data.data.length) {
-          setCollectionId(res.data.data[0].upsellCollectionId)
+      .then((res) => { 
+        let postcode = res.data.data[1].postcode
+        let postcodeWhite = res.data.data[0].postcode
+        console.log(res.data.data)
+        if (postcode.length) {
+          console.log(postcode)
+          setBlacklistedPostcodes(postcode)
+          setInitialValueBlack(postcode)
         } else {
-          setCollectionId('')
+          setInitialValueBlack([])
         }
-    })
+
+        if (postcodeWhite) {
+          setWhitelistedPostcodes(postcodeWhite)
+          setInitialValueWhite(postcodeWhite)
+        }
+
+      })
+      .catch(err => console.log(err))
   }
 
-  function removeUpsellCollectionApi() {
-    const url = '/api/collectionUpsell'
-    axios.delete(url)
+  async function submitPostcodeAPI(status) {
+    const url = '/api/postcode'
+    let sendingValue;
+    
+    if (status == 'blacklisted') {
+      let trimResults = value.split(',').map(element => {
+        return element.trim();
+      });
+
+      sendingValue = [...initialValue, ...trimResults];
+    }
+
+    if (status == 'whitelisted') {
+      let trimResults = valueWhite.split(',').map(element => {
+        return element.trim();
+      });
+
+      sendingValue = [...initialValueWhite, ...trimResults];
+    }
+
+    axios.post(url, {"postcodeRecord": sendingValue, "status": status})
       .then(res => {
-        console.log('reloading')
         window.location.reload();
       })
+      .catch(err => console.log(err))
+  }
+
+  async function removePostcodeAPI(status) {
+    const url = '/api/postcode'
+    let sendingValue;
+    
+    if (status == 'blacklisted') {
+      let trimResults = removeValueBlack.split(',').map(element => {
+        return element.trim();
+      });
+
+      let copyArr = [...initialValue]
+      
+      for (var i=0; i<trimResults.length;i++) {
+        if (copyArr.indexOf(trimResults[i]) > -1) {
+          copyArr.splice(copyArr.indexOf(trimResults[i]), 1);
+        }
+      }
+       
+      sendingValue = copyArr;
+    }
+    
+    if (status == 'whitelisted') {
+      let trimResults = removeValueWhite.split(',').map(element => {
+        return element.trim();
+      });
+
+      let copyArr = [...initialValueWhite]
+      
+      for (var i=0; i<trimResults.length;i++) {
+        if (copyArr.indexOf(trimResults[i]) > -1) {
+          copyArr.splice(copyArr.indexOf(trimResults[i]), 1);
+        }
+      }
+       
+      sendingValue = copyArr;
+    }
+
+    axios.post(url, {"postcodeRecord": sendingValue, "status": status})
+      .then(res => {
+        window.location.reload();
+      })
+      .catch(err => console.log(err))
   }
 
   return (
-      <Page>
-          <ResourcePicker
-            resourceType="Collection"
-            selectMultiple={false}
-            open={modal.open}
-            onCancel={() =>  setModal({open: false}) }
-            onSelection={(resources) => handleSelection(resources)}
-          />
-        
-        {collectionId ? 
-       <TestComponent collectionId={collectionId} removeCollection={() => removeUpsellCollectionApi()}/>
-        :
-        <Card sectioned>
-          <EmptyState
-          image="https://cdn.shopify.com/s/files/1/0262/4071/2726/files/emptystate-files.png"
-          heading="Manage your Upsells"
-          action={{
-            content: 'Select Collection',
-            onAction: () => setModal({open:true})
-          }}
-          >
-          </EmptyState>
-        </Card>
-        }
-        
-        
-      </Page>
-  )
-};
+    <Page>
+          <Card sectioned>
+            <h2 style={{fontWeight: 'bold', fontSize: '16px'}}>Blacklisted Postcodes</h2>
+          <p style={{marginTop: '4px',marginBottom: '35px'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalBlacklist(true)}>Click here</span> to see list of post codes currently blacklisted</p>
+              <TextField
+                label="Add postcodes (separate postcodes by comma)"
+                value={value}
+                onChange={handleChange}
+                autoComplete="off"
+              />
+              <div style={{paddingTop: '10px'}}></div>
+              <Button
+                large
+                primary
+                onClick={() => submitPostcodeAPI('blacklisted')}
+              >
+                Save
+              </Button>
 
-export default Index;
+              <br/>
+              <br/>
+              {/* whitelist */}
+              
+              <TextField
+                label="Remove postcodes (separate postcodes by comma)"
+                value={removeValueBlack}
+                onChange={handleChangeRemoveBlack}
+                autoComplete="off"
+              />
+              <div style={{paddingTop: '10px'}}></div>
+              <Button
+                large
+                primary
+                onClick={() => removePostcodeAPI('blacklisted')}
+              >
+                Remove
+              </Button>
+          </Card>
+          {/* <Card title="Remove Blacklisted Postcodes" sectioned>
+              <TextField
+                label="Separate postcodes by comma"
+                value={removeValueBlack}
+                onChange={handleChangeRemoveBlack}
+                autoComplete="off"
+              />
+              <div style={{paddingTop: '10px'}}></div>
+              <Button
+                large
+                primary
+                onClick={() => removePostcodeAPI('blacklisted')}
+              >
+                Remove
+              </Button>
+          </Card> */}
+          {
+            blacklistedPostcodes.length ?
+            <div id="modal-blacklisted" className={ modalBlacklist ? 'show' : 'hide' }>
+              <p class="closeModal" onClick={() => setModalBlacklist(false)}>Close</p>
+              <Card sectioned title="Blacklisted postcodes">
+              <div className="inner-postcodes">
+                  {
+                    blacklistedPostcodes.map((code, i) => {
+                      return (
+                        <div key={i}>{code}</div>
+                      )
+                    })
+                  }
+              </div>
+            </Card>
+          </div>
+            :
+            null
+          }
+         <br/>
+         <br/>
+          <Card sectioned>
+          <h2 style={{fontWeight: 'bold', fontSize: '16px'}}>Whitelisted Postcodes</h2>
+          <p style={{marginTop: '4px',marginBottom: '35px'}}><span style={{textDecoration: 'underline', cursor: 'pointer'}} onClick={() => setModalWhitelist(true)}>Click here</span> to see list of post codes currently whitelisted</p>
+              <TextField
+                label="Add postcodes (separate postcodes by comma)"
+                value={valueWhite}
+                onChange={handleChangeWhite}
+                autoComplete="off"
+              />
+              <div style={{paddingTop: '10px'}}></div>
+              <Button
+                large
+                primary
+                onClick={() => submitPostcodeAPI('whitelisted')}
+              >
+                Save
+              </Button>
+              <br/>
+              <br/>
+              <TextField
+                label="Remove postcodes (separate postcodes by comma)"
+                value={removeValueWhite}
+                onChange={handleChangeRemoveWhite}
+                autoComplete="off"
+              />
+              <div style={{paddingTop: '10px'}}></div>
+              <Button
+                large
+                primary
+                onClick={() => removePostcodeAPI('whitelisted')}
+              >
+                Remove
+              </Button>
+          </Card>
+
+          {
+            whitelistedPostcodes.length ?
+            <div id="modal-whitelisted" className={ modalWhitelist ? 'show' : 'hide' }>
+              <p class="closeModal" onClick={() => setModalWhitelist(false)}>Close</p>
+              <Card sectioned title="Whitelisted postcodes">
+              <div className="inner-postcodes">
+                  {
+                    whitelistedPostcodes.map((code, i) => {
+                      return (
+                        <div key={i}>{code}</div>
+                      )
+                    })
+                  }
+              </div>
+            </Card>
+          </div>
+            :
+            null
+          }
+
+    </Page>
+  )
+}
+
+export default Delivery;
