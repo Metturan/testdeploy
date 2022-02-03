@@ -164,6 +164,7 @@ const Delivery = () => {
                 autoComplete="off"
               />
               <div style={{paddingTop: '10px'}}></div>
+              <div className="redBtn">
               <Button
                 large
                 primary
@@ -171,23 +172,9 @@ const Delivery = () => {
               >
                 Remove
               </Button>
+              </div>
           </Card>
-          {/* <Card title="Remove Blacklisted Postcodes" sectioned>
-              <TextField
-                label="Separate postcodes by comma"
-                value={removeValueBlack}
-                onChange={handleChangeRemoveBlack}
-                autoComplete="off"
-              />
-              <div style={{paddingTop: '10px'}}></div>
-              <Button
-                large
-                primary
-                onClick={() => removePostcodeAPI('blacklisted')}
-              >
-                Remove
-              </Button>
-          </Card> */}
+
           {
             blacklistedPostcodes.length ?
             <div id="modal-blacklisted" className={ modalBlacklist ? 'show' : 'hide' }>
@@ -235,6 +222,7 @@ const Delivery = () => {
                 autoComplete="off"
               />
               <div style={{paddingTop: '10px'}}></div>
+              <div className="redBtn">
               <Button
                 large
                 primary
@@ -242,6 +230,7 @@ const Delivery = () => {
               >
                 Remove
               </Button>
+              </div>
           </Card>
 
           {
