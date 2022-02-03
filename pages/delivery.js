@@ -164,7 +164,7 @@ const Delivery = () => {
                 autoComplete="off"
               />
               <div style={{paddingTop: '10px'}}></div>
-              <div class="redBtn"></div>
+              <div className="redBtn"></div>
                 <Button
                   large
                   primary
@@ -221,7 +221,7 @@ const Delivery = () => {
                 autoComplete="off"
               />
               <div style={{paddingTop: '10px'}}></div>
-              <div class="redBtn">
+              <div className="redBtn">
                 <Button
                   large
                   primary
