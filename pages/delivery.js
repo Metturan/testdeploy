@@ -220,7 +220,7 @@ const Delivery = () => {
                 onChange={handleChangeRemoveWhite}
                 autoComplete="off"
               />
-              <div style={{paddingTop: '10px'}}></div>
+              
               <div className="redBtn">
                 <Button
                   large
