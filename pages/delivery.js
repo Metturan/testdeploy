@@ -164,13 +164,15 @@ const Delivery = () => {
                 autoComplete="off"
               />
               <div style={{paddingTop: '10px'}}></div>
-              <Button
-                large
-                primary
-                onClick={() => removePostcodeAPI('blacklisted')}
-              >
-                Remove
-              </Button>
+              <div id="redBtn">
+                <Button
+                  large
+                  primary
+                  onClick={() => removePostcodeAPI('blacklisted')}
+                >
+                  Remove
+                </Button>
+              </div>
           </Card>
           {/* <Card title="Remove Blacklisted Postcodes" sectioned>
               <TextField

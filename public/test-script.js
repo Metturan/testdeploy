@@ -104,22 +104,21 @@ document.head.appendChild(script);
       var containerStep2 = 
       `<div class="step2-multi">
         <h2 class="title-multi">STEP 1 - choose delivery date</h2>
-        <div class="inner-step-container" style="margin-bottom:20px;">
-          <div>
+        <div class="inner-step-container">
+          <div style="margin-bottom: 7px;">
             <button onclick="click_delivery_input()" class="delivery-button"><span class="button-title">Select Delivery Date</span><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 122.88" style="enable-background:new 0 0 122.88 122.88" xml:space="preserve"><g><path d="M81.61,4.73c0-2.61,2.58-4.73,5.77-4.73c3.19,0,5.77,2.12,5.77,4.73v20.72c0,2.61-2.58,4.73-5.77,4.73 c-3.19,0-5.77-2.12-5.77-4.73V4.73L81.61,4.73z M66.11,103.81c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2H81.9 c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H66.11L66.11,103.81z M15.85,67.09c-0.34,0-0.61-1.43-0.61-3.2 c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H15.85L15.85,67.09z M40.98,67.09 c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H40.98 L40.98,67.09z M66.11,67.09c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2H81.9c0.34,0,0.61,1.43,0.61,3.2 c0,1.77-0.27,3.2-0.61,3.2H66.11L66.11,67.09z M91.25,67.09c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79 c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H91.25L91.25,67.09z M15.85,85.45c-0.34,0-0.61-1.43-0.61-3.2 c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H15.85L15.85,85.45z M40.98,85.45 c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H40.98 L40.98,85.45z M66.11,85.45c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2H81.9c0.34,0,0.61,1.43,0.61,3.2 c0,1.77-0.27,3.2-0.61,3.2H66.11L66.11,85.45z M91.25,85.45c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79 c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H91.25L91.25,85.45z M15.85,103.81c-0.34,0-0.61-1.43-0.61-3.2 c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H15.85L15.85,103.81z M40.98,103.81 c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H40.98 L40.98,103.81z M29.61,4.73c0-2.61,2.58-4.73,5.77-4.73s5.77,2.12,5.77,4.73v20.72c0,2.61-2.58,4.73-5.77,4.73 s-5.77-2.12-5.77-4.73V4.73L29.61,4.73z M6.4,45.32h110.07V21.47c0-0.8-0.33-1.53-0.86-2.07c-0.53-0.53-1.26-0.86-2.07-0.86H103 c-1.77,0-3.2-1.43-3.2-3.2c0-1.77,1.43-3.2,3.2-3.2h10.55c2.57,0,4.9,1.05,6.59,2.74c1.69,1.69,2.74,4.02,2.74,6.59v27.06v65.03 c0,2.57-1.05,4.9-2.74,6.59c-1.69,1.69-4.02,2.74-6.59,2.74H9.33c-2.57,0-4.9-1.05-6.59-2.74C1.05,118.45,0,116.12,0,113.55V48.52 V21.47c0-2.57,1.05-4.9,2.74-6.59c1.69-1.69,4.02-2.74,6.59-2.74H20.6c1.77,0,3.2,1.43,3.2,3.2c0,1.77-1.43,3.2-3.2,3.2H9.33 c-0.8,0-1.53,0.33-2.07,0.86c-0.53,0.53-0.86,1.26-0.86,2.07V45.32L6.4,45.32z M116.48,51.73H6.4v61.82c0,0.8,0.33,1.53,0.86,2.07 c0.53,0.53,1.26,0.86,2.07,0.86h104.22c0.8,0,1.53-0.33,2.07-0.86c0.53-0.53,0.86-1.26,0.86-2.07V51.73L116.48,51.73z M50.43,18.54 c-1.77,0-3.2-1.43-3.2-3.2c0-1.77,1.43-3.2,3.2-3.2h21.49c1.77,0,3.2,1.43,3.2,3.2c0,1.77-1.43,3.2-3.2,3.2H50.43L50.43,18.54z"/></g></svg></button>
           </div>
+          <p id="next-one-validation">Please select a delivery date to continue</p>
         </div>
-        <div class="button-row">
+        <div style="margin-top: 12px;" class="button-row">
           <button id="next-one" onclick="one_click_next()" class="row-btn-next row-btn">Next</button>
         </div>
       </div>`
   
       baseEl.innerHTML = containerStep2
-      
-      if (localStorage.getItem('postcode') === null ) {
-        document.getElementById('next-one').disabled = true;
-      } else {
-        document.getElementById('next-one').disabled = false;
+
+      if (localStorage.getItem('deliveryDate')) {
+        document.querySelector('.button-title').innerText = localStorage.getItem('deliveryDate')
       }
     }
   }
@@ -239,7 +238,6 @@ document.head.appendChild(script);
   }
   
   const fourthPartCart = (data, itemCount) => {
-      console.log(data)
       
       var rowBar = 
         `<div id="edit-info-container">
@@ -280,6 +278,7 @@ document.head.appendChild(script);
             <input autocomplete="off" class="date-present" id="twodate" type="text" placeholder="Delivery date"  />
             <p style="font-weight:bold;">Delivery date selected, please confirm & close. You will be able to choose a time slot at the checkout.</p>
             <button onclick="click_confirmBtn()" id="confirmBtn">CONFIRM & CLOSE</button>
+            
           </div>
         </div>
       </div>`
@@ -327,12 +326,15 @@ document.head.appendChild(script);
   }
   
   function one_click_next() {
-    if (localStorage.getItem('postcode')) {
+    if (localStorage.getItem('deliveryDate')) {
       console.log('clicked')
       baseEl.style.display = "none";
       base2El.style.display = "block"
       removeCurrentHighlightTimeline();
       addCurrentHighlightTimeline(1);
+    } else {
+      // err message
+      document.getElementById('next-one-validation').classList.add('err')
     }
   }
   
@@ -347,7 +349,6 @@ document.head.appendChild(script);
   }
   
   function two_click_addCart() {
-    console.log('add products to cart')
     let arrOfProds = []
     let objsOfProds = Array.from(document.querySelectorAll('.chosen'))
   
@@ -362,6 +363,7 @@ document.head.appendChild(script);
       items: arrOfProds
     }, function() {
       console.log('success, window reload')
+      localStorage.setItem('cartUpsell', true)
       window.location.reload()
     });
   }
@@ -396,6 +398,8 @@ document.head.appendChild(script);
     base2El.style.display = 'none'
     base3El.style.display = 'none'
     base4El.style.display = 'block'
+
+    localStorage.setItem('cartUpsell', false)
   
     document.querySelector('.timeline').style.display = 'none';
     document.querySelector('.cart-checkout').style.display = 'block';
@@ -411,6 +415,8 @@ document.head.appendChild(script);
     base3El.style.display = 'none'
     removeCurrentHighlightTimeline();
     addCurrentHighlightTimeline(1);
+
+    localStorage.setItem('cartUpsell', false)
   
     document.querySelector('#cart-form').scrollIntoView({ behavior: 'smooth', block: 'start'})
   }
@@ -587,29 +593,6 @@ document.head.appendChild(script);
   
     let postcodeMsg = document.getElementById('postcode-msg')
     let lowerRung = document.getElementById('lower-rung-sidebar')
-  
-    // if (whitelistArr.find(checkpostcodeList)) {
-    //   console.log('matches whitelist')
-    //   postcodeMsg.innerHTML = "valid"
-    //   postcodeMsg.classList.add('white')
-    //   postcodeMsg.classList.remove('black')
-    //   lowerRung.classList.add('show')
-
-    //   localStorage.setItem("postcode", value)
-  
-    // } else if (blacklistArr.find(checkpostcodeList)) {
-    //   console.log('matches blacklist')
-    //   postcodeMsg.classList.add('black')
-    //   postcodeMsg.classList.remove('white')
-    //   postcodeMsg.innerHTML = "invalid"
-    //   lowerRung.classList.remove('show')
-    // } else {
-    //   console.log('no match')
-    //   postcodeMsg.innerHTML = "invalid"
-    //   postcodeMsg.classList.add('black')
-    //   postcodeMsg.classList.remove('white')
-    //   lowerRung.classList.remove('show')
-    // }
 
     if (blacklistArr.find(checkpostcodeList)) {
       console.log('matches blacklist')
@@ -640,6 +623,7 @@ document.head.appendChild(script);
   
   var confirmDeliverySidebarInput;
   var confirmDeliveryInput;
+  var confirmDeliverySidebarValue;
   
   function click_confirmBtn() {
     slideoutContainer.classList.remove('open')
@@ -649,13 +633,23 @@ document.head.appendChild(script);
     if (confirmDeliverySidebarValue) {
       confirmDeliveryInput.innerHTML = confirmDeliverySidebarValue;
       delivery_date = confirmDeliverySidebarValue
-      document.getElementById('next-one').disabled = false;
+      localStorage.setItem('deliveryDate', delivery_date)
+      document.getElementById('next-one-validation').classList.remove('err')
+      // remove validation in put if exists
   
      fetch('/cart.js')
       .then(response => response.json())
       .then(data => { 
         fourthPartCart(delivery_date, data.item_count);
       });
+    }
+  }
+
+  function checkIfUpsellAdded() {
+    if (localStorage.getItem('cartUpsell') == true) {
+      // change to third step
+      console.log('cartupsell-in-effect')
+      two_click_next()
     }
   }
   
@@ -730,19 +724,29 @@ document.head.appendChild(script);
     .then(data2 => {
   
     secondPartCart(data2)
-    sideBar();    
+    sideBar();   
+    stepBar()
+    checkIfUpsellAdded() 
 
-    // $("#twodate").datepicker({ minDate: -20, maxDate: "+1M +10D" });
     // Grab second step (naming is backward)
     fetch('https://calm-fjord-82942.herokuapp.com/api/products?shop=extestdevstore.myshopify.com')
     .then(res => res.json())
     .then(async data => {
       multiStepCart(data)
-      stepBar()
 
-      $("#twodate").datepicker({ minDate: 0, maxDate: "+1M +10D", beforeShowDay: $.datepicker.noWeekends });
+      $("#twodate").datepicker({ 
+        minDate: 0, 
+        maxDate: "+1M +10D", 
+        beforeShow: function (input, inst) {
+          var rect = input.getBoundingClientRect();
+          setTimeout(function () {
+            inst.dpDiv.css({ top: rect.top + 44 });
+          }, 0);
+        },
+        beforeShowDay: $.datepicker.noWeekends 
+      });
       $("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")
-      
+
       // grab card products and render them to third step
       fetch('https://calm-fjord-82942.herokuapp.com/api/cardProducts?shop=extestdevstore.myshopify.com')
         .then(res => res.json())

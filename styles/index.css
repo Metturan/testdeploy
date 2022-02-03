@@ -30,6 +30,14 @@
   opacity: 0;
 }
 
+#redBtn {
+  background: red;
+}
+
+#redBtn:hover {
+  background: #bd0000;
+}
+
 #modal-blacklisted.show, #modal-whitelisted.show {
   visibility: visible;
   opacity: 1;
