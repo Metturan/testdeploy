@@ -30,11 +30,11 @@
   opacity: 0;
 }
 
-.redBtn {
+.redBtn button {
   background: red;
 }
 
-.redBtn:hover {
+.redBtn button:hover {
   background: #bd0000;
 }
 
