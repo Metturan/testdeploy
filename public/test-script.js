@@ -646,10 +646,12 @@ document.head.appendChild(script);
   }
 
   function checkIfUpsellAdded() {
-    if (localStorage.getItem('cartUpsell') == true) {
+    if (localStorage.getItem('cartUpsell') == 'true') {
       // change to third step
       console.log('cartupsell-in-effect')
       two_click_next()
+    } else {
+      console.log(localStorage.getItem('cartUpsell'))
     }
   }
   

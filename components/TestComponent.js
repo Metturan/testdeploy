@@ -16,6 +16,7 @@ query getProductsFromCollection($ids: [ID!]!) {
           node {
             id
             title
+            tags
             handle
             images(first:1) {
               edges {
