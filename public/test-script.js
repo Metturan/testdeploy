@@ -1,5 +1,4 @@
 
-
 var script = document.createElement('script');
 script.onload = function () {
     console.log('loaded')
@@ -19,9 +18,11 @@ document.head.appendChild(script);
   var moreinfoOverlay = document.querySelector('.moreinfo-overlay')
   
   let delivery_date;
-  var whitelistArr
-  var blacklistArr
-  
+  var whitelistArr;
+  var blacklistArr;
+  var whitelistArrNoSpacesLowercase;
+  var blacklistArrNoSpacesLowercase;
+
   console.log('execute')
   
   const stepBar = number => {
@@ -65,13 +66,17 @@ document.head.appendChild(script);
                   <div class='inner-item-left'>
                     <a href="/products/${item.productId.handle}"><img src=${item.productId.images.edges[0].node.originalSrc} style="width: 75px;" /></a>
                     <div class="inner-item-content" style="display: flex; justify-content: space-between; flex-direction: column;align-items: start; width: 100%;">
-                        <p style="padding: 10px;margin: 0;font-weight:400;">${item.productId.title}</p>
-                        <div style="width:100%;display:flex;justify-content:space-between;padding: 0px 10px 0 10px;margin: 0;"><div style="font-size:13px;font-weight:400;color:#707070;">£ ${item.productId.variants.edges[0].node.price}</div>
-                        <div onclick="showProdPopup(${variantId})" style="cursor:pointer;font-weight:400;font-size:13px;color:#707070;text-decoration:underline;">(more info)</div></div>
+                        <p class="first-p-inner-item-left" style="${londonOnlyTag ? 'padding: 10px 0 5px 10px;' : 'padding: 10px;'}margin: 0;font-weight:400;">${item.productId.title}</p>
+                        ${londonOnlyTag ? '<p class="display londonTagged" style="max-width: 144px;font-size: 13px;color:#dd0000;margin: 0 0 6px 10px;">This requires a separate order (London Only).</p>' : ''}
+                        
+                        <div class="div-inner-item-content" style="width:100%;display:flex;justify-content:space-between;padding: 0px 10px 0 10px;margin: 0;">
+                          <div style="font-size:13px;font-weight:400;color:#707070;">£ ${item.productId.variants.edges[0].node.price}</div>
+                          <div onclick="showProdPopup(${variantId})" style="cursor:pointer;font-weight:400;font-size:13px;color:#707070;text-decoration:underline;">(more info)</div>
+                        </div>
                     </div>
                   </div>
                   <div class='inner-item-right' style="padding-bottom:10px;">
-                    <button onclick="smallChooseBtnClick(event, this)" data-handle="${item.productId.handle}" data-id="${variantId}" class='choose-upsell upsell-button'>Choose</button>
+                    <button onclick="smallChooseBtnClick(event, this)" data-handle="${item.productId.handle}" data-id="${variantId}" class="${londonOnlyTag ? 'londonTagged' : ''} choose-upsell upsell-button">Choose</button>
                   </div>
   
                 </div>
@@ -96,7 +101,7 @@ document.head.appendChild(script);
       data.data.forEach(postcodeGroup => {
         if (postcodeGroup.status == 'whitelisted') {
           
-          var whitelistArrNoSpacesLowercase = postcodeGroup.postcode.map(postcode => {
+          whitelistArrNoSpacesLowercase = postcodeGroup.postcode.map(postcode => {
             var postcodeNoSpaces = postcode.replace(/\s/g, ``);
             return postcodeNoSpaces.toLowerCase()
           })
@@ -105,6 +110,11 @@ document.head.appendChild(script);
           console.log(whitelistArrNoSpacesLowercase)
         }
         if (postcodeGroup.status == 'blacklisted') {
+          blacklistArrNoSpacesLowercase = postcodeGroup.postcode.map(postcode => {
+            var postcodeNoSpaces = postcode.replace(/\s/g, ``);
+            return postcodeNoSpaces.toLowerCase()
+          })
+
           blacklistArr = postcodeGroup.postcode;
         }
       })
@@ -304,7 +314,7 @@ document.head.appendChild(script);
     form.addEventListener("submit", function(e) {
       e.preventDefault();
       var formData = new FormData(form);
-      var postcodeValue = formData.get('postcode')
+      var postcodeValue = formData.get('postcode').toLowerCase();
       var postcodeValueNoSpacesLowercase = postcodeValue.replace(/\s/g, ``);
       checkPostcode(postcodeValueNoSpacesLowercase);
       
@@ -432,26 +442,27 @@ document.head.appendChild(script);
   
   function smallChooseBtnClick(e, el) {
   
-    if (el.classList.contains('giftcard-button')) {
-      // check add product buttons for giftcard section
-      if (el.classList.contains('chosen')) {
-        el.classList.remove('chosen')
+    // Check to make sure not london only tagged product
+    if (!el.classList.contains('londonTagged')) {
+      if (el.classList.contains('giftcard-button')) {
+        // check add product buttons for giftcard section
+        if (el.classList.contains('chosen')) {
+          el.classList.remove('chosen')
+        } else {
+          let arrayOfGiftButtons = Array.from(base3El.querySelectorAll('.giftcard-button'))
+          arrayOfGiftButtons.forEach(btn => { btn.classList.remove('chosen') })
+          el.classList.add('chosen')
+        }
       } else {
-        let arrayOfGiftButtons = Array.from(base3El.querySelectorAll('.giftcard-button'))
-        arrayOfGiftButtons.forEach(btn => { btn.classList.remove('chosen') })
-        el.classList.add('chosen')
-      }
-    } else {
-      // check add product buttons for upsell section
-      if (el.classList.contains('chosen')) {
-        el.classList.remove('chosen')
-      } else {
-        el.classList.add('chosen')
+        // check add product buttons for upsell section
+        if (el.classList.contains('chosen')) {
+          el.classList.remove('chosen')
+        } else {
+          el.classList.add('chosen')
+        }
       }
     }
-  
-  
-  
+
     var arrayOfUpsellBtns = Array.from(base2El.querySelectorAll('.chosen'));
   
     // if btns have class of chosen then disable next button
@@ -602,30 +613,65 @@ document.head.appendChild(script);
     let postcodeMsg = document.getElementById('postcode-msg')
     let lowerRung = document.getElementById('lower-rung-sidebar')
 
-    if (blacklistArr.find(checkpostcodeList)) {
+    console.log(value)
+
+    if (blacklistArrNoSpacesLowercase.find(checkpostcodeList)) {
       console.log('matches blacklist')
       postcodeMsg.classList.add('black')
       postcodeMsg.classList.remove('white')
       postcodeMsg.innerHTML = "invalid"
       lowerRung.classList.remove('show')
-    } else if (whitelistArr.find(checkpostcodeList)) {
+
+      localStorage.setItem("postcode", '')
+
+    } else if (whitelistArrNoSpacesLowercase.find(checkpostcodeList)) {
       console.log('matches whitelist')
       postcodeMsg.innerHTML = "valid"
       postcodeMsg.classList.add('white')
       postcodeMsg.classList.remove('black')
       lowerRung.classList.add('show')
 
+      // Remove londonTagged classList
+      var arrayOfLondonTaggedEls = Array.from(document.querySelectorAll('.londonTagged'))
+      arrayOfLondonTaggedEls.forEach(el => {
+        el.classList.remove('londonTagged')
+      })
+
       localStorage.setItem("postcode", value)
     } else {
-      console.log('matches nothing')
-      postcodeMsg.innerHTML = "valid"
-      postcodeMsg.classList.add('white')
-      postcodeMsg.classList.remove('black')
-      lowerRung.classList.add('show')
+      var url = `https://api.postcodes.io/postcodes/${value}/validate`
+      fetch(url)
+        .then(res => {
+          res.json().then(parsedData => {
+            var result = parsedData.result
+            checkResult(result)
+          })
+        })
+        .catch(err => console.log(err))
     }
+    
+
   
     function checkpostcodeList(postcode) {
       return postcode == value;
+    }
+
+    function checkResult(result) {
+      if (result) {
+        console.log('valid postcode')
+        postcodeMsg.innerHTML = "valid"
+        postcodeMsg.classList.add('white')
+        postcodeMsg.classList.remove('black')
+        lowerRung.classList.add('show')
+      } else {
+        console.log('invalid postcode')
+        postcodeMsg.classList.add('black')
+        postcodeMsg.classList.remove('white')
+        postcodeMsg.innerHTML = "invalid"
+        lowerRung.classList.remove('show')
+
+        localStorage.setItem("postcode", '')
+      }
     }
   }
   
