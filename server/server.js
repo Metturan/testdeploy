@@ -349,7 +349,7 @@ app.prepare().then(async () => {
       const body = ctx.request.body;
     console.log('body', body.collection)
       // Check if item in DB
-      var instance = new MongoUpsellCollection({upsellCollectionId: body.collection})
+      var instance = new MongoUpsellCollection({upsellCollectionId: body.collection, upsellCollectionTitle: body.title})
       await instance.save()
         .then(() => console.log('saved to db'))
         .catch(err => console.log(err))

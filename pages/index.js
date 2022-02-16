@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import { EmptyState, Layout, Page, Heading, TextField, Card, Button } from '@shopify/polaris';
-import { badValueMessage } from 'graphql/validation/rules/ValuesOfCorrectType';
 
 const Delivery = () => {
 

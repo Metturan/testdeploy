@@ -33,7 +33,7 @@ const Index = () => {
     const url = '/api/collectionUpsell'
     console.log(collectionIdFromResources)
 
-    axios.post(url, {"collection": collectionIdFromResources})
+    axios.post(url, {"collection": collectionIdFromResources, "title": title})
       .then(res => {
         setCollectionId(collectionIdFromResources)
         setCollectionTitle(title)

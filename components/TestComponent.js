@@ -54,8 +54,6 @@ function TestComponent (props) {
     return <div></div>
   }
 
-  console.log(data)
-
   var productList = data.nodes[0].products.edges
 
   deleteApiData()
