@@ -54,8 +54,9 @@ function TestComponent (props) {
     return <div></div>
   }
 
+  console.log(data)
+
   var productList = data.nodes[0].products.edges
-  console.log(productList)
 
   deleteApiData()
   productList.map(product => makeApiCall(product.node))

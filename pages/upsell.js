@@ -11,6 +11,7 @@ const Index = () => {
   const [modal, setModal] = useState({ open: false })
   const [modalProd, setModalProd] = useState({ open: false })
   const [collectionId, setCollectionId] = useState('')
+  const [collectionTitle, setCollectionTitle] = useState('')
 
   useEffect(() => {
     getUpsellCollection() 
@@ -20,20 +21,22 @@ const Index = () => {
   
   function handleSelection(resources) {
     const collectionIdFromResources = resources.selection[0].id;
+    const title = resources.selection[0].title
     console.log(resources)
     setModal({open:false})
     
     // change this to removing the products
-    setUpsellCollection(collectionIdFromResources)
+    setUpsellCollection(collectionIdFromResources, title)
   }
 
-  function setUpsellCollection(collectionIdFromResources) {
+  function setUpsellCollection(collectionIdFromResources, title) {
     const url = '/api/collectionUpsell'
     console.log(collectionIdFromResources)
 
     axios.post(url, {"collection": collectionIdFromResources})
       .then(res => {
         setCollectionId(collectionIdFromResources)
+        setCollectionTitle(title)
       })
   }
 
@@ -71,7 +74,7 @@ const Index = () => {
           />
         
         {collectionId ? 
-       <TestComponent collectionId={collectionId} removeCollection={() => removeUpsellCollectionApi()}/>
+       <TestComponent collectionTitle={collectionTitle} collectionId={collectionId} removeCollection={() => removeUpsellCollectionApi()}/>
         :
         <Card sectioned>
           <EmptyState
