@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const cardProductSchema = new Schema({
-  productId: {}
+  productId: {},
+  collectionTitle: {}
 })
 
 mongoose.model('cardProducts', cardProductSchema)

@@ -20,6 +20,7 @@ const Index = () => {
   
   function handleSelection(resources) {
     const collectionIdFromResources = resources.selection[0].id;
+    console.log(resources)
     setModal({open:false})
     
     // change this to removing the products

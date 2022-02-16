@@ -45,8 +45,8 @@ document.head.appendChild(script);
   
       var containerStep1 = 
         `<div class="step1-multi">
-          <h2 class="title-multi">Add optional extras to your order or skip</h2>
-          
+          <h2 class="title-multi">STEP 2 - Choose extras</h2>
+          <p>If you would like to add any of the following extras listed below, please select them by selecting the right boxes and clicking "Add to Cart" to continue.</p>
         </div>
         <div class="inner-products" style="display:flex;flex-wrap:wrap;">
           ${data.data.map(item => {
@@ -59,7 +59,6 @@ document.head.appendChild(script);
             }
             
             console.log("item.tags",item.productId.tags)
-            console.log(londonOnlyTag)
 
             return `
                 <div class="item" data-tagged="${londonOnlyTag ? true : false }" data-id="${variantId}" data-desc="${item.productId.desc}" style="width:50%;display: flex; align-items: end; padding: 11px 10px;">
@@ -76,7 +75,7 @@ document.head.appendChild(script);
                     </div>
                   </div>
                   <div class='inner-item-right' style="padding-bottom:10px;">
-                    <button onclick="smallChooseBtnClick(event, this)" data-handle="${item.productId.handle}" data-id="${variantId}" class="${londonOnlyTag ? 'londonTagged' : ''} choose-upsell upsell-button">Choose</button>
+                    <button onclick="smallChooseBtnClick(event, this)" data-handle="${item.productId.handle}" data-id="${variantId}" class="${londonOnlyTag ? 'londonTagged' : ''} choose-upsell upsell-button">Add</button>
                   </div>
   
                 </div>
@@ -121,7 +120,7 @@ document.head.appendChild(script);
     
       var containerStep2 = 
       `<div class="step2-multi">
-        <h2 style="margin-bottom: 23px;padding-top:23px;" class="title-multi">STEP 1 - choose delivery date</h2>
+        <h2 style="margin-bottom: 23px;padding-top:23px;" class="title-multi">STEP 1 - choose delivery</h2>
         <div class="inner-step-container">
           <div style="margin-bottom: 7px;">
             <button onclick="click_delivery_input()" class="delivery-button"><span class="button-title">Select Delivery Date</span><svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 122.88" style="enable-background:new 0 0 122.88 122.88" xml:space="preserve"><g><path d="M81.61,4.73c0-2.61,2.58-4.73,5.77-4.73c3.19,0,5.77,2.12,5.77,4.73v20.72c0,2.61-2.58,4.73-5.77,4.73 c-3.19,0-5.77-2.12-5.77-4.73V4.73L81.61,4.73z M66.11,103.81c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2H81.9 c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H66.11L66.11,103.81z M15.85,67.09c-0.34,0-0.61-1.43-0.61-3.2 c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H15.85L15.85,67.09z M40.98,67.09 c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H40.98 L40.98,67.09z M66.11,67.09c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2H81.9c0.34,0,0.61,1.43,0.61,3.2 c0,1.77-0.27,3.2-0.61,3.2H66.11L66.11,67.09z M91.25,67.09c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79 c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H91.25L91.25,67.09z M15.85,85.45c-0.34,0-0.61-1.43-0.61-3.2 c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H15.85L15.85,85.45z M40.98,85.45 c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H40.98 L40.98,85.45z M66.11,85.45c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2H81.9c0.34,0,0.61,1.43,0.61,3.2 c0,1.77-0.27,3.2-0.61,3.2H66.11L66.11,85.45z M91.25,85.45c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79 c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H91.25L91.25,85.45z M15.85,103.81c-0.34,0-0.61-1.43-0.61-3.2 c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H15.85L15.85,103.81z M40.98,103.81 c-0.34,0-0.61-1.43-0.61-3.2c0-1.77,0.27-3.2,0.61-3.2h15.79c0.34,0,0.61,1.43,0.61,3.2c0,1.77-0.27,3.2-0.61,3.2H40.98 L40.98,103.81z M29.61,4.73c0-2.61,2.58-4.73,5.77-4.73s5.77,2.12,5.77,4.73v20.72c0,2.61-2.58,4.73-5.77,4.73 s-5.77-2.12-5.77-4.73V4.73L29.61,4.73z M6.4,45.32h110.07V21.47c0-0.8-0.33-1.53-0.86-2.07c-0.53-0.53-1.26-0.86-2.07-0.86H103 c-1.77,0-3.2-1.43-3.2-3.2c0-1.77,1.43-3.2,3.2-3.2h10.55c2.57,0,4.9,1.05,6.59,2.74c1.69,1.69,2.74,4.02,2.74,6.59v27.06v65.03 c0,2.57-1.05,4.9-2.74,6.59c-1.69,1.69-4.02,2.74-6.59,2.74H9.33c-2.57,0-4.9-1.05-6.59-2.74C1.05,118.45,0,116.12,0,113.55V48.52 V21.47c0-2.57,1.05-4.9,2.74-6.59c1.69-1.69,4.02-2.74,6.59-2.74H20.6c1.77,0,3.2,1.43,3.2,3.2c0,1.77-1.43,3.2-3.2,3.2H9.33 c-0.8,0-1.53,0.33-2.07,0.86c-0.53,0.53-0.86,1.26-0.86,2.07V45.32L6.4,45.32z M116.48,51.73H6.4v61.82c0,0.8,0.33,1.53,0.86,2.07 c0.53,0.53,1.26,0.86,2.07,0.86h104.22c0.8,0,1.53-0.33,2.07-0.86c0.53-0.53,0.86-1.26,0.86-2.07V51.73L116.48,51.73z M50.43,18.54 c-1.77,0-3.2-1.43-3.2-3.2c0-1.77,1.43-3.2,3.2-3.2h21.49c1.77,0,3.2,1.43,3.2,3.2c0,1.77-1.43,3.2-3.2,3.2H50.43L50.43,18.54z"/></g></svg></button>
@@ -146,7 +145,7 @@ document.head.appendChild(script);
   
     var containerStep3 = 
       `<div class="step3-multi">
-        <h2 class="title-multi">STEP 3 - add a card (optional)</h2>
+        <h2 class="title-multi">STEP 3 - Choose card and message</h2>
         <div class="third-firstrow">
           <div style="margin-bottom:5px;"></div>
           <div style="margin-bottom:5px;">
@@ -164,8 +163,8 @@ document.head.appendChild(script);
                 <div class='inner-item-left'>
                   <a href="/products/${item.productId.handle}"><img src=${item.productId.images.edges[0].node.originalSrc} style="width: 75px;" /></a>
                   <div class="inner-item-content" style="display: flex; justify-content: space-between; flex-direction: column;align-items: start; width: 100%;">
-                      <p style="padding: 10px;margin: 0;font-weight:400;">${item.productId.title}</p>
-                      <div style="width:100%;display:flex;justify-content:space-between;padding: 0px 10px 0 10px;margin: 0;"><div style="font-size:13px;font-weight:400;color:#707070;">£ ${item.productId.variants.edges[0].node.price}</div>
+                      <p class="first-p-inner-item-left" style="padding: 10px;margin: 0;font-weight:400;">${item.productId.title}</p>
+                      <div class="div-inner-item-content" style="width:100%;display:flex;justify-content:space-between;padding: 0px 10px 0 10px;margin: 0;"><div style="font-size:13px;font-weight:400;color:#707070;">£ ${item.productId.variants.edges[0].node.price}</div>
                       <div onclick="showProdPopup(${variantId})" style="cursor:pointer;font-weight:400;font-size:13px;color:#707070;text-decoration:underline;">(more info)</div></div>
                   </div>
                 </div>
@@ -694,6 +693,7 @@ document.head.appendChild(script);
      fetch('/cart.js')
       .then(response => response.json())
       .then(data => { 
+        console.log(data);
         fourthPartCart(delivery_date, data.item_count);
       });
     }
@@ -780,7 +780,7 @@ document.head.appendChild(script);
     .then(data2 => {
   
     secondPartCart(data2)
-    sideBar();   
+    sideBar();
     stepBar()
     checkIfUpsellAdded() 
 
@@ -792,7 +792,7 @@ document.head.appendChild(script);
 
       $("#twodate").datepicker({ 
         minDate: 0, 
-        maxDate: "+1M +10D", 
+        // maxDate: "+1M +10D", 
         beforeShow: function (input, inst) {
           var rect = input.getBoundingClientRect();
           setTimeout(function () {
@@ -802,6 +802,12 @@ document.head.appendChild(script);
         beforeShowDay: $.datepicker.noWeekends 
       });
       $("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")
+
+      if (localStorage.getItem('deliveryDate')) {
+        // Show calendar in sidebar if postcode has already been validated
+        document.getElementById("lower-rung-sidebar").classList.add('show')
+        document.getElementById("twodate").value = localStorage.getItem('deliveryDate')
+      }
 
       // grab card products and render them to third step
       fetch('https://calm-fjord-82942.herokuapp.com/api/cardProducts?shop=extestdevstore.myshopify.com')
@@ -821,6 +827,17 @@ document.head.appendChild(script);
                   .then(res => res.json())
                   .then(async data => {
                     occasionOptionsSelect(data)
+
+                    // if delivery date in localstorage already initialize base4el
+                    if (localStorage.getItem('deliveryDate')) {
+                      fetch('/cart.js')
+                      .then(response => response.json())
+                      .then(data => { 
+                        console.log(data);
+                        fourthPartCart(localStorage.getItem('deliveryDate'), data.item_count);
+                      });
+                    }
+
                   })
               })   
         })
