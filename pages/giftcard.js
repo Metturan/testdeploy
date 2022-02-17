@@ -57,8 +57,8 @@ const giftCard = () => {
       axios.get('/api/collectionCard')
         .then(res => {
           console.log(res.data.data)
-          if (res.data.data) {
-            var collectionId = Object.keys(res.data.data[0].cardCollectionId.collection)[0]
+          if (res.data.data.length) {
+            var collectionId = Object.keys(res.data.data[0].cardCollectionId)[0]
 
             if (collectionId) {
               setCardCollectionId(collectionId)
