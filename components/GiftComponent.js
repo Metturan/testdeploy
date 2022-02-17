@@ -57,6 +57,7 @@ function GiftComponent (props) {
   var productList = data.nodes[0].products.edges
 
   deleteApiData()
+
   productList.map(product => makeApiCall(product.node))
   var cardListArray = {products: productList, collectionTitle: props.collectionTitle}
   makeApiCall(cardListArray)
@@ -68,13 +69,6 @@ function GiftComponent (props) {
       .then(res => console.log(res))
       .catch(err => console.log(err))
   }
-
-  // async function makeApiCall(products) {
-  //   const url = '/api/cardProducts'
-  //   axios.post(url, products)
-  //     .then(res => console.log(res))
-  //     .catch(err => console.log(err))
-  // }
 
   function deleteApiData() {
     const url = '/api/cardProducts'
