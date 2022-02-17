@@ -201,8 +201,15 @@ app.prepare().then(async () => {
   router.post('/api/cardProducts', koaBody(), async (ctx)=> {
     try {
       const body = ctx.request.body;
+
+      var el = {
+        cardList: {
+          cardsId: body.products,
+          collectionTitle: body.collectionTitle
+        }
+      }
       // Check if item in DB
-      var instance = new MongoCardProduct({productId: body})
+      var instance = new MongoCardProduct(el)
       await instance.save()
         .then(() => console.log('saved to db'))
         .catch(err => console.log(err))

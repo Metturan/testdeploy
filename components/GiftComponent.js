@@ -58,13 +58,23 @@ function GiftComponent (props) {
 
   deleteApiData()
   productList.map(product => makeApiCall(product.node))
+  var cardListArray = {products: productList, collectionTitle: props.collectionTitle}
+  makeApiCall(cardListArray)
 
-  async function makeApiCall(products) {
+  async function makeApiCall(productListArray) {
     const url = '/api/cardProducts'
-    axios.post(url, products)
+
+    axios.post(url, productListArray)
       .then(res => console.log(res))
       .catch(err => console.log(err))
   }
+
+  // async function makeApiCall(products) {
+  //   const url = '/api/cardProducts'
+  //   axios.post(url, products)
+  //     .then(res => console.log(res))
+  //     .catch(err => console.log(err))
+  // }
 
   function deleteApiData() {
     const url = '/api/cardProducts'

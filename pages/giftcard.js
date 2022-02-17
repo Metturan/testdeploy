@@ -25,6 +25,7 @@ const giftCard = () => {
   const [occasionFieldSix, setOccasionFieldSix] = useState('')
   const [occasionFieldSeven, setOccasionFieldSeven] = useState('')
   const [cardCollectionId, setCardCollectionId] = useState('')
+  const [collectionTitle, setCollectionTitle] = useState('')
 
   function initFunction() {
     axios.get('/api/deliveryInstructions')
@@ -98,18 +99,20 @@ const giftCard = () => {
 
   function handleSelection(resources) {
     const collectionIdFromResources = resources.selection[0].id;
+    const title = resources.selection[0].title
     setModal({open:false})
 
-    setCardCollectionFn(collectionIdFromResources)
+    setCardCollectionFn(collectionIdFromResources, title)
   }
 
-  function setCardCollectionFn(collectionIdFromResources) {
+  function setCardCollectionFn(collectionIdFromResources, title) {
     const url = '/api/collectionCard'
 
-    axios.post(url, collectionIdFromResources)
+    axios.post(url, {"collection": collectionIdFromResources, "title": title})
     .then(res => {
       console.log("collectionIdFromResources:",collectionIdFromResources)
       setCardCollectionId(collectionIdFromResources)
+      setCollectionTitle(title)
     })
   }
 
@@ -188,7 +191,7 @@ const giftCard = () => {
 
 <Layout.Section>
         {cardCollectionId ? 
-          <GiftComponent cardCollectionId={cardCollectionId}/>
+          <GiftComponent cardCollectionId={cardCollectionId} collectionTitle={props.collectionTitle}/>
           :
           <Card sectioned>
             <EmptyState

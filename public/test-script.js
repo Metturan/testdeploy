@@ -41,41 +41,40 @@ document.head.appendChild(script);
   
   const multiStepCart = data => {
     if (baseEl) {
-      console.log(data)
+      console.log(data.data[0].productList.productId)
   
       var containerStep1 = 
         `<div class="step1-multi">
           <h2 class="title-multi">STEP 2 - Choose extras</h2>
-          <p>If you would like to add any of the following extras listed below, please select them by selecting the right boxes and clicking "Add to Cart" to continue.</p>
+          <p style="max-width: 346px;">If you would like to add any of the following extras listed below, please select them by selecting the right boxes and clicking "Add to Cart" to continue.</p>
+          <p style="font-weight:Bold;">${data.data[0].productList.collectionTitle}</p>
         </div>
         <div class="inner-products" style="display:flex;flex-wrap:wrap;">
-          ${data.data.map(item => {
+          ${data.data[0].productList.productId.map(item => {
            
-            var londonOnlyTag = item.productId.tags.find(checkLondonTag)
-            var variantId = item.productId.variants.edges[0].node.id.split('/')[4]
+            var londonOnlyTag = item.node.tags.find(checkLondonTag)
+            var variantId = item.node.variants.edges[0].node.id.split('/')[4]
 
             function checkLondonTag(tag) {
               return tag == 'London ONLY'
             }
             
-            console.log("item.tags",item.productId.tags)
-
             return `
-                <div class="item" data-tagged="${londonOnlyTag ? true : false }" data-id="${variantId}" data-desc="${item.productId.desc}" style="width:50%;display: flex; align-items: end; padding: 11px 10px;">
+                <div class="item" data-tagged="${londonOnlyTag ? true : false }" data-id="${variantId}" data-desc="${item.node.desc}" style="width:50%;display: flex; align-items: end; padding: 11px 10px;">
                   <div class='inner-item-left'>
-                    <a href="/products/${item.productId.handle}"><img src=${item.productId.images.edges[0].node.originalSrc} style="width: 75px;" /></a>
+                    <a href="/products/${item.node.handle}"><img src=${item.node.images.edges[0].node.originalSrc} style="width: 75px;" /></a>
                     <div class="inner-item-content" style="display: flex; justify-content: space-between; flex-direction: column;align-items: start; width: 100%;">
-                        <p class="first-p-inner-item-left" style="${londonOnlyTag ? 'padding: 10px 0 5px 10px;' : 'padding: 10px;'}margin: 0;font-weight:400;">${item.productId.title}</p>
+                        <p class="first-p-inner-item-left" style="${londonOnlyTag ? 'padding: 10px 0 5px 10px;' : 'padding: 10px;'}margin: 0;font-weight:400;">${item.node.title}</p>
                         ${londonOnlyTag ? '<p class="display londonTagged" style="max-width: 144px;font-size: 13px;color:#dd0000;margin: 0 0 6px 10px;">This requires a separate order (London Only).</p>' : ''}
                         
                         <div class="div-inner-item-content" style="width:100%;display:flex;justify-content:space-between;padding: 0px 10px 0 10px;margin: 0;">
-                          <div style="font-size:13px;font-weight:400;color:#707070;">£ ${item.productId.variants.edges[0].node.price}</div>
+                          <div style="font-size:13px;font-weight:400;color:#707070;">£ ${item.node.variants.edges[0].node.price}</div>
                           <div onclick="showProdPopup(${variantId})" style="cursor:pointer;font-weight:400;font-size:13px;color:#707070;text-decoration:underline;">(more info)</div>
                         </div>
                     </div>
                   </div>
                   <div class='inner-item-right' style="padding-bottom:10px;">
-                    <button onclick="smallChooseBtnClick(event, this)" data-handle="${item.productId.handle}" data-id="${variantId}" class="${londonOnlyTag ? 'londonTagged' : ''} choose-upsell upsell-button">Add</button>
+                    <button onclick="smallChooseBtnClick(event, this)" data-handle="${item.node.handle}" data-id="${variantId}" class="${londonOnlyTag ? 'londonTagged' : ''} choose-upsell upsell-button">Add</button>
                   </div>
   
                 </div>
