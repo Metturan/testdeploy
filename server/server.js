@@ -349,7 +349,7 @@ app.prepare().then(async () => {
       const body = ctx.request.body;
     console.log('body', body.collection)
       // Check if item in DB
-      var instance = new MongoUpsellCollection({upsellCollectionId: body.collection, upsellCollectionTitle: body.title})
+      var instance = new MongoUpsellCollection({upsellCollectionId: body.collection})
       await instance.save()
         .then(() => console.log('saved to db'))
         .catch(err => console.log(err))
@@ -394,6 +394,13 @@ app.prepare().then(async () => {
     try {
       const body = ctx.request.body;
       // Check if item in DB
+
+      // var el = {
+      //   productList: {
+      //     productId: body,
+      //     collectionTitles: body
+      //   }
+      // }
       var instance = new MongoProduct({productId: body})
       await instance.save()
         .then(() => console.log('saved to db'))

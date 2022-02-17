@@ -59,6 +59,7 @@ function TestComponent (props) {
   deleteApiData()
   productList.map(product => makeApiCall(product.node))
 
+  console.log(productList)
   async function makeApiCall(products) {
     const url = '/api/products'
 
