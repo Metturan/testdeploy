@@ -56,9 +56,9 @@ const giftCard = () => {
 
       axios.get('/api/collectionCard')
         .then(res => {
-          console.log(res.data.data)
+          console.log(res.data.data[0].cardCollectionId)
           if (res.data.data.length) {
-            var collectionId = Object.keys(res.data.data[0].cardCollectionId)[0]
+            var collectionId = res.data.data[0].cardCollectionId
 
             if (collectionId) {
               setCardCollectionId(collectionId)
@@ -66,7 +66,6 @@ const giftCard = () => {
               setCardCollectionId('')
             }
           }
-
 
           // put in third call for occassions dropdown
           axios.get('/api/occasion')
