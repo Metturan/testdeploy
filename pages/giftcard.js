@@ -191,7 +191,7 @@ const giftCard = () => {
 
 <Layout.Section>
         {cardCollectionId ? 
-          <GiftComponent cardCollectionId={cardCollectionId} collectionTitle={props.collectionTitle}/>
+          <GiftComponent cardCollectionId={cardCollectionId} collectionTitle={collectionTitle}/>
           :
           <Card sectioned>
             <EmptyState
