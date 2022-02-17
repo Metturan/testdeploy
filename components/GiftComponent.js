@@ -59,7 +59,6 @@ function GiftComponent (props) {
 
   deleteApiData()
 
-  productList.map(product => makeApiCall(product.node))
   var cardListArray = {products: productList, collectionTitle: props.collectionTitle}
   makeApiCall(cardListArray)
 
