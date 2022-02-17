@@ -395,13 +395,13 @@ app.prepare().then(async () => {
       const body = ctx.request.body;
       // Check if item in DB
 
-      // var el = {
-      //   productList: {
-      //     productId: body,
-      //     collectionTitles: body
-      //   }
-      // }
-      var instance = new MongoProduct({productId: body})
+      var el = {
+        productList: {
+          productId: body.products,
+          collectionTitles: body.collectionTitle
+        }
+      }
+      var instance = new MongoProduct(el)
       await instance.save()
         .then(() => console.log('saved to db'))
         .catch(err => console.log(err))
