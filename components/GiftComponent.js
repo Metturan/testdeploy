@@ -44,6 +44,7 @@ query getProductsFromCollection($ids: [ID!]!) {
 
 
 function GiftComponent (props) {
+  console.log(props.cardCollectionId)
   const { loading, error, data } = useQuery(GET_COLLECTION_BY_ID, { variables: { ids: props.cardCollectionId } })
 
   if (loading) return <div>Loading...</div>
