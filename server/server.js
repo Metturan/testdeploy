@@ -398,7 +398,7 @@ app.prepare().then(async () => {
       var el = {
         productList: {
           productId: body.products,
-          collectionTitles: body.collectionTitle
+          collectionTitle: body.collectionTitle
         }
       }
       var instance = new MongoProduct(el)
