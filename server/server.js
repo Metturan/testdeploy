@@ -227,7 +227,7 @@ app.prepare().then(async () => {
       const body = ctx.request.body;
 
       // Check if item in DB
-      var instance = new MongoCardCollection({cardCollectionId: body})
+      var instance = new MongoCardCollection({cardCollectionId: body.collection})
       await instance.save()
         .then(() => console.log('saved to db'))
         .catch(err => console.log(err))
