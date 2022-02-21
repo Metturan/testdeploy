@@ -264,10 +264,9 @@ document.head.appendChild(script);
         `<div id="edit-info-container">
           
           ${itemCount > 1 ? 
-            `<div>Attention: Your cart contains items with multiple delivery dates. The delivery date is set for <strong>Wednesday, August 31, 2021</strong>, which is the furthest date. Click edit information to select a different date or remove some items in your cart.</div>` 
+            `<div>Attention: Your cart contains items with multiple delivery dates. Delivery date is set for <strong>Wednesday, August 31, 2021</strong>, which is the furthest date. Click edit information to select a different date or remove some items in your cart.</div>` 
             :
-            `<div>Your selected delivery date is: <strong>${data}</strong></div>`
-            
+            `<div class="editTitle">Delivery Details</div><div>Delivery date: <strong>${data}</strong></div>`
           }
           
           <div onclick="editClick()" class="edit-info">Edit Information</div>
