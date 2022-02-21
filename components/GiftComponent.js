@@ -123,6 +123,7 @@ function GiftComponent (props) {
         </Card>
       </Layout.Section>
       <Layout.Section>
+        <div class='redBtn'>
           <PageActions
               primaryAction={{
                 content: 'Remove Collection',
@@ -130,6 +131,7 @@ function GiftComponent (props) {
               }}
               
             />
+            </div>
       </Layout.Section>
     </Layout>
     </>
