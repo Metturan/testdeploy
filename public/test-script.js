@@ -41,7 +41,7 @@ document.head.appendChild(script);
   
   const multiStepCart = data => {
     if (baseEl) {
-      console.log(data.data[0].productList.productId)
+      console.log(data.data[0].productList)
   
       var containerStep1 = 
         `<div class="step1-multi">
@@ -140,7 +140,7 @@ document.head.appendChild(script);
   }
   
   const thirdPartCart = (data) => {
-  console.log(data)
+  console.log("3rd:", data.data[0].cardList.cardsId)
   
     var containerStep3 = 
       `<div class="step3-multi">
@@ -153,22 +153,23 @@ document.head.appendChild(script);
           </div>
         </div>
         <div id="cardToggle" class="fourth-row">
-        ${data.data.map(item => {
+ 
+        ${data.data[0].cardList.cardsId.map(item => {
            
-          var variantId = item.productId.variants.edges[0].node.id.split('/')[4]
+          var variantId = item.node.variants.edges[0].node.id.split('/')[4]
           
           return `
-              <div class="item" data-id="${variantId}" data-desc="${item.productId.desc}" style="width:50%;display: flex; align-items: end; padding: 11px 10px;">
+              <div class="item" data-id="${variantId}" data-desc="${item.node.desc}" style="width:50%;display: flex; align-items: end; padding: 11px 10px;">
                 <div class='inner-item-left'>
-                  <a href="/products/${item.productId.handle}"><img src=${item.productId.images.edges[0].node.originalSrc} style="width: 75px;" /></a>
+                  <a href="/products/${item.node.handle}"><img src=${item.node.images.edges[0].node.originalSrc} style="width: 75px;" /></a>
                   <div class="inner-item-content" style="display: flex; justify-content: space-between; flex-direction: column;align-items: start; width: 100%;">
-                      <p class="first-p-inner-item-left" style="padding: 10px;margin: 0;font-weight:400;">${item.productId.title}</p>
-                      <div class="div-inner-item-content" style="width:100%;display:flex;justify-content:space-between;padding: 0px 10px 0 10px;margin: 0;"><div style="font-size:13px;font-weight:400;color:#707070;">£ ${item.productId.variants.edges[0].node.price}</div>
+                      <p class="first-p-inner-item-left" style="padding: 10px;margin: 0;font-weight:400;">${item.node.title}</p>
+                      <div class="div-inner-item-content" style="width:100%;display:flex;justify-content:space-between;padding: 0px 10px 0 10px;margin: 0;"><div style="font-size:13px;font-weight:400;color:#707070;">£ ${item.node.variants.edges[0].node.price}</div>
                       <div onclick="showProdPopup(${variantId})" style="cursor:pointer;font-weight:400;font-size:13px;color:#707070;text-decoration:underline;">(more info)</div></div>
                   </div>
                 </div>
                 <div class='inner-item-right' style="padding-bottom:10px;">
-                  <button onclick="smallChooseBtnClick(event, this)" data-handle="${item.productId.handle}" data-id="${variantId}" class='choose-upsell giftcard-button'>Add</button>
+                  <button onclick="smallChooseBtnClick(event, this)" data-handle="${item.node.handle}" data-id="${variantId}" class='choose-upsell giftcard-button'>Add</button>
                 </div>
               </div>
               `
@@ -176,14 +177,16 @@ document.head.appendChild(script);
         </div>
         <div class="third-firstrow giftrow">
           <div id='titleToggle'>Enter a gift note</div>
-          <div style="margin: 0 0 0 auto;">
-            <input onclick="toggle_gift_message(this)" type="checkbox" id="nonotereq" name="nonotereq" value="nonotereq">
-            <label for="nonotereq">No note required</label>
-          </div>
+
         </div>
       </div>
       <div id="noteToggle" class="fourth-row">
         <textarea placeholder="Message" class="giftnote"></textarea>
+
+      </div>
+      <div style="margin: 5px 0 20px 0;">
+        <input onclick="toggle_gift_message(this)" type="checkbox" id="nonotereq" name="nonotereq" value="nonotereq">
+        <label for="nonotereq">No note required</label>
       </div>
       <div class="delivery-last-row">
         <div>Delivery Instructions</div>
@@ -227,6 +230,7 @@ document.head.appendChild(script);
     console.log(data)
     var deliveryOptionsContainer = 
      `<select id="deliverySelect">
+        <option selected disabled>Select one</option>
         ${data.data.map(item => {
           if (item.deliveryOptionsId.field) {
             return `<option value="${item.deliveryOptionsId.index}">${item.deliveryOptionsId.field}</option>`
@@ -242,6 +246,7 @@ document.head.appendChild(script);
     console.log(data)
     var occasionOptionsContainer = 
      `<select id="occasionSelect">
+        <option selected disabled>Select one</option>
         ${data.data.map(item => {
           if (item.occasionsOptionsId.field) {
             return `<option value="${item.occasionsOptionsId.index}">${item.occasionsOptionsId.field}</option>`
