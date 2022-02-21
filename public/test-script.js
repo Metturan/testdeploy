@@ -41,7 +41,7 @@ document.head.appendChild(script);
   
   const multiStepCart = data => {
     if (baseEl) {
-      console.log(data.data[0].productList)
+      console.log("productilst", data.data[0].productList)
   
       var containerStep1 = 
         `<div class="step1-multi">

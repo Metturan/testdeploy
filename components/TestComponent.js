@@ -57,15 +57,7 @@ function TestComponent (props) {
   var productList = data.nodes[0].products.edges
   
   deleteApiData()
-  // productList.map(product => makeApiCall(product.node))
 
-  // async function makeApiCall(products) {
-  //   const url = '/api/products'
-
-  //   axios.post(url, products)
-  //     .then(res => console.log(res))
-  //     .catch(err => console.log(err))
-  // }
 
   var productListArray = {products: productList, collectionTitle: props.collectionTitle}
   makeApiCall(productListArray)
@@ -115,6 +107,7 @@ function TestComponent (props) {
         </Card>
       </Layout.Section>
       <Layout.Section>
+        <div class='redBtn'>
           <PageActions
               primaryAction={{
                 content: 'Remove Collection',
@@ -122,6 +115,7 @@ function TestComponent (props) {
               }}
               
             />
+            </div>
       </Layout.Section>
     </Layout>
     </>
