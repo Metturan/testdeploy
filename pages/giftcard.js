@@ -142,8 +142,8 @@ const giftCard = () => {
   function handleChangeTextFieldFive (textFieldFive) { setTextFieldFive(textFieldFive)};
   function handleChangeTextFieldSix (textFieldSix) { setTextFieldSix(textFieldSix)};
   function handleChangeTextFieldSeven (textFieldSeven) { setTextFieldSeven(textFieldSeven)};
-  function handleChangeTextFieldEight (textFieldEight) { setTextFieldSix(textFieldEight)};
-  function handleChangeTextFieldNine (textFieldNine) { setTextFieldSeven(textFieldNine)};
+  function handleChangeTextFieldEight (textFieldEight) { setTextFieldEight(textFieldEight)};
+  function handleChangeTextFieldNine (textFieldNine) { setTextFieldNine(textFieldNine)};
 
   function handleChangeOccasionFieldOne (textFieldOne) { setOccasionFieldOne(textFieldOne)};
   function handleChangeOccasionFieldTwo (textFieldTwo) { setOccasionFieldTwo(textFieldTwo)};
@@ -152,8 +152,8 @@ const giftCard = () => {
   function handleChangeOccasionFieldFive (textFieldFive) { setOccasionFieldFive(textFieldFive)};
   function handleChangeOccasionFieldSix (textFieldSix) { setOccasionFieldSix(textFieldSix)};
   function handleChangeOccasionFieldSeven (textFieldSeven) { setOccasionFieldSeven(textFieldSeven)};
-  function handleChangeOccasionFieldEight (textFieldEight) { setOccasionFieldSix(textFieldEight)};
-  function handleChangeOccasionFieldNine (textFieldNine) { setOccasionFieldSeven(textFieldNine)};
+  function handleChangeOccasionFieldEight (textFieldEight) { setOccasionFieldEight(textFieldEight)};
+  function handleChangeOccasionFieldNine (textFieldNine) { setOccasionFieldNine(textFieldNine)};
 
   async function saveTextFields() {
     const obj = [textFieldOne, textFieldTwo, textFieldThree, textFieldFour, textFieldFive, textFieldSix, textFieldSeven, textFieldEight, textFieldNine]
