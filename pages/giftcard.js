@@ -17,6 +17,8 @@ const giftCard = () => {
   const [textFieldFive, setTextFieldFive] = useState('')
   const [textFieldSix, setTextFieldSix] = useState('')
   const [textFieldSeven, setTextFieldSeven] = useState('')
+  const [textFieldEight, setTextFieldEight] = useState('')
+  const [textFieldNine, setTextFieldNine] = useState('')
   const [occasionFieldOne, setOccasionFieldOne] = useState('')
   const [occasionFieldTwo, setOccasionFieldTwo] = useState('')
   const [occasionFieldThree, setOccasionFieldThree] = useState('')
@@ -24,6 +26,8 @@ const giftCard = () => {
   const [occasionFieldFive, setOccasionFieldFive] = useState('')
   const [occasionFieldSix, setOccasionFieldSix] = useState('')
   const [occasionFieldSeven, setOccasionFieldSeven] = useState('')
+  const [occasionFieldEight, setOccasionFieldEight] = useState('')
+  const [occasionFieldNine, setOccasionFieldNine] = useState('')
   const [cardCollectionId, setCardCollectionId] = useState('')
   const [collectionTitle, setCollectionTitle] = useState('')
 
@@ -51,6 +55,12 @@ const giftCard = () => {
         }
         if (option.deliveryOptionsId.index === 6) {
           setTextFieldSeven(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 7) {
+          setTextFieldEight(option.deliveryOptionsId.field)
+        }
+        if (option.deliveryOptionsId.index === 8) {
+          setTextFieldNine(option.deliveryOptionsId.field)
         }
       })
 
@@ -93,6 +103,12 @@ const giftCard = () => {
                 if (option.occasionsOptionsId.index === 6) {
                   setOccasionFieldSeven(option.occasionsOptionsId.field)
                 }
+                if (option.occasionsOptionsId.index === 7) {
+                  setOccasionFieldEight(option.occasionsOptionsId.field)
+                }
+                if (option.occasionsOptionsId.index === 8) {
+                  setOccasionFieldNine(option.occasionsOptionsId.field)
+                }
               })
             })
         })
@@ -126,6 +142,8 @@ const giftCard = () => {
   function handleChangeTextFieldFive (textFieldFive) { setTextFieldFive(textFieldFive)};
   function handleChangeTextFieldSix (textFieldSix) { setTextFieldSix(textFieldSix)};
   function handleChangeTextFieldSeven (textFieldSeven) { setTextFieldSeven(textFieldSeven)};
+  function handleChangeTextFieldEight (textFieldEight) { setTextFieldSix(textFieldEight)};
+  function handleChangeTextFieldNine (textFieldNine) { setTextFieldSeven(textFieldNine)};
 
   function handleChangeOccasionFieldOne (textFieldOne) { setOccasionFieldOne(textFieldOne)};
   function handleChangeOccasionFieldTwo (textFieldTwo) { setOccasionFieldTwo(textFieldTwo)};
@@ -134,15 +152,17 @@ const giftCard = () => {
   function handleChangeOccasionFieldFive (textFieldFive) { setOccasionFieldFive(textFieldFive)};
   function handleChangeOccasionFieldSix (textFieldSix) { setOccasionFieldSix(textFieldSix)};
   function handleChangeOccasionFieldSeven (textFieldSeven) { setOccasionFieldSeven(textFieldSeven)};
+  function handleChangeOccasionFieldEight (textFieldEight) { setOccasionFieldSix(textFieldEight)};
+  function handleChangeOccasionFieldNine (textFieldNine) { setOccasionFieldSeven(textFieldNine)};
 
   async function saveTextFields() {
-    const obj = [textFieldOne, textFieldTwo, textFieldThree, textFieldFour, textFieldFive, textFieldSix, textFieldSeven]
+    const obj = [textFieldOne, textFieldTwo, textFieldThree, textFieldFour, textFieldFive, textFieldSix, textFieldSeven, textFieldEight, textFieldNine]
     deliveryInstructionsDeleteApi()
     obj.map((textField, i) => {deliveryInstructionsApi({index: i, field: textField})})
   }
 
   async function saveOccasionFields() {
-    const obj = [occasionFieldOne, occasionFieldTwo, occasionFieldThree, occasionFieldFour, occasionFieldFive, occasionFieldSix, occasionFieldSeven]
+    const obj = [occasionFieldOne, occasionFieldTwo, occasionFieldThree, occasionFieldFour, occasionFieldFive, occasionFieldSix, occasionFieldSeven, occasionFieldEight, occasionFieldNine]
     occasionsDeleteApi()
     obj.map((textField, i) => {occasionsApi({index: i, field: textField})})
     obj.map((textField, i) => {console.log({index: i, field: textField})})
@@ -265,6 +285,22 @@ const giftCard = () => {
                 onChange={handleChangeTextFieldSeven}
                 autoComplete="off"
               />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Delivery Instructions 8"
+                value={textFieldEight}
+                multiline={1}
+                onChange={handleChangeTextFieldEight}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Delivery Instructions 9"
+                value={textFieldNine}
+                multiline={1}
+                onChange={handleChangeTextFieldNine}
+                autoComplete="off"
+              />
               <PageActions
                 primaryAction={{
                   content: 'Save',
@@ -330,6 +366,22 @@ const giftCard = () => {
                 value={occasionFieldSeven}
                 multiline={1}
                 onChange={handleChangeOccasionFieldSeven}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Occasion 8"
+                value={occasionFieldEight}
+                multiline={1}
+                onChange={handleChangeOccasionFieldEight}
+                autoComplete="off"
+              />
+               <div style={{"margin":"10px"}}></div>
+              <TextField
+                label="Occasion 9"
+                value={occasionFieldNine}
+                multiline={1}
+                onChange={handleChangeOccasionFieldNine}
                 autoComplete="off"
               />
               <PageActions

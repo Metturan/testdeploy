@@ -46,7 +46,7 @@ document.head.appendChild(script);
       var containerStep1 = 
         `<div class="step1-multi">
           <h2 class="title-multi">STEP 2 - Choose extras</h2>
-          <p style="max-width: 346px;">If you would like to add any of the following extras listed below, please select them by selecting the right boxes and clicking "Add to Cart" to continue.</p>
+          <p style="width: 100%;">If you would like to add any of the following extras listed below, please select them by selecting the right boxes and clicking "Add to Cart" to continue.</p>
           <p style="font-weight:Bold;">${data.data[0].productList.collectionTitle}</p>
         </div>
         <div class="inner-products" style="display:flex;flex-wrap:wrap;">
@@ -184,11 +184,11 @@ document.head.appendChild(script);
         <textarea placeholder="Message" class="giftnote"></textarea>
 
       </div>
-      <div style="margin: 5px 0 20px 0;">
+      <div id="nomessageClick" style="margin: 5px 0 0px 0;">
         <input onclick="toggle_gift_message(this)" type="checkbox" id="nonotereq" name="nonotereq" value="nonotereq">
         <label for="nonotereq">No note required</label>
       </div>
-      <div class="delivery-last-row">
+      <div class="delivery-last-row" style="margin-top:20px;">
         <div>Delivery Instructions</div>
         <div id="deliverySelectContainer" style="margin-top:5px;">
   
@@ -221,8 +221,16 @@ document.head.appendChild(script);
     console.log(checkbox.checked)
     if (checkbox.checked) {
       document.getElementById('cardToggle').style.display = 'none'
+      document.getElementById('nomessageClick').style.display = 'none'
+      document.getElementById('noteToggle').style.display = 'none'
+      document.querySelector('.third-firstrow.giftrow').style.display = 'none'
+      document.getElementById('nomessageClick').style.display = 'none'
     } else {
       document.getElementById('cardToggle').style.display = 'flex'
+      document.getElementById('nomessageClick').style.display = 'block'
+      document.getElementById('noteToggle').style.display = 'block'
+      document.querySelector('.third-firstrow.giftrow').style.display = 'block'
+      document.getElementById('nomessageClick').style.display = 'block'
     }
   }
   
@@ -262,14 +270,17 @@ document.head.appendChild(script);
       
       var rowBar = 
         `<div id="edit-info-container">
-          
-          ${itemCount > 1 ? 
-            `<div>Attention: Your cart contains items with multiple delivery dates. Delivery date is set for <strong>Wednesday, August 31, 2021</strong>, which is the furthest date. Click edit information to select a different date or remove some items in your cart.</div>` 
-            :
-            `<div class="editTitle">Delivery Details</div><div>Delivery date: <strong>${data}</strong></div>`
-          }
-          
-          <div onclick="editClick()" class="edit-info">Edit Information</div>
+          <div class="leftsideEdit">
+            ${itemCount > 1 ? 
+              `<div class="editTitle">Attention: Your cart contains items with multiple delivery dates. Delivery date is set for <strong>Wednesday, August 31, 2021</strong>, which is the furthest date. Click edit information to select a different date or remove some items in your cart.</div>` 
+              :
+              `<div class="editTitle">Delivery Details</div><div>Delivery date: <strong>${data}</strong></div>`
+            }
+          </div>
+          <div class="rightsideEdit">
+            <div onclick="click_delivery_input()" class="edit-info">Edit delivery date</div>
+            <button id="smallStyleBtn" onclick="four_click_prev()" class="row-btn-prev row-btn">Back</button>
+          </div>
         </div>`
   
       base4El.innerHTML = rowBar
@@ -439,6 +450,21 @@ document.head.appendChild(script);
     localStorage.setItem('cartUpsell', false)
   
     document.querySelector('#cart-form').scrollIntoView({ behavior: 'smooth', block: 'start'})
+  }
+
+  function four_click_prev() {
+    baseEl.style.display = 'none'
+    base2El.style.display = 'none'
+    base3El.style.display = 'block'
+    base4El.style.display = 'none'
+  
+    document.querySelector('.timeline').style.display = 'block';
+    document.querySelector('.cart-checkout').style.display = 'none';
+    document.querySelector('.cart-total').style.display = 'none';
+    document.querySelector('.cart-shipping').style.display = 'none';
+  
+    removeCurrentHighlightTimeline();
+    addCurrentHighlightTimeline(2);
   }
   
   
