@@ -311,7 +311,7 @@ const giftCard = () => {
             </Card>
 
 
-            <Card sectioned title="Ocassions">
+            {/* <Card sectioned title="Ocassions">
               <p style={{"marginBottom":"14px"}}>Fill in your ocassion options to show on the cart page.</p>
               <TextField
                 label="Occasion 1"
@@ -391,7 +391,7 @@ const giftCard = () => {
                 }}
               />
 
-            </Card>
+            </Card> */}
 </Layout.Section>
 
             </Layout>

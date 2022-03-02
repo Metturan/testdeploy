@@ -43,29 +43,62 @@ document.head.appendChild(script);
     if (baseEl) {
       console.log("productilst", data.data[0].productList)
   
+      // Check to see if cart items have tag london ONLY and set tagged to true or false
+      var cartItems = Array.from(document.querySelectorAll('.cart-item'));
+      var tagged
+      var productList = []
+
+      if (cartItems) {
+        cartItems.every(item => {
+          if (item.dataset.tag == 'whitelisted') {
+            tagged = true;
+            return false;
+          } else {
+            tagged = false;
+            return true;
+          }
+        })
+      }
+
+      if (tagged) {
+        data.data[0].productList.productId.map(item => {
+          item.node.tags.find(checkLondonTag) ? productList.push(item) : null
+        })
+      } else {
+        data.data[0].productList.productId.map(item => {
+          item.node.tags.find(checkLondonTag) ? null : productList.push(item)
+        })
+      }
+
+      function checkLondonTag(tag) {
+        return tag == 'London ONLY'
+      }
+
+      console.log('productList:', productList)
+
       var containerStep1 = 
         `<div class="step1-multi">
           <h2 class="title-multi">STEP 2 - Choose extras</h2>
-          <p style="width: 100%;">If you would like to add any of the following extras listed below, please select them by selecting the right boxes and clicking "Add to Cart" to continue.</p>
+          <p style="width: 100%;">If you would like to add any of the following extras listed below, please choose them by selecting the right boxes and clicking "Add to Cart" to continue.</p>
           <p style="font-weight:Bold;">${data.data[0].productList.collectionTitle}</p>
         </div>
         <div class="inner-products" style="display:flex;flex-wrap:wrap;">
-          ${data.data[0].productList.productId.map(item => {
-           
+          ${productList.map(item => {
+
             var londonOnlyTag = item.node.tags.find(checkLondonTag)
             var variantId = item.node.variants.edges[0].node.id.split('/')[4]
 
-            function checkLondonTag(tag) {
-              return tag == 'London ONLY'
-            }
+            // function checkLondonTag(tag) {
+            //   return tag == 'London ONLY'
+            // }
             
             return `
-                <div class="item" data-tagged="${londonOnlyTag ? true : false }" data-id="${variantId}" data-desc="${item.node.desc}" style="width:50%;display: flex; align-items: end; padding: 11px 10px;">
+                <div class="item"  data-id="${variantId}" data-desc="${item.node.desc}" style="width:50%;display: flex; align-items: end; padding: 11px 10px;">
                   <div class='inner-item-left'>
                     <a href="/products/${item.node.handle}"><img src=${item.node.images.edges[0].node.originalSrc} style="width: 75px;" /></a>
                     <div class="inner-item-content" style="display: flex; justify-content: space-between; flex-direction: column;align-items: start; width: 100%;">
-                        <p class="first-p-inner-item-left" style="${londonOnlyTag ? 'padding: 10px 0 5px 10px;' : 'padding: 10px;'}margin: 0;font-weight:400;">${item.node.title}</p>
-                        ${londonOnlyTag ? '<p class="display londonTagged" style="max-width: 144px;font-size: 13px;color:#dd0000;margin: 0 0 6px 10px;">This requires a separate order (London Only).</p>' : ''}
+                        <p class="first-p-inner-item-left" style="padding: 10px;margin: 0;font-weight:400;">${item.node.title}</p>
+                        
                         
                         <div class="div-inner-item-content" style="width:100%;display:flex;justify-content:space-between;padding: 0px 10px 0 10px;margin: 0;">
                           <div style="font-size:13px;font-weight:400;color:#707070;">£ ${item.node.variants.edges[0].node.price}</div>
@@ -74,11 +107,11 @@ document.head.appendChild(script);
                     </div>
                   </div>
                   <div class='inner-item-right' style="padding-bottom:10px;">
-                    <button onclick="smallChooseBtnClick(event, this)" data-handle="${item.node.handle}" data-id="${variantId}" class="${londonOnlyTag ? 'londonTagged' : ''} choose-upsell upsell-button">Add</button>
+                    <button onclick="smallChooseBtnClick(event, this)" data-handle="${item.node.handle}" data-id="${variantId}" class="choose-upsell upsell-button">Add</button>
                   </div>
-  
                 </div>
                 `
+
           }).join('')}
         </div>
         <div class="button-row" style="margin-top:30px;display:flex;">
@@ -140,7 +173,7 @@ document.head.appendChild(script);
   }
   
   const thirdPartCart = (data) => {
-  console.log("3rd:", data.data[0].cardList.cardsId)
+    console.log("3rd:", data.data[0].cardList.cardsId)
   
     var containerStep3 = 
       `<div class="step3-multi">
@@ -169,7 +202,7 @@ document.head.appendChild(script);
                   </div>
                 </div>
                 <div class='inner-item-right' style="padding-bottom:10px;">
-                  <button onclick="smallChooseBtnClick(event, this)" data-handle="${item.node.handle}" data-id="${variantId}" class='choose-upsell giftcard-button'>Add</button>
+                  <button onclick="three_click_addCart(${variantId})" data-handle="${item.node.handle}" data-id="${variantId}" class='choose-upsell giftcard-button'>Add</button>
                 </div>
               </div>
               `
@@ -194,10 +227,7 @@ document.head.appendChild(script);
   
           </div>
           <br/>
-        <div>Occasion</div>
-        <div id="occasionSelectContainer" style="margin-top:5px;">
-  
-        </div>
+
       </div>
       <div class="button-row" style="margin-top:30px;">
         <button onclick="three_click_prev()" class="row-btn-prev row-btn">Back</button>
@@ -263,7 +293,7 @@ document.head.appendChild(script);
         }).join('')}
       </select>`
   
-      document.getElementById('occasionSelectContainer').innerHTML = occasionOptionsContainer
+      // document.getElementById('occasionSelectContainer').innerHTML = occasionOptionsContainer
   }
   
   const fourthPartCart = (data, itemCount) => {
@@ -272,7 +302,7 @@ document.head.appendChild(script);
         `<div id="edit-info-container">
           <div class="leftsideEdit">
             ${itemCount > 1 ? 
-              `<div class="editTitle">Attention: Your cart contains items with multiple delivery dates. Delivery date is set for <strong>Wednesday, August 31, 2021</strong>, which is the furthest date. Click edit information to select a different date or remove some items in your cart.</div>` 
+              `<div>Attention: Your cart contains items with multiple delivery dates. Delivery date is set for <strong>${data}</strong>, which is the furthest date. Click edit information to select a different date or remove some items in your cart.</div><div style="margin-top:40px;" class="editTitle">Delivery Details</div><div>Delivery date: <strong>${data}</strong></div>` 
               :
               `<div class="editTitle">Delivery Details</div><div>Delivery date: <strong>${data}</strong></div>`
             }
@@ -398,6 +428,18 @@ document.head.appendChild(script);
       window.location.reload()
     });
   }
+
+  function three_click_addCart(id) {
+    console.log("id:", id)
+  
+    jQuery.post('/cart/add.js', {
+      items: [{quantity: 1, id: id}]
+    }, function() {
+      console.log('success, window reload')
+      localStorage.setItem('cardUpsell', true)
+      window.location.reload()
+    });
+  }
   
   function two_click_next() {
     baseEl.style.display = 'none'
@@ -422,6 +464,8 @@ document.head.appendChild(script);
   
     removeCurrentHighlightTimeline();
     addCurrentHighlightTimeline(0);
+
+    localStorage.setItem('cardUpsell', false)
   }
   
   function three_click_next() {
@@ -465,6 +509,8 @@ document.head.appendChild(script);
   
     removeCurrentHighlightTimeline();
     addCurrentHighlightTimeline(2);
+
+    localStorage.setItem('cardUpsell', false)
   }
   
   
@@ -737,6 +783,16 @@ document.head.appendChild(script);
       console.log(localStorage.getItem('cartUpsell'))
     }
   }
+
+  function checkIfCardAdded() {
+    if (localStorage.getItem('cardUpsell') == 'true') {
+      // change to fourth step
+      console.log('cardupsell-in-effect')
+      three_click_next()
+    } else {
+      console.log(localStorage.getItem('cardUpsell'))
+    }
+  }
   
   function submitCustomCheckoutButton() {
     console.log('clicked')
@@ -790,7 +846,6 @@ document.head.appendChild(script);
   
       });
     }
-  
   }
   
   function cloneCartCheckoutButton() {
@@ -811,7 +866,9 @@ document.head.appendChild(script);
     secondPartCart(data2)
     sideBar();
     stepBar()
+
     checkIfUpsellAdded() 
+    checkIfCardAdded()
 
     // Grab second step (naming is backward)
     fetch('https://calm-fjord-82942.herokuapp.com/api/products?shop=extestdevstore.myshopify.com')
@@ -819,8 +876,9 @@ document.head.appendChild(script);
     .then(async data => {
       multiStepCart(data)
 
+      var hour = new Date().getHours();
       $("#twodate").datepicker({ 
-        minDate: "+1", 
+        minDate: hour >= 17 ? "+2D" : "+1D", 
         // maxDate: "+1M +10D", 
         beforeShow: function (input, inst) {
           var rect = input.getBoundingClientRect();
