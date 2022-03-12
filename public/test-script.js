@@ -85,7 +85,7 @@ document.head.appendChild(script);
         <div class="inner-products" style="display:flex;flex-wrap:wrap;">
           ${productList.map(item => {
 
-            var londonOnlyTag = item.node.tags.find(checkLondonTag)
+            // var londonOnlyTag = item.node.tags.find(checkLondonTag)
             var variantId = item.node.variants.edges[0].node.id.split('/')[4]
 
             // function checkLondonTag(tag) {
@@ -174,10 +174,36 @@ document.head.appendChild(script);
   
   const thirdPartCart = (data) => {
     console.log("3rd:", data.data[0].cardList.cardsId)
+
+    // See if a card has been added to the cart
+      var cartItems = Array.from(document.querySelectorAll('.cart-item'));
+      var idsInCart = []
+      var idsInCardUpsellCollection = []
+      var itemInCart;
+  
+      if (cartItems) {
+        cartItems.forEach(item => {
+          idsInCart.push(item.dataset.cartitemId)
+        })
+      }
+
+      data.data[0].cardList.cardsId.forEach(item => {
+        idsInCardUpsellCollection.push(item.node.variants.edges[0].node.id.split('/')[4])
+      })
+
+      // Check both arrays to see if a card from the collection is in the cart
+      const intersection = idsInCart.filter(element => idsInCardUpsellCollection.includes(element));
+
+      if (intersection.length) {
+        itemInCart = true
+      } else {
+        itemInCart = false
+      }
   
     var containerStep3 = 
       `<div class="step3-multi">
         <h2 class="title-multi">STEP 3 - Choose card and message</h2>
+        ${itemInCart ? '<p class="cartSentence" style="color: green;margin-top:-11px;margin-bottom:29px;">Card added to cart.</p>' : '' }
         <div class="third-firstrow">
           <div style="margin-bottom:5px;"></div>
           <div style="margin-bottom:5px;">
@@ -202,7 +228,7 @@ document.head.appendChild(script);
                   </div>
                 </div>
                 <div class='inner-item-right' style="padding-bottom:10px;">
-                  <button onclick="three_click_addCart(${variantId})" data-handle="${item.node.handle}" data-id="${variantId}" class='choose-upsell giftcard-button'>Add</button>
+                  <button ${itemInCart ? 'disabled' : null} onclick="three_click_addCart(${variantId})" data-handle="${item.node.handle}" data-id="${variantId}" class='choose-upsell giftcard-button'>Add</button>
                 </div>
               </div>
               `
@@ -233,7 +259,64 @@ document.head.appendChild(script);
         <button onclick="three_click_prev()" class="row-btn-prev row-btn">Back</button>
         <button id="next-three" onclick="three_click_next()" class="row-btn-next row-btn">Next</button>
       </div>`
+
       base3El.innerHTML = containerStep3
+
+        // Listen to ajax cart calls and see if card has been removed then update UI accordingly
+      const open = window.XMLHttpRequest.prototype.open;
+
+      function openReplacement() {
+        this.addEventListener("load", function () {
+          if (
+            [
+              "/cart/add.js",
+              "/cart/update.js",
+              "/cart/change.js",
+              "/cart/clear.js",
+            ].includes(this._url)
+          ) {
+            checkCardInCart(this.response);
+          }
+        });
+        return open.apply(this, arguments);
+      }
+
+      window.XMLHttpRequest.prototype.open = openReplacement;
+
+      function checkCardInCart(cartJson) {
+        var data = JSON.parse(cartJson);
+        var itemArray = []
+        if (data.items.length) {
+          data.items.forEach(item => {
+            idsInCardUpsellCollection.forEach(id => {
+              if (id == item.id) {
+                console.log('card is in cart')
+                itemArray.push(true);
+              } else {
+                console.log('card is not in cart')
+                itemArray.push(false)
+              }
+            })
+          })
+
+          // Check to see if a true exists in array. If a true exists then don't remove cart added
+          var isCardInCart = itemArray.find(checkCart);
+
+          function checkCart(bool) {
+            return bool = true
+          }
+
+          if (!isCardInCart) {
+            document.querySelector('.cartSentence').style.display = "none"
+            var cardAddBtns = Array.from(document.querySelectorAll('.giftcard-button'))
+
+            cardAddBtns.forEach(btn => {
+              btn.disabled = false;
+            })
+          }
+
+        }
+      }
   }
   
   function toggle_gift_message(checkbox) {
@@ -447,6 +530,7 @@ document.head.appendChild(script);
     base3El.style.display = 'block'
     removeCurrentHighlightTimeline();
     addCurrentHighlightTimeline(2);
+
   
     document.querySelector('#cart-form').scrollIntoView({ behavior: 'smooth', block: 'start'})
   }
@@ -475,6 +559,7 @@ document.head.appendChild(script);
     base4El.style.display = 'block'
 
     localStorage.setItem('cartUpsell', false)
+    localStorage.setItem('cardUpsell', false)
   
     document.querySelector('.timeline').style.display = 'none';
     document.querySelector('.cart-checkout').style.display = 'block';
@@ -491,6 +576,7 @@ document.head.appendChild(script);
     removeCurrentHighlightTimeline();
     addCurrentHighlightTimeline(1);
 
+    localStorage.setItem('cardUpsell', false)
     localStorage.setItem('cartUpsell', false)
   
     document.querySelector('#cart-form').scrollIntoView({ behavior: 'smooth', block: 'start'})
@@ -509,8 +595,6 @@ document.head.appendChild(script);
   
     removeCurrentHighlightTimeline();
     addCurrentHighlightTimeline(2);
-
-    localStorage.setItem('cardUpsell', false)
   }
   
   
@@ -788,11 +872,13 @@ document.head.appendChild(script);
     if (localStorage.getItem('cardUpsell') == 'true') {
       // change to fourth step
       console.log('cardupsell-in-effect')
-      three_click_next()
+      two_click_next()
     } else {
       console.log(localStorage.getItem('cardUpsell'))
     }
   }
+
+
   
   function submitCustomCheckoutButton() {
     console.log('clicked')
