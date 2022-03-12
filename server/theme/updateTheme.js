@@ -8,9 +8,9 @@ const shopifyHeader = (token) => ({
 });
 
 // import asdf from '../snippets/storetasker-mett.liquid'
-const THEME_SNIPPET = '{% include \'storetasker-mett\' %}';
+const THEME_SNIPPET = '{% include \'storetasker-theme\' %}';
 const CART_SNIPPET = '{% include \'storetasker-mett-cart\' %}';
-const THEME_SNIPPET_VALUE = fs.readFileSync(path.resolve(__dirname, '../snippets/storetasker-mett.liquid'), 'utf-8');
+const THEME_SNIPPET_VALUE = fs.readFileSync(path.resolve(__dirname, '../snippets/storetasker-theme.liquid'), 'utf-8');
 const THEME_CART_SNIPPET_VALUE = fs.readFileSync(path.resolve(__dirname, '../snippets/storetasker-mett-cart.liquid'), 'utf-8');
 
 const updateThemeLiquid = async (accessToken, shop) => {
@@ -44,7 +44,7 @@ const updateThemeLiquid = async (accessToken, shop) => {
 
   const snippetBody = JSON.stringify({
     asset: {
-        key: 'snippets/storetasker-mett.liquid',
+        key: 'snippets/storetasker-theme.liquid',
         value: THEME_SNIPPET_VALUE
     }
   });
