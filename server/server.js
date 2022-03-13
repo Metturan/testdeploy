@@ -17,6 +17,9 @@ import '../models/CardProducts'
 import '../models/DeliveryOptions'
 import '../models/Occassions'
 
+// Component theme
+const theme = require('../server/theme/updateTheme')
+
 dotenv.config();
 const port = parseInt(process.env.PORT, 10) || 8081;
 const dev = process.env.NODE_ENV !== "production";
@@ -68,6 +71,8 @@ app.prepare().then(async () => {
         });
 
         mongoose.connect(process.env.MONGO_URI)
+
+        await theme.updateThemeLiquid(accessToken, shop);
 
         if (!response.success) {
           console.log(
