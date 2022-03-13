@@ -7,6 +7,8 @@ const shopifyHeader = (token) => ({
   'X-Shopify-Access-Token': token,
 });
 
+console.log('running')
+
 // import asdf from '../snippets/storetasker-mett.liquid'
 const THEME_SNIPPET = '{% include \'storetasker-theme\' %}';
 const CART_SNIPPET = '{% include \'storetasker-mett-cart\' %}';
