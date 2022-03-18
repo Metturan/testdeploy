@@ -1,5 +1,6 @@
 
 var script = document.createElement('script');
+
 script.onload = function () {
     console.log('loaded')
 };
@@ -125,30 +126,54 @@ document.head.appendChild(script);
         document.getElementById('addtocart-two').disabled = true
     }
   }
+
+  function setupPostcodeArrays(data) {
+    data.data.forEach(postcodeGroup => {
+      if (postcodeGroup.status == 'whitelisted') {
+        
+        whitelistArrNoSpacesLowercase = postcodeGroup.postcode.map(postcode => {
+          var postcodeNoSpaces = postcode.replace(/\s/g, ``);
+          return postcodeNoSpaces.toLowerCase()
+        })
+        whitelistArr = postcodeGroup.postcode;
+
+        console.log(whitelistArrNoSpacesLowercase)
+      }
+      if (postcodeGroup.status == 'blacklisted') {
+        blacklistArrNoSpacesLowercase = postcodeGroup.postcode.map(postcode => {
+          var postcodeNoSpaces = postcode.replace(/\s/g, ``);
+          return postcodeNoSpaces.toLowerCase()
+        })
+
+        blacklistArr = postcodeGroup.postcode;
+      }
+    })
+  }
   
   const secondPartCart = data => {
     if (baseEl) {
   
-      data.data.forEach(postcodeGroup => {
-        if (postcodeGroup.status == 'whitelisted') {
+      // data.data.forEach(postcodeGroup => {
+      //   if (postcodeGroup.status == 'whitelisted') {
           
-          whitelistArrNoSpacesLowercase = postcodeGroup.postcode.map(postcode => {
-            var postcodeNoSpaces = postcode.replace(/\s/g, ``);
-            return postcodeNoSpaces.toLowerCase()
-          })
-          whitelistArr = postcodeGroup.postcode;
+      //     whitelistArrNoSpacesLowercase = postcodeGroup.postcode.map(postcode => {
+      //       var postcodeNoSpaces = postcode.replace(/\s/g, ``);
+      //       return postcodeNoSpaces.toLowerCase()
+      //     })
+      //     whitelistArr = postcodeGroup.postcode;
 
-          console.log(whitelistArrNoSpacesLowercase)
-        }
-        if (postcodeGroup.status == 'blacklisted') {
-          blacklistArrNoSpacesLowercase = postcodeGroup.postcode.map(postcode => {
-            var postcodeNoSpaces = postcode.replace(/\s/g, ``);
-            return postcodeNoSpaces.toLowerCase()
-          })
+      //     console.log(whitelistArrNoSpacesLowercase)
+      //   }
+      //   if (postcodeGroup.status == 'blacklisted') {
+      //     blacklistArrNoSpacesLowercase = postcodeGroup.postcode.map(postcode => {
+      //       var postcodeNoSpaces = postcode.replace(/\s/g, ``);
+      //       return postcodeNoSpaces.toLowerCase()
+      //     })
 
-          blacklistArr = postcodeGroup.postcode;
-        }
-      })
+      //     blacklistArr = postcodeGroup.postcode;
+      //   }
+      // })
+      setupPostcodeArrays(data);
     
       var containerStep2 = 
       `<div class="step2-multi">
@@ -400,7 +425,7 @@ document.head.appendChild(script);
   }
   
   const sideBar = data => {
-    if (baseEl) {
+
       var sidebarInsides = 
       `<div onclick="closeOverlay()" class="sidebar-overlay"></div>
       <div id="sidebarContainer">
@@ -427,7 +452,6 @@ document.head.appendChild(script);
         </div>
       </div>`
       
-    }
     slideoutContainer.innerHTML = sidebarInsides;
   
     // Prepopulate postcode form with localstorage item postcode
@@ -836,6 +860,7 @@ document.head.appendChild(script);
   var confirmDeliverySidebarInput;
   var confirmDeliveryInput;
   var confirmDeliverySidebarValue;
+  var homeCollectionATCBtns;
   
   function click_confirmBtn() {
     slideoutContainer.classList.remove('open')
@@ -846,15 +871,32 @@ document.head.appendChild(script);
       confirmDeliveryInput.innerHTML = confirmDeliverySidebarValue;
       delivery_date = confirmDeliverySidebarValue
       localStorage.setItem('deliveryDate', delivery_date)
-      document.getElementById('next-one-validation').classList.remove('err')
+
       // remove validation in put if exists
+      var nextOneValidation = document.getElementById('next-one-validation')
+      if (nextOneValidation) {
+        nextOneValidation.classList.remove('err')
+      }
+      
+      homeCollectionATCBtns = Array.from(document.querySelectorAll('.product-form--atc-button'));
+
+      if (homeCollectionATCBtns.length) {
+        homeCollectionATCBtns.forEach(btn => {
+          if (localStorage.getItem('postcode')) {
+            btn.classList.remove('disabled')
+          }
+        })
+      }
   
-     fetch('/cart.js')
+     if (baseEl) {
+      fetch('/cart.js')
       .then(response => response.json())
       .then(data => { 
         console.log(data);
         fourthPartCart(delivery_date, data.item_count);
       });
+     }
+
     }
   }
 
@@ -943,7 +985,31 @@ document.head.appendChild(script);
       clonedCartButton.addEventListener('click', submitCustomCheckoutButton)
       document.querySelector('.cart-checkout').prepend(clonedCartButton)
   }
+
+  function calendarInit() {
+    var hour = new Date().getHours();
+      $("#twodate").datepicker({ 
+        minDate: hour >= 17 ? "+2D" : "+1D", 
+        // maxDate: "+1M +10D", 
+        beforeShow: function (input, inst) {
+          var rect = input.getBoundingClientRect();
+          setTimeout(function () {
+            inst.dpDiv.css({ top: rect.top + 44 });
+          }, 0);
+        },
+        beforeShowDay: $.datepicker.noWeekends 
+      });
+      $("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")
+
+      if (localStorage.getItem('deliveryDate') && localStorage.getItem('postcode')) {
+        // Show calendar in sidebar if postcode has already been validated
+        document.getElementById("lower-rung-sidebar").classList.add('show')
+        document.getElementById("twodate").value = localStorage.getItem('deliveryDate')
+      }
+
+  }
   
+  // cart flow - run on cart page
   if (baseEl) {
     fetch('https://calm-fjord-82942.herokuapp.com/api/postcode?shop=extestdevstore.myshopify.com')
     .then(res => res.json())
@@ -961,26 +1027,26 @@ document.head.appendChild(script);
     .then(res => res.json())
     .then(async data => {
       multiStepCart(data)
+      calendarInit();
+      // var hour = new Date().getHours();
+      // $("#twodate").datepicker({ 
+      //   minDate: hour >= 17 ? "+2D" : "+1D", 
+      //   // maxDate: "+1M +10D", 
+      //   beforeShow: function (input, inst) {
+      //     var rect = input.getBoundingClientRect();
+      //     setTimeout(function () {
+      //       inst.dpDiv.css({ top: rect.top + 44 });
+      //     }, 0);
+      //   },
+      //   beforeShowDay: $.datepicker.noWeekends 
+      // });
+      // $("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")
 
-      var hour = new Date().getHours();
-      $("#twodate").datepicker({ 
-        minDate: hour >= 17 ? "+2D" : "+1D", 
-        // maxDate: "+1M +10D", 
-        beforeShow: function (input, inst) {
-          var rect = input.getBoundingClientRect();
-          setTimeout(function () {
-            inst.dpDiv.css({ top: rect.top + 44 });
-          }, 0);
-        },
-        beforeShowDay: $.datepicker.noWeekends 
-      });
-      $("#twodate").datepicker("option", "dateFormat", "DD, d MM, yy")
-
-      if (localStorage.getItem('deliveryDate')) {
-        // Show calendar in sidebar if postcode has already been validated
-        document.getElementById("lower-rung-sidebar").classList.add('show')
-        document.getElementById("twodate").value = localStorage.getItem('deliveryDate')
-      }
+      // if (localStorage.getItem('deliveryDate')) {
+      //   // Show calendar in sidebar if postcode has already been validated
+      //   document.getElementById("lower-rung-sidebar").classList.add('show')
+      //   document.getElementById("twodate").value = localStorage.getItem('deliveryDate')
+      // }
 
       // grab card products and render them to third step
       fetch('https://calm-fjord-82942.herokuapp.com/api/cardProducts?shop=extestdevstore.myshopify.com')
@@ -1014,7 +1080,32 @@ document.head.appendChild(script);
                   })
               })   
         })
+      })
+    })  
+    .catch(err => {console.log(err)})
+  }
+
+  function homeCollectionFnsInit() {
+    // postcode verified link show sidebar;
+    var statement = document.getElementById('postcodeStatement');
+    statement.addEventListener('click', () => {
+      slideoutContainer.classList.add('open')
     })
-  })  
-  .catch(err => {console.log(err)})
+
+
+  }
+  var body = document.getElementsByTagName('body')[0];
+
+  if (body.classList.contains('template-index') || body.classList.contains('template-collection')) {
+ // home/collection page flow - run on those templates
+
+    fetch('https://calm-fjord-82942.herokuapp.com/api/postcode?shop=extestdevstore.myshopify.com')
+      .then(res => res.json())
+      .then(data2 => {
+        setupPostcodeArrays(data2);
+        sideBar();
+        calendarInit();
+        homeCollectionFnsInit();
+      })
+      .catch(err => console.log(err))
   }
