@@ -820,6 +820,16 @@ document.head.appendChild(script);
       })
 
       localStorage.setItem("postcode", value)
+      // if on homepage or collection remove the verify postcode button
+      var verifyPostcodeButton = document.getElementById('verifypostcode')
+      var postcodeStatement = document.getElementById('postcodeStatement')
+
+      if (verifyPostcodeButton) {
+        verifyPostcodeButton.style.display = 'none';
+        postcodeStatement.classList.remove('hidden')
+      }
+      
+
     } else {
       var url = `https://api.postcodes.io/postcodes/${value}/validate`
       fetch(url)
@@ -865,10 +875,13 @@ document.head.appendChild(script);
   function click_confirmBtn() {
     slideoutContainer.classList.remove('open')
     confirmDeliverySidebarValue = document.querySelector('#twodate').value;
-    confirmDeliveryInput = document.querySelector('.button-title');
+    confirmDeliveryInput = Array.from(document.querySelectorAll('.button-title'));
   
     if (confirmDeliverySidebarValue) {
-      confirmDeliveryInput.innerHTML = confirmDeliverySidebarValue;
+      confirmDeliveryInput.forEach(btn => {
+        btn.innerHTML = confirmDeliverySidebarValue;
+      })
+      
       delivery_date = confirmDeliverySidebarValue
       localStorage.setItem('deliveryDate', delivery_date)
 
@@ -1086,19 +1099,35 @@ document.head.appendChild(script);
   }
 
   function homeCollectionFnsInit() {
-    // postcode verified link show sidebar;
-    var statement = document.getElementById('postcodeStatement');
-    statement.addEventListener('click', () => {
-      slideoutContainer.classList.add('open')
-    })
+    var deliveryButton = document.querySelector('.button-title')
+    if (deliveryButton && localStorage.getItem('deliveryDate')) {
+      deliveryButton.innerHTML = localStorage.getItem('deliveryDate')
+    }
 
+    var verifypostcodeButton = document.getElementById('verifypostcode')
 
+    if (verifypostcodeButton && localStorage.getItem('postcode')) {
+      verifypostcodeButton.style.display = 'none'
+    }
   }
   var body = document.getElementsByTagName('body')[0];
 
   if (body.classList.contains('template-index') || body.classList.contains('template-collection')) {
  // home/collection page flow - run on those templates
 
+    fetch('https://calm-fjord-82942.herokuapp.com/api/postcode?shop=extestdevstore.myshopify.com')
+      .then(res => res.json())
+      .then(data2 => {
+        setupPostcodeArrays(data2);
+        sideBar();
+        calendarInit();
+        homeCollectionFnsInit();
+      })
+      .catch(err => console.log(err))
+  }
+
+// product page flow
+  if (body.classList.contains('template-product')) {
     fetch('https://calm-fjord-82942.herokuapp.com/api/postcode?shop=extestdevstore.myshopify.com')
       .then(res => res.json())
       .then(data2 => {
